@@ -1,0 +1,31 @@
+using UnityEngine;
+
+public class Movement : MonoBehaviour
+{
+    [Header("Movement Settings")]
+    [SerializeField] private float moveSpeed = 5f;
+    
+    private Rigidbody2D rb;
+    private Vector2 moveDirection;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Update()
+    {
+        // Get input
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
+        
+        // Create direction vector and normalize for consistent diagonal speed
+        moveDirection = new Vector2(moveX, moveY).normalized;
+    }
+
+    private void FixedUpdate()
+    {
+        // Apply movement in FixedUpdate for consistent physics
+        rb.linearVelocity = moveDirection * moveSpeed;
+    }
+}
