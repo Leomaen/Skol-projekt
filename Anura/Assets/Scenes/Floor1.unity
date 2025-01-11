@@ -153,9 +153,9 @@ MonoBehaviour:
   startRoomPrefab: {fileID: 4686975345856750221, guid: c68c0894f90b3734db5309b2f29f5f60, type: 3}
   bossRoomPrefab: {fileID: 4686975345856750221, guid: 14d84885eaea6dd458d117f8904c550e, type: 3}
   maxRooms: 15
-  roomSpacingX: 20
-  roomSpacingY: 12
-  showDebugGrid: 1
+  roomSpacingX: 30
+  roomSpacingY: 18
+  showDebugGrid: 0
   gridSize: 7
   minBranchLength: 8
   branchingProbability: 1000
@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 1180669849}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -440,7 +440,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 60.78
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:

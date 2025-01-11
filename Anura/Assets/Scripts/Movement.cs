@@ -7,10 +7,12 @@ public class Movement : MonoBehaviour
     
     private Rigidbody2D rb;
     private Vector2 moveDirection;
+    private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -21,6 +23,13 @@ public class Movement : MonoBehaviour
         
         // Create direction vector and normalize for consistent diagonal speed
         moveDirection = new Vector2(moveX, moveY).normalized;
+        
+        // Prevent sprite flipping
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.flipX = false;
+            spriteRenderer.flipY = false;
+        }
     }
 
     private void FixedUpdate()

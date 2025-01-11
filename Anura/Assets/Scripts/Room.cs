@@ -1,12 +1,17 @@
 using UnityEngine;
 
+/// <summary>
+/// Manages individual room behavior including door states and position tracking
+/// </summary>
 public class Room : MonoBehaviour
 {
+    [Header("Door References")]
     [SerializeField] private GameObject topDoor;
     [SerializeField] private GameObject bottomDoor;
     [SerializeField] private GameObject leftDoor;
     [SerializeField] private GameObject rightDoor;
 
+    // Room state tracking
     private Vector2Int gridPosition;
     private bool isBossRoom = false;
     private RoomDirection? connectingDoor = null;
@@ -21,6 +26,24 @@ public class Room : MonoBehaviour
         return gridPosition;
     }
 
+    /// <summary>
+    /// Returns the world position of a specified door
+    /// </summary>
+    public Vector3 GetDoorPosition(RoomDirection direction)
+    {
+        switch (direction)
+        {
+            case RoomDirection.Top: return topDoor.transform.position;
+            case RoomDirection.Bottom: return bottomDoor.transform.position;
+            case RoomDirection.Left: return leftDoor.transform.position;
+            case RoomDirection.Right: return rightDoor.transform.position;
+            default: return transform.position;
+        }
+    }
+
+    /// <summary>
+    /// Configures the room as a boss room, deactivating all doors initially
+    /// </summary>
     public void SetAsBossRoom()
     {
         isBossRoom = true;
@@ -36,6 +59,9 @@ public class Room : MonoBehaviour
         return isBossRoom;
     }
 
+    /// <summary>
+    /// Controls the active state of doors, with special handling for boss rooms
+    /// </summary>
     public void SetDoorActive(RoomDirection direction, bool active)
     {
         if (isBossRoom)
@@ -83,3 +109,4 @@ public class Room : MonoBehaviour
         }
     }
 }
+
