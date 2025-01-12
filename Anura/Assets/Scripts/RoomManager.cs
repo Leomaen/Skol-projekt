@@ -59,6 +59,7 @@ public class RoomManager : MonoBehaviour
         bossRoomPosition = Vector2Int.zero;
         
         CreateRoom(Vector2Int.zero, true);
+        CameraManager.Instance.SwitchToRoom(Vector2Int.zero);
         
         int roomCount = 1;
         while (roomCount < maxRooms && availablePositions.Count > 0)
@@ -200,8 +201,10 @@ public class RoomManager : MonoBehaviour
         GameObject roomObj = Instantiate(prefabToUse, worldPosition, Quaternion.identity, transform);
         Room room = roomObj.GetComponent<Room>();
         
-        room.SetGridPosition(position);
+        if (room == null) return false;
+
         roomGrid[position] = room;
+        room.SetGridPosition(position);
 
         if (!isStartRoom)
         {
@@ -216,6 +219,12 @@ public class RoomManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    private System.Collections.IEnumerator WaitForCameraAndActivate(Vector2Int position)
+    {
+        yield return new WaitForSeconds(0.2f);
+        CameraManager.Instance.SwitchToRoom(position);
     }
 
     void CheckAndAddPosition(Vector2Int position)

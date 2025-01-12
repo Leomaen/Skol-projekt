@@ -36,6 +36,9 @@ public class DoorTrigger : MonoBehaviour
                 Vector3 offset = GetOffsetDirection(exitDirection) * exitOffset; // Use entry direction for offset
                 other.transform.position = targetDoorPos + offset;
                 lastTeleportTime = Time.time;
+                
+                // Switch camera to new room
+                CameraManager.Instance.SwitchToRoom(targetPos);
             }
         }
     }

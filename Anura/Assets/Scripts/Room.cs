@@ -11,14 +11,33 @@ public class Room : MonoBehaviour
     [SerializeField] private GameObject leftDoor;
     [SerializeField] private GameObject rightDoor;
 
+    [SerializeField] private Camera roomCamera;
+
     // Room state tracking
     private Vector2Int gridPosition;
     private bool isBossRoom = false;
     private RoomDirection? connectingDoor = null;
 
+    private void Awake()
+    {
+        if (roomCamera == null)
+        {
+            roomCamera = GetComponentInChildren<Camera>(true);
+        }
+    }
+
     public void SetGridPosition(Vector2Int position)
     {
         gridPosition = position;
+        if (roomCamera == null)
+        {
+            roomCamera = GetComponentInChildren<Camera>(true);
+        }
+        
+        if (roomCamera != null)
+        {
+            CameraManager.Instance.RegisterRoomCamera(position, roomCamera);
+        }
     }
 
     public Vector2Int GetGridPosition()
@@ -108,5 +127,7 @@ public class Room : MonoBehaviour
             }
         }
     }
+
+    
 }
 
