@@ -1,3 +1,5 @@
+using System.Numerics;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -5,8 +7,9 @@ public class Movement : MonoBehaviour
     [Header("Movement Settings")]
     
     private Rigidbody2D rb;
-    private Vector2 moveDirection;
+    private UnityEngine.Vector2 moveDirection;
     private SpriteRenderer spriteRenderer;
+
 
     private void Awake()
     {
@@ -21,7 +24,7 @@ public class Movement : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         
         // Create direction vector and normalize for consistent diagonal speed
-        moveDirection = new Vector2(moveX, moveY).normalized;
+        moveDirection = new UnityEngine.Vector2(moveX, moveY).normalized;
         
         // Prevent sprite flipping
         if (spriteRenderer != null)

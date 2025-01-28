@@ -7,3 +7,4 @@ public static class Player
     
     [SerializeField] public static float atkSpeed = 5f;
 }
+
