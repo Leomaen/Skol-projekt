@@ -721,9 +721,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5494343383703275326}
-  - component: {fileID: 5931229099061586643}
   - component: {fileID: 3780268101767928032}
-  - component: {fileID: 5155561983574358916}
+  - component: {fileID: 4109208989230900830}
   m_Layer: 0
   m_Name: Rooms
   m_TagString: Untagged
@@ -750,23 +749,6 @@ Transform:
   - {fileID: 7278403764654842408}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5931229099061586643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4686975345856750221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afffc3aaa508a7249ad0e17d94ff9d78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  topDoor: {fileID: 51608346214566989}
-  bottomDoor: {fileID: 2556379218041016414}
-  leftDoor: {fileID: 2532351962591772998}
-  rightDoor: {fileID: 9066850385578536097}
-  roomCamera: {fileID: 5358439316818079357}
 --- !u!23 &3780268101767928032
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -812,7 +794,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5155561983574358916
+--- !u!114 &4109208989230900830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
