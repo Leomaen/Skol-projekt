@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class RoomManagerv2 : MonoBehaviour
+public class RoomManager : MonoBehaviour
 {
-    [SerializeField] GameObject roomPrefab;
+    [SerializeField] GameObject normalRoomPrefab;
+    [SerializeField] GameObject playerPrefab;
     [SerializeField] private int maxRooms = 15;
-    [SerializeField] private int minRooms = 10; 
+    [SerializeField] private int minRooms = 10;
+    [SerializeField] private List<RoomData> specialRooms;
 
     int roomWidth = 20;
     int roomHeight = 12;
@@ -38,9 +40,9 @@ public class RoomManagerv2 : MonoBehaviour
         int y = roomIndex.y;
         roomGrid[x, y] = 1;
         roomCount++;
-        var initialRoom = Instantiate(roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+        var initialRoom = Instantiate(normalRoomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
         initialRoom.name = $"Room-{roomCount}";
-        initialRoom.GetComponent<Roomv2>().RoomIndex = roomIndex;
+        initialRoom.GetComponent<Room>().RoomIndex = roomIndex;
         roomObjects.Add(initialRoom);
     }
 
@@ -65,6 +67,14 @@ public class RoomManagerv2 : MonoBehaviour
         {
             Debug.Log($"Generation complete, {roomCount} rooms created");
             generationComplete = true; 
+            
+            // Spawn player in Room-1
+            GameObject startingRoom = GameObject.Find("Room-1");
+            if (startingRoom != null)
+            {
+                Vector3 spawnPosition = startingRoom.transform.position;
+                Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
+            }
         }
     }
 
@@ -72,6 +82,14 @@ public class RoomManagerv2 : MonoBehaviour
     {
         int x = roomIndex.x; 
         int y = roomIndex.y;
+
+        // Check if position is within grid bounds
+        if (x < 0 || x >= gridSizeX || y < 0 || y >= gridSizeY)
+            return false;
+
+        // Check if room already exists at this position
+        if (roomGrid[x, y] != 0)
+            return false;
 
         if (roomCount >= maxRooms)
             return false;
@@ -82,13 +100,26 @@ public class RoomManagerv2 : MonoBehaviour
         if(CountAdjacentRooms(roomIndex) > 1)
             return false;
 
+        // Try to spawn a special room
+        RoomData specialRoom = null;
+        if (UnityEngine.Random.value < 0.2f) // 20% chance for special room
+        {
+            specialRoom = ChooseSpecialRoom();
+        }
+
         roomQueue.Enqueue(roomIndex);
         roomGrid[x, y] = 1;
         roomCount++;
 
+        GameObject roomPrefab = (specialRoom != null) ? specialRoom.roomPrefab : normalRoomPrefab;
         var newRoom = Instantiate(roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
-        newRoom.GetComponent<Roomv2>().RoomIndex = roomIndex;
+        newRoom.GetComponent<Room>().RoomIndex = roomIndex;
         newRoom.name = $"Room-{roomCount}";
+        if (specialRoom != null)
+        {
+            specialRoom.currentCount++;
+            newRoom.name += $"-{specialRoom.roomType}";
+        }
         roomObjects.Add(newRoom);
 
         OpenDoors(newRoom, x, y);
@@ -96,7 +127,23 @@ public class RoomManagerv2 : MonoBehaviour
         return true;
     }
 
+    private RoomData ChooseSpecialRoom()
+    {
+        var availableRooms = specialRooms.FindAll(r => r.currentCount < r.maxPerFloor);
+        if (availableRooms.Count > 0)
+        {
+            return availableRooms[UnityEngine.Random.Range(0, availableRooms.Count)];
+        }
+        return null;
+    }
+
     private void RegenerateRooms(){
+        // Reset special room counts
+        foreach (var room in specialRooms)
+        {
+            room.currentCount = 0;
+        }
+
         roomObjects.ForEach(Destroy);
         roomObjects.Clear();
         roomGrid = new int[gridSizeX, gridSizeY];
@@ -109,12 +156,12 @@ public class RoomManagerv2 : MonoBehaviour
     }
 
     void OpenDoors(GameObject room, int x, int y) {
-        Roomv2 newRoomScript = room.GetComponent<Roomv2>();
+        Room newRoomScript = room.GetComponent<Room>();
 
-        Roomv2 leftRoomScript = GetRoomScriptAt(new Vector2Int(x - 1, y));
-        Roomv2 rightRoomScript = GetRoomScriptAt(new Vector2Int(x + 1, y));
-        Roomv2 topRoomScript = GetRoomScriptAt(new Vector2Int(x, y + 1));
-        Roomv2 bottomRoomScript = GetRoomScriptAt(new Vector2Int(x, y - 1));
+        Room leftRoomScript = GetRoomScriptAt(new Vector2Int(x - 1, y));
+        Room rightRoomScript = GetRoomScriptAt(new Vector2Int(x + 1, y));
+        Room topRoomScript = GetRoomScriptAt(new Vector2Int(x, y + 1));
+        Room bottomRoomScript = GetRoomScriptAt(new Vector2Int(x, y - 1));
 
         if(x > 0 && roomGrid[x - 1, y] != 0)
         {
@@ -138,10 +185,10 @@ public class RoomManagerv2 : MonoBehaviour
         }
     }
 
-    Roomv2 GetRoomScriptAt(Vector2Int index){
-        GameObject roomObject = roomObjects.Find(r => r.GetComponent<Roomv2>().RoomIndex == index);
+    Room GetRoomScriptAt(Vector2Int index){
+        GameObject roomObject = roomObjects.Find(r => r.GetComponent<Room>().RoomIndex == index);
         if (roomObject != null)
-            return roomObject.GetComponent<Roomv2>();
+            return roomObject.GetComponent<Room>();
         return null;
     }
 

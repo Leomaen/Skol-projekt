@@ -148,9 +148,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e2de1965286f44db94f09b30ea5105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 4686975345856750221, guid: 93d5c35ded4a8e948b4cea7ffe0c5a8e, type: 3}
+  normalRoomPrefab: {fileID: 4686975345856750221, guid: 93d5c35ded4a8e948b4cea7ffe0c5a8e, type: 3}
+  playerPrefab: {fileID: 3437698153413861460, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
   maxRooms: 15
   minRooms: 10
+  specialRooms:
+  - roomPrefab: {fileID: 4686975345856750221, guid: 8c626ab40758fd94b8639272670c67d8, type: 3}
+    roomType: 1
+    maxPerFloor: 1
+    currentCount: 0
+  - roomPrefab: {fileID: 4686975345856750221, guid: 62aca8b9cfa77fe42aa1d36c962b8132, type: 3}
+    roomType: 3
+    maxPerFloor: 1
+    currentCount: 0
+  - roomPrefab: {fileID: 4686975345856750221, guid: c00484f77f468224d994a8e4f3676144, type: 3}
+    roomType: 2
+    maxPerFloor: 1
+    currentCount: 0
   gridSizeX: 15
   gridSizeY: 15
 --- !u!4 &19965530
@@ -186,7 +200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &519420029
 AudioListener:
   m_ObjectHideFlags: 0
@@ -248,8 +262,8 @@ Camera:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 4
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.3740761, g: 0.59401083, b: 0.93962264, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -274,7 +288,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 50
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
