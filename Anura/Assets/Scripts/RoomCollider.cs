@@ -1,28 +1,16 @@
 using UnityEngine;
 
+// This class is deprecated. Camera management is now handled by CameraManager
 public class RoomCollider : MonoBehaviour
 {
-
+    // Keeping minimal functionality for backward compatibility
     [SerializeField] GameObject Camera;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && Camera != null)
         {
-
-            if (Camera != null)
-            {
-                Camera.SetActive(true);
-            }
+            Camera.SetActive(true);
         }
-    }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
