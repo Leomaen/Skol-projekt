@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    [SerializeField] GameObject normalRoomPrefab;
+    [SerializeField] List<GameObject> normalRoomPrefabs;  // List of normal room prefabs
     [SerializeField] GameObject playerPrefab;
     [SerializeField] private int maxRooms = 15;
     [SerializeField] private int minRooms = 10;
     [SerializeField] private List<RoomData> specialRooms;
+
+    // Special room requirement tracking
+    private bool hasBossRoomSpawned = false;
+    private bool hasTreasureRoomSpawned = false;
+    private bool hasShopRoomSpawned = false;
+    
+    // For tracking branch end rooms (potential boss room locations)
+    private List<Vector2Int> branchEndRooms = new List<Vector2Int>();
 
     int roomWidth = 20;
     int roomHeight = 12;
@@ -40,6 +48,9 @@ public class RoomManager : MonoBehaviour
         int y = roomIndex.y;
         roomGrid[x, y] = 1;
         roomCount++;
+        
+        // Choose a UnityEngine.Random normal room from the list
+        GameObject normalRoomPrefab = normalRoomPrefabs[UnityEngine.Random.Range(0, normalRoomPrefabs.Count)];
         var initialRoom = Instantiate(normalRoomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
         initialRoom.name = $"Room-{roomCount}";
         initialRoom.GetComponent<Room>().RoomIndex = roomIndex;
@@ -65,16 +76,176 @@ public class RoomManager : MonoBehaviour
         }
         else if (!generationComplete)
         {
-            Debug.Log($"Generation complete, {roomCount} rooms created");
-            generationComplete = true; 
+            // Check if we need to force spawn the special rooms before completing
+            UpdateBranchEndRooms(); // Update branch ends first
             
-            // Spawn player in Room-1
-            GameObject startingRoom = GameObject.Find("Room-1");
-            if (startingRoom != null)
+            // First place the boss room at a branch end
+            if (!hasBossRoomSpawned && branchEndRooms.Count > 0)
             {
-                Vector3 spawnPosition = startingRoom.transform.position;
-                Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
+                SpawnBossRoom();
             }
+            
+            // Then place treasure and shop rooms if needed
+            if (!hasTreasureRoomSpawned)
+            {
+                SpawnSpecialRoom(RoomType.Treasure);
+            }
+            
+            if (!hasShopRoomSpawned)
+            {
+                SpawnSpecialRoom(RoomType.Shop);
+            }
+            
+            // Finalize generation if all required rooms are present
+            if (HasAllRequiredRooms())
+            {
+                Debug.Log($"Generation complete, {roomCount} rooms created");
+                generationComplete = true; 
+                
+                // Spawn player in Room-1
+                GameObject startingRoom = GameObject.Find("Room-1");
+                if (startingRoom != null)
+                {
+                    Vector3 spawnPosition = startingRoom.transform.position;
+                    Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
+                }
+            }
+            else
+            {
+                // If we still don't have all required rooms, regenerate
+                Debug.Log("Failed to place all required rooms. Regenerating...");
+                RegenerateRooms();
+            }
+        }
+    }
+
+    private bool HasAllRequiredRooms()
+    {
+        return hasBossRoomSpawned && hasTreasureRoomSpawned && hasShopRoomSpawned;
+    }
+    
+    private void UpdateBranchEndRooms()
+    {
+        branchEndRooms.Clear();
+        
+        // Check each room to see if it's a branch end (only one connection)
+        for (int x = 0; x < gridSizeX; x++)
+        {
+            for (int y = 0; y < gridSizeY; y++)
+            {
+                if (roomGrid[x, y] == 1)
+                {
+                    Vector2Int index = new Vector2Int(x, y);
+                    if (CountAdjacentRooms(index) == 1)
+                    {
+                        // Check if this room isn't the starting room
+                        GameObject room = roomObjects.Find(r => r.GetComponent<Room>().RoomIndex == index);
+                        if (room != null && room.name != "Room-1")
+                        {
+                            branchEndRooms.Add(index);
+                        }
+                    }
+                }
+            }
+        }
+        
+        Debug.Log($"Found {branchEndRooms.Count} branch end rooms suitable for boss placement");
+    }
+    
+    private void SpawnBossRoom()
+    {
+        if (branchEndRooms.Count == 0) return;
+        
+        // Pick a UnityEngine.Random branch end for the boss room
+        Vector2Int bossRoomIndex = branchEndRooms[UnityEngine.Random.Range(0, branchEndRooms.Count)];
+        
+        // Find the boss room data
+        RoomData bossRoomData = specialRooms.Find(r => r.roomType == RoomType.Boss);
+        if (bossRoomData == null) return;
+        
+        // Find and remove the existing room at this location
+        GameObject existingRoom = roomObjects.Find(r => r.GetComponent<Room>().RoomIndex == bossRoomIndex);
+        if (existingRoom != null)
+        {
+            roomObjects.Remove(existingRoom);
+            Destroy(existingRoom);
+            
+            // Spawn the boss room
+            var bossRoom = Instantiate(bossRoomData.roomPrefab, GetPositionFromGridIndex(bossRoomIndex), Quaternion.identity);
+            bossRoom.GetComponent<Room>().RoomIndex = bossRoomIndex;
+            bossRoom.name = $"Room-{roomCount}-Boss";
+            roomObjects.Add(bossRoom);
+            
+            // Open doors to connect to adjacent rooms
+            int x = bossRoomIndex.x;
+            int y = bossRoomIndex.y;
+            OpenDoors(bossRoom, x, y);
+            
+            bossRoomData.currentCount++;
+            hasBossRoomSpawned = true;
+            
+            Debug.Log("Boss room placed at a branch end");
+        }
+    }
+    
+    private void SpawnSpecialRoom(RoomType roomType)
+    {
+        RoomData specialRoomData = specialRooms.Find(r => r.roomType == roomType);
+        if (specialRoomData == null) return;
+        
+        // Try to find an available location for the special room
+        List<Vector2Int> availableLocations = new List<Vector2Int>();
+        
+        for (int x = 0; x < gridSizeX; x++)
+        {
+            for (int y = 0; y < gridSizeY; y++)
+            {
+                Vector2Int index = new Vector2Int(x, y);
+                
+                // Skip if no room here or if it's a branch end (reserved for boss rooms)
+                if (roomGrid[x, y] == 0 || branchEndRooms.Contains(index))
+                    continue;
+                
+                // Skip the starting room
+                GameObject room = roomObjects.Find(r => r.GetComponent<Room>().RoomIndex == index);
+                if (room != null && room.name == "Room-1")
+                    continue;
+                
+                availableLocations.Add(index);
+            }
+        }
+        
+        if (availableLocations.Count == 0) return;
+        
+        // Pick a UnityEngine.Random location
+        Vector2Int roomIndex = availableLocations[UnityEngine.Random.Range(0, availableLocations.Count)];
+        
+        // Find and remove the existing room
+        GameObject existingRoom = roomObjects.Find(r => r.GetComponent<Room>().RoomIndex == roomIndex);
+        if (existingRoom != null)
+        {
+            roomObjects.Remove(existingRoom);
+            Destroy(existingRoom);
+            
+            // Spawn the special room
+            var specialRoom = Instantiate(specialRoomData.roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+            specialRoom.GetComponent<Room>().RoomIndex = roomIndex;
+            specialRoom.name = $"Room-{roomCount}-{roomType}";
+            roomObjects.Add(specialRoom);
+            
+            // Open doors
+            int x = roomIndex.x;
+            int y = roomIndex.y;
+            OpenDoors(specialRoom, x, y);
+            
+            specialRoomData.currentCount++;
+            
+            if (roomType == RoomType.Treasure)
+                hasTreasureRoomSpawned = true;
+            else if (roomType == RoomType.Shop)
+                hasShopRoomSpawned = true;
+            
+            Debug.Log($"{roomType} room placed");
         }
     }
 
@@ -102,16 +273,53 @@ public class RoomManager : MonoBehaviour
 
         // Try to spawn a special room
         RoomData specialRoom = null;
+        
+        // UnityEngine.Random chance for special room if we haven't forced all required ones yet
         if (UnityEngine.Random.value < 0.2f) // 20% chance for special room
         {
             specialRoom = ChooseSpecialRoom();
+            
+            // Update tracking flags for required special rooms
+            if (specialRoom != null)
+            {
+                if (specialRoom.roomType == RoomType.Boss)
+                {
+                    // For boss rooms, we need to check if this is a branch end
+                    if (CountAdjacentRooms(roomIndex) != 1)
+                    {
+                        specialRoom = null; // Not a branch end, can't place boss room here
+                    }
+                    else
+                    {
+                        hasBossRoomSpawned = true;
+                    }
+                }
+                else if (specialRoom.roomType == RoomType.Treasure)
+                {
+                    hasTreasureRoomSpawned = true;
+                }
+                else if (specialRoom.roomType == RoomType.Shop)
+                {
+                    hasShopRoomSpawned = true;
+                }
+            }
         }
 
         roomQueue.Enqueue(roomIndex);
         roomGrid[x, y] = 1;
         roomCount++;
 
-        GameObject roomPrefab = (specialRoom != null) ? specialRoom.roomPrefab : normalRoomPrefab;
+        GameObject roomPrefab;
+        if (specialRoom != null)
+        {
+            roomPrefab = specialRoom.roomPrefab;
+        }
+        else
+        {
+            // Pick a random normal room from the list
+            roomPrefab = normalRoomPrefabs[UnityEngine.Random.Range(0, normalRoomPrefabs.Count)];
+        }
+        
         var newRoom = Instantiate(roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
         newRoom.GetComponent<Room>().RoomIndex = roomIndex;
         newRoom.name = $"Room-{roomCount}";
@@ -143,6 +351,12 @@ public class RoomManager : MonoBehaviour
         {
             room.currentCount = 0;
         }
+        
+        // Reset special room tracking
+        hasBossRoomSpawned = false;
+        hasTreasureRoomSpawned = false;
+        hasShopRoomSpawned = false;
+        branchEndRooms.Clear();
 
         roomObjects.ForEach(Destroy);
         roomObjects.Clear();
