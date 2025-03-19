@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    [SerializeField] RoomType roomType = RoomType.Normal;
+    [SerializeField] GameObject topDoorTree; 
+    [SerializeField] GameObject bottomDoorTree; 
+    [SerializeField] GameObject rightDoorTree; 
+    [SerializeField] GameObject leftDoorTree;
     [SerializeField] GameObject topDoor; 
     [SerializeField] GameObject bottomDoor; 
     [SerializeField] GameObject rightDoor; 
-    [SerializeField] GameObject leftDoor;
+    [SerializeField] GameObject leftDoor; 
     [SerializeField] GameObject roomCamera;
     
     [SerializeField] private float cameraSwitchCooldown = 0.2f;
@@ -78,21 +81,25 @@ public class Room : MonoBehaviour
         if (direction == Vector2Int.up && topDoor != null) 
         {
             topDoor.SetActive(true); 
+            topDoorTree.SetActive(false); 
             Debug.Log($"Opening top door in {gameObject.name}");
         }
         if (direction == Vector2Int.down && bottomDoor != null) 
         {
             bottomDoor.SetActive(true); 
+            bottomDoorTree.SetActive(false); 
             Debug.Log($"Opening bottom door in {gameObject.name}");
         }
         if (direction == Vector2Int.left && leftDoor != null) 
         {
             leftDoor.SetActive(true); 
+            leftDoorTree.SetActive(false); 
             Debug.Log($"Opening left door in {gameObject.name}");
         }
         if (direction == Vector2Int.right && rightDoor != null) 
         {
             rightDoor.SetActive(true); 
+            rightDoorTree.SetActive(false); 
             Debug.Log($"Opening right door in {gameObject.name}");
         }
     }

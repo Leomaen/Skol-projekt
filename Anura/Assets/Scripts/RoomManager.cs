@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using System.Linq;
 
 public class RoomManager : MonoBehaviour
 {
@@ -66,9 +65,6 @@ public class RoomManager : MonoBehaviour
         }
         else if (!generationComplete)
         {
-            // Check if we have all required special rooms
-            EnsureAllSpecialRoomsSpawned();
-            
             Debug.Log($"Generation complete, {roomCount} rooms created");
             generationComplete = true; 
             
@@ -79,70 +75,7 @@ public class RoomManager : MonoBehaviour
                 Vector3 spawnPosition = startingRoom.transform.position;
                 Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
             }
-            
-            // Debug camera setup
-            if (CameraManager.Instance != null)
-            {
-                CameraManager.Instance.LogAllCameras();
-            }
         }
-    }
-
-    private void EnsureAllSpecialRoomsSpawned()
-    {
-        // Group special rooms by type
-        var roomTypeGroups = specialRooms.GroupBy(room => room.roomType);
-        
-        foreach (var group in roomTypeGroups)
-        {
-            RoomType type = group.Key;
-            bool typeExistsInLevel = group.Any(r => r.currentCount > 0);
-            
-            // If this type doesn't exist in the level, try to spawn it
-            if (!typeExistsInLevel && roomCount < maxRooms)
-            {
-                Vector2Int? emptyPosition = FindEmptyRoomPosition();
-                if (emptyPosition.HasValue)
-                {
-                    SpawnSpecialRoomAt(emptyPosition.Value, group.First());
-                }
-            }
-        }
-    }
-
-    private Vector2Int? FindEmptyRoomPosition()
-    {
-        // Find a position adjacent to existing rooms
-        for (int x = 0; x < gridSizeX; x++)
-        {
-            for (int y = 0; y < gridSizeY; y++)
-            {
-                if (roomGrid[x, y] == 0 && CountAdjacentRooms(new Vector2Int(x, y)) == 1)
-                {
-                    return new Vector2Int(x, y);
-                }
-            }
-        }
-        return null;
-    }
-
-    private void SpawnSpecialRoomAt(Vector2Int pos, RoomData roomData)
-    {
-        int x = pos.x;
-        int y = pos.y;
-        
-        roomGrid[x, y] = 1;
-        roomCount++;
-        
-        var newRoom = Instantiate(roomData.roomPrefab, GetPositionFromGridIndex(pos), Quaternion.identity);
-        newRoom.GetComponent<Room>().RoomIndex = pos;
-        newRoom.name = $"Room-{roomCount}-{roomData.roomType}";
-        roomData.currentCount++;
-        roomObjects.Add(newRoom);
-        
-        OpenDoors(newRoom, x, y);
-        
-        Debug.Log($"Forced spawning of {roomData.roomType} room at {pos}");
     }
 
     private bool TryGenerateRoom(Vector2Int roomIndex)
@@ -169,7 +102,10 @@ public class RoomManager : MonoBehaviour
 
         // Try to spawn a special room
         RoomData specialRoom = null;
-        specialRoom = ChooseSpecialRoom();
+        if (UnityEngine.Random.value < 0.2f) // 20% chance for special room
+        {
+            specialRoom = ChooseSpecialRoom();
+        }
 
         roomQueue.Enqueue(roomIndex);
         roomGrid[x, y] = 1;
@@ -193,34 +129,11 @@ public class RoomManager : MonoBehaviour
 
     private RoomData ChooseSpecialRoom()
     {
-        // Increase probability as we approach max rooms
-        float normalProbability = 0.2f;
-        float adjustedProbability = normalProbability;
-        
-        if (roomCount > minRooms * 0.7f)
+        var availableRooms = specialRooms.FindAll(r => r.currentCount < r.maxPerFloor);
+        if (availableRooms.Count > 0)
         {
-            // Gradually increase probability as we get closer to the max rooms
-            float progress = (float)(roomCount - minRooms * 0.7f) / (maxRooms - minRooms * 0.7f);
-            adjustedProbability = Mathf.Lerp(normalProbability, 0.5f, progress);
+            return availableRooms[UnityEngine.Random.Range(0, availableRooms.Count)];
         }
-        
-        if (UnityEngine.Random.value < adjustedProbability)
-        {
-            // Prioritize room types that haven't been spawned yet
-            var unspawnedRooms = specialRooms.FindAll(r => r.currentCount == 0 && r.currentCount < r.maxPerFloor);
-            if (unspawnedRooms.Count > 0)
-            {
-                return unspawnedRooms[UnityEngine.Random.Range(0, unspawnedRooms.Count)];
-            }
-            
-            // Fall back to any available room
-            var availableRooms = specialRooms.FindAll(r => r.currentCount < r.maxPerFloor);
-            if (availableRooms.Count > 0)
-            {
-                return availableRooms[UnityEngine.Random.Range(0, availableRooms.Count)];
-            }
-        }
-        
         return null;
     }
 
@@ -244,40 +157,31 @@ public class RoomManager : MonoBehaviour
 
     void OpenDoors(GameObject room, int x, int y) {
         Room newRoomScript = room.GetComponent<Room>();
-        if (newRoomScript == null)
-        {
-            Debug.LogError($"Room script missing on {room.name}");
-            return;
-        }
 
         Room leftRoomScript = GetRoomScriptAt(new Vector2Int(x - 1, y));
         Room rightRoomScript = GetRoomScriptAt(new Vector2Int(x + 1, y));
         Room topRoomScript = GetRoomScriptAt(new Vector2Int(x, y + 1));
         Room bottomRoomScript = GetRoomScriptAt(new Vector2Int(x, y - 1));
 
-        if(x > 0 && roomGrid[x - 1, y] != 0 && leftRoomScript != null)
+        if(x > 0 && roomGrid[x - 1, y] != 0)
         {
             newRoomScript.OpenDoor(Vector2Int.left);
             leftRoomScript.OpenDoor(Vector2Int.right);
-            Debug.Log($"Opening doors between {room.name} and left room");
         }
-        if(x < gridSizeX - 1 && roomGrid[x + 1, y] != 0 && rightRoomScript != null)
+        if(x < gridSizeX - 1 && roomGrid[x + 1, y] != 0)
         {
             newRoomScript.OpenDoor(Vector2Int.right);
             rightRoomScript.OpenDoor(Vector2Int.left);
-            Debug.Log($"Opening doors between {room.name} and right room");
         }
-        if(y > 0 && roomGrid[x, y - 1] != 0 && bottomRoomScript != null)
+        if(y > 0 && roomGrid[x, y - 1] != 0 )
         {
             newRoomScript.OpenDoor(Vector2Int.down);
             bottomRoomScript.OpenDoor(Vector2Int.up);
-            Debug.Log($"Opening doors between {room.name} and bottom room");
         }
-        if(y < gridSizeY - 1 && roomGrid[x, y + 1] != 0 && topRoomScript != null)
+        if(y < gridSizeY - 1 && roomGrid[x, y + 1] != 0)
         {
             newRoomScript.OpenDoor(Vector2Int.up);
             topRoomScript.OpenDoor(Vector2Int.down);
-            Debug.Log($"Opening doors between {room.name} and top room");
         }
     }
 
