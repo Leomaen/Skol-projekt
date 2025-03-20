@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed = 2f;
     private Rigidbody2D rb;
     private UnityEngine.Vector2 movementDirection;
 
@@ -19,6 +18,6 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate() 
     {
-        rb.linearVelocity = movementDirection * movementSpeed;
+        rb.linearVelocity = movementDirection * StatsManager.Instance.movementSpeed;
     }
 }
