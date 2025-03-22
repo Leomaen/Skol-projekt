@@ -86,7 +86,7 @@ public class CameraManager : MonoBehaviour
     private void ForcefullyDisableAllCameras()
     {
         // First, directly find and disable ALL cameras in the scene
-        Camera[] allCamerasInScene = FindObjectsOfType<Camera>(true); // Include inactive
+                Camera[] allCamerasInScene = Object.FindObjectsByType<Camera>(FindObjectsSortMode.None);
         
         foreach (Camera cam in allCamerasInScene)
         {
@@ -138,7 +138,7 @@ public class CameraManager : MonoBehaviour
         }
         
         // Also log any cameras found in scene
-        Camera[] sceneCameras = FindObjectsOfType<Camera>(true);
+                Camera[] sceneCameras = Object.FindObjectsByType<Camera>(FindObjectsSortMode.None);
         Debug.Log($"Total cameras in scene: {sceneCameras.Length}");
         foreach (Camera cam in sceneCameras)
         {
@@ -151,7 +151,7 @@ public class CameraManager : MonoBehaviour
     public void DebugLogActiveCameras()
     {
         Debug.Log("--- Active Cameras Check ---");
-        Camera[] activeCameras = FindObjectsOfType<Camera>();
+        Camera[] activeCameras = Object.FindObjectsByType<Camera>(FindObjectsSortMode.None);
         foreach (Camera cam in activeCameras)
         {
             Debug.Log($"Active camera found: {cam.name}");
