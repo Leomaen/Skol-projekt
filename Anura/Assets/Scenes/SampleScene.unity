@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalRoomPrefabs:
   - {fileID: 4686975345856750221, guid: 93d5c35ded4a8e948b4cea7ffe0c5a8e, type: 3}
+  - {fileID: 4686975345856750221, guid: 0e955eeaf6b7d2c45bb3b2ab306c1c38, type: 3}
   playerPrefab: {fileID: 3437698153413861460, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
   maxRooms: 15
   minRooms: 10
