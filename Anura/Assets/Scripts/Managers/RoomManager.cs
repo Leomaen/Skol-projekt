@@ -103,12 +103,12 @@ public class RoomManager : MonoBehaviour
                 generationComplete = true; 
                 
                 // Spawn player in Room-1
-                GameObject startingRoom = GameObject.Find("Room-1");
-                if (startingRoom != null)
-                {
-                    Vector3 spawnPosition = startingRoom.transform.position;
-                    Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
-                }
+                // GameObject startingRoom = GameObject.Find("Room-1");
+                // if (startingRoom != null)
+                // {
+                //     Vector3 spawnPosition = startingRoom.transform.position;
+                //     Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
+                // }
             }
             else
             {
