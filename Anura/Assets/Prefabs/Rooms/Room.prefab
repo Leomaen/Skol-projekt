@@ -3125,7 +3125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7a4a2ec3809dd46aa5bcaa869d2444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportDistance: 5
+  teleportDistance: 6
   roomCamera: {fileID: 5358439316818079357}
 --- !u!1 &2532351962591772998
 GameObject:
@@ -3676,7 +3676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7a4a2ec3809dd46aa5bcaa869d2444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportDistance: 5
+  teleportDistance: 6
   roomCamera: {fileID: 5358439316818079357}
 --- !u!1 &4686975345856750221
 GameObject:

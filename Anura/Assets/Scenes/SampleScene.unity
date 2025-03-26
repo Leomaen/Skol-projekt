@@ -553,6 +553,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &826879018 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2454055271629105603, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
+  m_PrefabInstance: {fileID: 1823259682}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &838267853
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,15 +961,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2006278111917931411, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 1955851342}
+    - target: {fileID: 2006278111917931411, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 826879018}
     - target: {fileID: 3437698153413861460, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9063353956533583795, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 826879018}
+    - target: {fileID: 9063353956533583795, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 7604710241034763317, guid: c14fa7bdd26962541a8bd1683e6dd73b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
+--- !u!114 &1955851342 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9063353956533583795, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
+  m_PrefabInstance: {fileID: 1823259682}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1c2919d852102c4faa4de00fe0ce72f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2047984284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,6 +1042,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  bulletSpeed: 5
+  atkSpeed: 0
   health: 0
   movementSpeed: 10
 --- !u!1 &2082559257

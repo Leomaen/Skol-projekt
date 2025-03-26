@@ -5,10 +5,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movementDirection;
     public Transform firePoint;
-    private Vector2 lastShootDirection = Vector2.right; // Default direction
     private float lastShotTime = 0f;
 
-    [SerializeField] private float firePointDistance = 0.5f; // Distance from center of player to firePoint
+    [SerializeField] private float firePointDistance = 0.5f;
     [SerializeField] private Weapon weapon;
     
 
@@ -35,7 +34,6 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = 0f;
         float verticalInput = 0f;
         
-        // WASD for movement
         if (Input.GetKey(KeyCode.W)) verticalInput += 1f;
         if (Input.GetKey(KeyCode.S)) verticalInput -= 1f;
         if (Input.GetKey(KeyCode.A)) horizontalInput -= 1f;
@@ -53,25 +51,34 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow))
         {
             PositionAndRotateFirePoint(Vector2.up, 90f);
-            if(canShoot) {
-                weapon.Shoot();
-                lastShotTime = Time.time;
+                if(canShoot) {
+                    weapon.Shoot();
+                    lastShotTime = Time.time;
             }
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
             PositionAndRotateFirePoint(Vector2.down, 270f);
-            weapon.Shoot();
+            if(canShoot) {
+                weapon.Shoot();
+                lastShotTime = Time.time;
+            }
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
             PositionAndRotateFirePoint(Vector2.left, 180f);
-            weapon.Shoot();
+            if(canShoot) {
+                weapon.Shoot();
+                lastShotTime = Time.time;
+            }
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             PositionAndRotateFirePoint(Vector2.right, 0f);
-            weapon.Shoot();
+            if(canShoot) {
+                weapon.Shoot();
+                lastShotTime = Time.time;
+            }
         }
     }
     
@@ -85,8 +92,6 @@ public class PlayerController : MonoBehaviour
             // Set the rotation of the fire point
             firePoint.transform.rotation = Quaternion.Euler(0, 0, angle);
             
-            // Store the last shooting direction
-            lastShootDirection = direction;
         }
     }
 }
