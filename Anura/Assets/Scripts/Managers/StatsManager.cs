@@ -6,6 +6,8 @@ public class StatsManager : MonoBehaviour
 
     [Header("Combat Stats")]
     public int damage;
+    public int bulletSpeed;
+    public float atkSpeed;
 
     [Header("Health Stats")]
     public int health;

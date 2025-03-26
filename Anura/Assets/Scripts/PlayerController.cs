@@ -4,9 +4,13 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Vector2 movementDirection;
-    [SerializeField] private GameObject firePoint;
-    [SerializeField] private float firePointDistance = 0.5f; // Distance from center of player to firePoint
+    public Transform firePoint;
     private Vector2 lastShootDirection = Vector2.right; // Default direction
+    private float lastShotTime = 0f;
+
+    [SerializeField] private float firePointDistance = 0.5f; // Distance from center of player to firePoint
+    [SerializeField] private Weapon weapon;
+    
 
     void Start()
     {
@@ -42,22 +46,32 @@ public class PlayerController : MonoBehaviour
     
     void HandleFirePointRotation()
     {
+
+        bool canShoot = Time.time > lastShotTime + StatsManager.Instance.atkSpeed;
+
         // Check arrow key input
         if (Input.GetKey(KeyCode.UpArrow))
         {
             PositionAndRotateFirePoint(Vector2.up, 90f);
+            if(canShoot) {
+                weapon.Shoot();
+                lastShotTime = Time.time;
+            }
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
             PositionAndRotateFirePoint(Vector2.down, 270f);
+            weapon.Shoot();
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
             PositionAndRotateFirePoint(Vector2.left, 180f);
+            weapon.Shoot();
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
             PositionAndRotateFirePoint(Vector2.right, 0f);
+            weapon.Shoot();
         }
     }
     
