@@ -1043,7 +1043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   bulletSpeed: 5
-  atkSpeed: 0
+  atkSpeed: 0.5
   health: 0
   movementSpeed: 10
 --- !u!1 &2082559257
