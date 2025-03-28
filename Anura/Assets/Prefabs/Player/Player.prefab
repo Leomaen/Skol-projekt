@@ -177,8 +177,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053b962e1db8bfd4ebca01e679596dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 5168137982133634018}
+  firePoint: {fileID: 2454055271629105603}
   firePointDistance: 0.5
+  weapon: {fileID: 0}
 --- !u!114 &9063353956533583795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c2919d852102c4faa4de00fe0ce72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firePoint: {fileID: 0}
   projectile: {fileID: 0}
 --- !u!1 &5168137982133634018
 GameObject:

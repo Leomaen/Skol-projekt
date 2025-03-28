@@ -22,6 +22,17 @@ public class Bullet : MonoBehaviour
 
         rb.linearVelocity = transform.right * 0;
     }
+
+    if (collision.gameObject.CompareTag("Enemy"))
+    {
+        Enemy enemy = collision.GetComponent<Enemy>();
+        if (enemy != null) 
+        {
+            enemy.takeDamage();
+            Destroy(gameObject);
+        }
+
+    }
 }
 
 }

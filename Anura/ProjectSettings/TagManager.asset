@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RoomCamera
   - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
