@@ -10,7 +10,7 @@ public class StatsManager : MonoBehaviour
     public float atkSpeed;
 
     [Header("Health Stats")]
-    public int health;
+    public int PlayerHealth;
     
     [Header("Movement Stats")]
     public float movementSpeed;

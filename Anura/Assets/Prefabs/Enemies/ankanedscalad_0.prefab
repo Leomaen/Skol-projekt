@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7877796414303302752}
   - component: {fileID: 9184849572980074125}
   - component: {fileID: 3216561202667429515}
-  - component: {fileID: -552878176253843893}
-  - component: {fileID: 6926677205978997740}
+  - component: {fileID: 8564712707296788163}
+  - component: {fileID: -6357486269023702891}
+  - component: {fileID: 560327555654478360}
   m_Layer: 0
   m_Name: ankanedscalad_0
   m_TagString: Enemy
@@ -30,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -302.81445, y: 220.30832, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -400667039309021710, guid: b52643936f7c86649aeb3829e046d86b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -112,20 +113,34 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-552878176253843893
-MonoBehaviour:
+--- !u!50 &8564712707296788163
+Rigidbody2D:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5887116297022971363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ec81ff726173ef49b823826143410ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
---- !u!61 &6926677205978997740
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!61 &-6357486269023702891
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,3 +186,44 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.78, y: 3.38}
   m_EdgeRadius: 0
+--- !u!114 &560327555654478360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5887116297022971363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d39f7f270e6c64441969c6710a4f6922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  pathUpdateTime: 1.5
+  detectionRange: 8
+  minDistanceToPlayer: 1
+  maxHealth: 3
+  currentHealth: 0
+  bossmaxHealth: 30
+  projectilePrefab: {fileID: 5327458198074571745, guid: f41f39f4c3a9901428a0c5c3934b6c37, type: 3}
+  movePoints: []
+  rushSpeed: 5
+  rushDamage: 20
+  rushCooldown: 5
+  shootCooldown: 2
+  projectileSpeed: 6
+  burstCount: 5
+  burstDelay: 0.2
+  flipSprite: 0
+  wallCheckDistance: 0.5
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  rushDistance: 15
+  chargeUpTime: 1.5
+  laserDuration: 3
+  chargingEffectPrefab: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  collisionRadius: 1.5

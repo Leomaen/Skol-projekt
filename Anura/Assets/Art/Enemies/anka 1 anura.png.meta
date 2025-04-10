@@ -472,7 +472,21 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      anka 1 anura_0: 9215134296445632084
+      anka 1 anura_1: 6844959694043142254
+      anka 1 anura_10: -5014814140823613626
+      anka 1 anura_11: -544342028100020101
+      anka 1 anura_12: -411509648810432715
+      anka 1 anura_13: 1253474116687884592
+      anka 1 anura_2: -1605385219083695601
+      anka 1 anura_3: 3278951548881500443
+      anka 1 anura_4: -6905330774368316504
+      anka 1 anura_5: -1759434478704707211
+      anka 1 anura_6: -743924720747867854
+      anka 1 anura_7: -5750797032970111775
+      anka 1 anura_8: 192799431071399564
+      anka 1 anura_9: 7678701510534033303
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
