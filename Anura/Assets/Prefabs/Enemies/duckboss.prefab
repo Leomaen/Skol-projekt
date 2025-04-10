@@ -195,34 +195,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5887116297022971363}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d39f7f270e6c64441969c6710a4f6922, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ec81ff726173ef49b823826143410ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  pathUpdateTime: 1
-  detectionRange: 8
-  minDistanceToPlayer: 1
-  maxHealth: 3
-  currentHealth: 0
-  bossmaxHealth: 30
-  projectilePrefab: {fileID: 5327458198074571745, guid: f41f39f4c3a9901428a0c5c3934b6c37, type: 3}
-  movePoints: []
-  rushSpeed: 10
-  rushDamage: 20
-  rushCooldown: 5
-  shootCooldown: 2
-  projectileSpeed: 6
-  burstCount: 3
-  burstDelay: 0.5
-  wallCheckDistance: 1
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  rushDistance: 15
-  chargeUpTime: 1.5
-  laserDuration: 3
-  chargingEffectPrefab: {fileID: 0}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  collisionRadius: 1.5
+  health: 100
