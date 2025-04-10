@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &290918041 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 221115458258063308, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
+  m_PrefabInstance: {fileID: 1997348721}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &380006361
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,36 +346,28 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 560327555654478360, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
-      propertyPath: rushSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 560327555654478360, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
-      propertyPath: flipSprite
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 560327555654478360, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
-      propertyPath: projectilePrefab
+    - target: {fileID: 5877821289273385425, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 290918041}
+    - target: {fileID: 5877821289273385425, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
+      propertyPath: laserPrefab
       value: 
       objectReference: {fileID: 5327458198074571745, guid: f41f39f4c3a9901428a0c5c3934b6c37, type: 3}
-    - target: {fileID: 560327555654478360, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
+    - target: {fileID: 5877821289273385425, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
       propertyPath: wallLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}
-    - target: {fileID: 560327555654478360, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
-      propertyPath: playerLayer.m_Bits
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 560327555654478360, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
-      propertyPath: movePoints.Array.size
+    - target: {fileID: 5877821289273385425, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
+      propertyPath: waypoints.Array.size
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 560327555654478360, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
-      propertyPath: 'movePoints.Array.data[0]'
+    - target: {fileID: 5877821289273385425, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
+      propertyPath: 'waypoints.Array.data[0]'
       value: 
       objectReference: {fileID: 1507371127}
-    - target: {fileID: 560327555654478360, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
-      propertyPath: 'movePoints.Array.data[1]'
+    - target: {fileID: 5877821289273385425, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
+      propertyPath: 'waypoints.Array.data[1]'
       value: 
       objectReference: {fileID: 464913831}
     - target: {fileID: 5887116297022971363, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
@@ -379,11 +376,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7877796414303302752, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.75
+      value: -0.57
       objectReference: {fileID: 0}
     - target: {fileID: 7877796414303302752, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.31
+      value: 2.43
       objectReference: {fileID: 0}
     - target: {fileID: 7877796414303302752, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
       propertyPath: m_LocalPosition.z
@@ -957,11 +954,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 221115458258063308, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.062281013
+      value: -3.06
       objectReference: {fileID: 0}
     - target: {fileID: 221115458258063308, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2209042
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 221115458258063308, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
       propertyPath: m_LocalPosition.z
