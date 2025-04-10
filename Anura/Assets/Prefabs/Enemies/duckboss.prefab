@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6357486269023702891}
   - component: {fileID: 560327555654478360}
   m_Layer: 0
-  m_Name: ankanedscalad_0
+  m_Name: duckboss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,12 +80,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -400667039309021710, guid: b52643936f7c86649aeb3829e046d86b, type: 3}
+  m_Sprite: {fileID: -690729390554182173, guid: 16e89b7844bd07c47804ed44c862d70b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.78, y: 3.38}
+  m_Size: {x: 0.94, y: 1.13}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -121,7 +121,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5887116297022971363}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -178,8 +178,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.78, y: 3.38}
-    newSize: {x: 2.78, y: 3.38}
+    oldSize: {x: 0.94, y: 1.13}
+    newSize: {x: 0.94, y: 1.13}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -198,8 +198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39f7f270e6c64441969c6710a4f6922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  pathUpdateTime: 1.5
+  moveSpeed: 3
+  pathUpdateTime: 1
   detectionRange: 8
   minDistanceToPlayer: 1
   maxHealth: 3
@@ -207,23 +207,22 @@ MonoBehaviour:
   bossmaxHealth: 30
   projectilePrefab: {fileID: 5327458198074571745, guid: f41f39f4c3a9901428a0c5c3934b6c37, type: 3}
   movePoints: []
-  rushSpeed: 5
+  rushSpeed: 10
   rushDamage: 20
   rushCooldown: 5
   shootCooldown: 2
   projectileSpeed: 6
-  burstCount: 5
-  burstDelay: 0.2
-  flipSprite: 0
-  wallCheckDistance: 0.5
+  burstCount: 3
+  burstDelay: 0.5
+  wallCheckDistance: 1
   wallLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   rushDistance: 15
   chargeUpTime: 1.5
   laserDuration: 3
   chargingEffectPrefab: {fileID: 0}
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   collisionRadius: 1.5

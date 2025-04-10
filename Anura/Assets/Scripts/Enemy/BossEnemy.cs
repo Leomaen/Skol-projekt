@@ -24,7 +24,6 @@ public class BossEnemy : EnemyBase
     [SerializeField] private float projectileSpeed = 6f;
     [SerializeField] private int burstCount = 5;
     [SerializeField] private float burstDelay = 0.2f;
-    [SerializeField] private bool flipSprite = false; // Add this to control sprite orientation
     [SerializeField] private float wallCheckDistance = 0.5f; // Distance to check for walls
     [SerializeField] private LayerMask wallLayer; // Layer for walls
     [SerializeField] private float rushDistance = 15f; // Maximum rush distance
@@ -58,11 +57,6 @@ public class BossEnemy : EnemyBase
     {
         base.Start();
         
-        // If no move points assigned, create a simple pattern around spawn point
-        if (movePoints == null || movePoints.Length == 0)
-        {
-            CreateDefaultMovePoints();
-        }
     }
     
     protected override void Update()
@@ -78,14 +72,13 @@ public class BossEnemy : EnemyBase
             animator.SetBool("IsMoving", rb.linearVelocity.sqrMagnitude > 0.1f);
             animator.SetInteger("State", (int)currentState);
             
-            // Flip sprite based on movement/target direction with optional flip correction
+            // Normal sprite flipping based on movement direction or target
             Vector2 directionToFace = currentState == BossState.Rushing ? 
                 rushDirection : (playerTransform.position - transform.position);
                 
             if (directionToFace.x != 0)
             {
-                // Apply flipSprite correction if needed
-                spriteRenderer.flipX = (directionToFace.x < 0) != flipSprite;
+                spriteRenderer.flipX = (directionToFace.x < 0);
             }
         }
     }
@@ -341,14 +334,7 @@ public class BossEnemy : EnemyBase
             projectileScript.Initialize(shootDirection, projectileSpeed);
         }
     }
-    
-    // Check if the boss would leave the room when rushing toward a position
-    private bool WouldLeaveRoom(Vector3 targetPosition)
-    {
-        // We now just rely on wall detection
-        return false;
-    }
-    
+      
     // Check if the boss is outside the expected room boundaries
     private bool IsOutsideRoom()
     {
@@ -366,17 +352,7 @@ public class BossEnemy : EnemyBase
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, checkDistance, wallLayer);
         return hit.collider != null;
     }
-    
-    private Vector2 GetWallNormal(Vector2 direction)
-    {
-        // Get the normal of the wall to calculate reflection
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, wallCheckDistance, wallLayer);
-        if (hit.collider != null)
-        {
-            return hit.normal;
-        }
-        return Vector2.up; // Default normal if no wall
-    }
+
     
     // Helper method to rotate a vector by angle in degrees
     private Vector2 RotateVector(Vector2 v, float angle)
@@ -391,28 +367,6 @@ public class BossEnemy : EnemyBase
         );
     }
     
-    // Create move points in a square around the spawn position
-    private void CreateDefaultMovePoints()
-    {
-        movePoints = new Transform[4];
-        float radius = 5f; // Size of movement square
-        
-        for (int i = 0; i < 4; i++)
-        {
-            GameObject point = new GameObject($"BossMovePoint_{i}");
-            point.transform.parent = transform.parent;
-            
-            // Position in a square pattern
-            float angle = i * 90f * Mathf.Deg2Rad;
-            Vector2 position = (Vector2)transform.position + new Vector2(
-                Mathf.Cos(angle) * radius,
-                Mathf.Sin(angle) * radius
-            );
-            
-            point.transform.position = position;
-            movePoints[i] = point.transform;
-        }
-    }
     
     // New method to create custom waypoint pattern
     public void CreateCustomWaypoints(Vector2[] positions)
@@ -465,71 +419,4 @@ public class BossEnemy : EnemyBase
         Destroy(gameObject, 3.0f);
     }
     
-    // For visualization in editor
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, collisionRadius);
-        
-        // Draw wall check rays
-        if (Application.isPlaying && playerTransform != null)
-        {
-            Gizmos.color = Color.cyan;
-            Vector2 rushDir = (playerTransform.position - transform.position).normalized;
-            Gizmos.DrawRay(transform.position, rushDir * wallCheckDistance);
-        }
-        
-        // Draw laser direction when charging/shooting
-        if (Application.isPlaying && (currentState == BossState.Charging || currentState == BossState.Shooting))
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawRay(transform.position, targetShootDirection * 10f);
-        }
-        
-        if (movePoints != null && movePoints.Length > 0)
-        {
-            Gizmos.color = Color.yellow;
-            for (int i = 0; i < movePoints.Length; i++)
-            {
-                if (movePoints[i] != null)
-                {
-                    Gizmos.DrawSphere(movePoints[i].position, 0.3f);
-                    
-                    // Draw lines between points
-                    if (i < movePoints.Length - 1 && movePoints[i + 1] != null)
-                    {
-                        Gizmos.DrawLine(movePoints[i].position, movePoints[i + 1].position);
-                    }
-                    else if (movePoints[0] != null) // Connect last to first
-                    {
-                        Gizmos.DrawLine(movePoints[i].position, movePoints[0].position);
-                    }
-                }
-            }
-        }
-        
-        // Draw potential rush path
-        if (Application.isPlaying && playerTransform != null && currentState == BossState.Moving)
-        {
-            Gizmos.color = Color.yellow;
-            Vector2 rushDir = (playerTransform.position - transform.position).normalized;
-            
-            // Check for wall hit
-            RaycastHit2D wallHit = Physics2D.Raycast(transform.position, rushDir, rushDistance, wallLayer);
-            if (wallHit.collider != null)
-            {
-                // Draw to wall hit (red)
-                Gizmos.color = Color.red;
-                Gizmos.DrawLine(transform.position, wallHit.point);
-                Gizmos.DrawWireSphere(wallHit.point, 0.3f);
-            }
-            else
-            {
-                // Draw full rush path (green)
-                Gizmos.color = Color.green;
-                Gizmos.DrawLine(transform.position, (Vector2)transform.position + rushDir * rushDistance);
-                Gizmos.DrawWireSphere((Vector2)transform.position + rushDir * rushDistance, 0.3f);
-            }
-        }
-    }
 }

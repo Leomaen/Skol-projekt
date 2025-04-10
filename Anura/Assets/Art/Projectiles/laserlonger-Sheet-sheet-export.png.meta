@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: b52643936f7c86649aeb3829e046d86b
+guid: ca241f0e086e6c24ab9cebf44bc8530b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -400667039309021710
-    second: ankanedscalad_0
+      213: 2594690256870534496
+    second: laserlonger-Sheet-sheet-export_0
+  - first:
+      213: 4299282771562746494
+    second: laserlonger-Sheet-sheet-export_1
+  - first:
+      213: -4559090851641177615
+    second: laserlonger-Sheet-sheet-export_2
+  - first:
+      213: -4620513240619794336
+    second: laserlonger-Sheet-sheet-export_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +122,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ankanedscalad_0
+      name: laserlonger-Sheet-sheet-export_0
       rect:
         serializedVersion: 2
-        x: 71
-        y: 2
-        width: 278
-        height: 338
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 9
+        y: 49
+        width: 1192
+        height: 80
+      alignment: 9
+      pivot: {x: 0.029559176, y: 0.46564016}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2fd37c8537b807af0800000000000000
-      internalID: -400667039309021710
+      spriteID: 06d6fe69a01320420800000000000000
+      internalID: 2594690256870534496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: laserlonger-Sheet-sheet-export_1
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 52
+        width: 1191
+        height: 79
+      alignment: 9
+      pivot: {x: 0.030318022, y: 0.5000006}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7254f3f6ee1aab30800000000000000
+      internalID: 4299282771562746494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: laserlonger-Sheet-sheet-export_2
+      rect:
+        serializedVersion: 2
+        x: 2409
+        y: 50
+        width: 1192
+        height: 75
+      alignment: 9
+      pivot: {x: 0.033018176, y: 0.4816752}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f9c139860bdab0c0800000000000000
+      internalID: -4559090851641177615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: laserlonger-Sheet-sheet-export_3
+      rect:
+        serializedVersion: 2
+        x: 3610
+        y: 50
+        width: 1190
+        height: 78
+      alignment: 9
+      pivot: {x: 0.03107828, y: 0.46475914}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0604edc20b3a0efb0800000000000000
+      internalID: -4620513240619794336
       vertices: []
       indices: 
       edges: []
@@ -138,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d891e1fd38902184cbc5a8ca649ba8ac
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ankanedscalad_0: -400667039309021710
+      laserlonger-Sheet-sheet-export_0: 2594690256870534496
+      laserlonger-Sheet-sheet-export_1: 4299282771562746494
+      laserlonger-Sheet-sheet-export_2: -4559090851641177615
+      laserlonger-Sheet-sheet-export_3: -4620513240619794336
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

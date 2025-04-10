@@ -1,49 +1,49 @@
 fileFormatVersion: 2
-guid: 316f25ff2b0d76b45af708878d0d2033
+guid: 16e89b7844bd07c47804ed44c862d70b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9215134296445632084
-    second: anka 1 anura_0
+      213: -690729390554182173
+    second: Ankaanuraboss_0
   - first:
-      213: 6844959694043142254
-    second: anka 1 anura_1
+      213: 693783820758097047
+    second: Ankaanuraboss_1
   - first:
-      213: -1605385219083695601
-    second: anka 1 anura_2
+      213: 4651382321308559748
+    second: Ankaanuraboss_2
   - first:
-      213: 3278951548881500443
-    second: anka 1 anura_3
+      213: -3137164700645896602
+    second: Ankaanuraboss_3
   - first:
-      213: -6905330774368316504
-    second: anka 1 anura_4
+      213: -1425309516911496628
+    second: Ankaanuraboss_4
   - first:
-      213: -1759434478704707211
-    second: anka 1 anura_5
+      213: 6187138868055887215
+    second: Ankaanuraboss_5
   - first:
-      213: -743924720747867854
-    second: anka 1 anura_6
+      213: -3166060812177093276
+    second: Ankaanuraboss_6
   - first:
-      213: -5750797032970111775
-    second: anka 1 anura_7
+      213: 2244509272346221524
+    second: Ankaanuraboss_7
   - first:
-      213: 192799431071399564
-    second: anka 1 anura_8
+      213: 3144545384342682756
+    second: Ankaanuraboss_8
   - first:
-      213: 7678701510534033303
-    second: anka 1 anura_9
+      213: 3716943497752157828
+    second: Ankaanuraboss_9
   - first:
-      213: -5014814140823613626
-    second: anka 1 anura_10
+      213: 615466110988858087
+    second: Ankaanuraboss_10
   - first:
-      213: -544342028100020101
-    second: anka 1 anura_11
+      213: -4760710486696724331
+    second: Ankaanuraboss_11
   - first:
-      213: -411509648810432715
-    second: anka 1 anura_12
+      213: -1576343674244793499
+    second: Ankaanuraboss_12
   - first:
-      213: 1253474116687884592
-    second: anka 1 anura_13
+      213: 3816076629728827299
+    second: Ankaanuraboss_13
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: anka 1 anura_0
+      name: Ankaanuraboss_0
       rect:
         serializedVersion: 2
-        x: 37
+        x: 10
         y: 0
-        width: 146
-        height: 177
+        width: 94
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,20 +167,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 45e392991dbb2ef70800000000000000
-      internalID: 9215134296445632084
+      spriteID: 3ed881867490a66f0800000000000000
+      internalID: -690729390554182173
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: anka 1 anura_1
+      name: Ankaanuraboss_1
       rect:
         serializedVersion: 2
-        x: 237
+        x: 138
         y: 0
-        width: 146
-        height: 176
+        width: 94
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,20 +189,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e68de49539e2efe50800000000000000
-      internalID: 6844959694043142254
+      spriteID: 79c133b85b0d0a900800000000000000
+      internalID: 693783820758097047
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: anka 1 anura_2
+      name: Ankaanuraboss_2
       rect:
         serializedVersion: 2
-        x: 437
+        x: 265
         y: 0
-        width: 147
-        height: 173
+        width: 95
+        height: 111
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -211,20 +211,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f0a8ad026a688b9e0800000000000000
-      internalID: -1605385219083695601
+      spriteID: 489e020c3970d8040800000000000000
+      internalID: 4651382321308559748
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: anka 1 anura_3
+      name: Ankaanuraboss_3
       rect:
         serializedVersion: 2
-        x: 637
+        x: 394
         y: 0
-        width: 146
-        height: 176
+        width: 94
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -233,20 +233,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b197cc2af0d218d20800000000000000
-      internalID: 3278951548881500443
+      spriteID: 66e4b10835d8674d0800000000000000
+      internalID: -3137164700645896602
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: anka 1 anura_4
+      name: Ankaanuraboss_4
       rect:
         serializedVersion: 2
-        x: 837
+        x: 522
         y: 0
-        width: 146
-        height: 177
+        width: 94
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -255,20 +255,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8a314392f365b20a0800000000000000
-      internalID: -6905330774368316504
+      spriteID: c42b185cb88483ce0800000000000000
+      internalID: -1425309516911496628
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: anka 1 anura_5
+      name: Ankaanuraboss_5
       rect:
         serializedVersion: 2
-        x: 1037
+        x: 650
         y: 0
-        width: 146
-        height: 176
+        width: 94
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -277,20 +277,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5793b3bd9ab3597e0800000000000000
-      internalID: -1759434478704707211
+      spriteID: f6dcb7605022dd550800000000000000
+      internalID: 6187138868055887215
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: anka 1 anura_6
+      name: Ankaanuraboss_6
       rect:
         serializedVersion: 2
-        x: 1237
+        x: 777
         y: 0
-        width: 147
-        height: 173
+        width: 95
+        height: 111
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -299,20 +299,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2311130786c0da5f0800000000000000
-      internalID: -743924720747867854
+      spriteID: 46d46e04774ef04d0800000000000000
+      internalID: -3166060812177093276
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: anka 1 anura_7
+      name: Ankaanuraboss_7
       rect:
         serializedVersion: 2
-        x: 1437
+        x: 906
         y: 0
-        width: 146
-        height: 176
+        width: 94
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,20 +321,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1e4327a41901130b0800000000000000
-      internalID: -5750797032970111775
+      spriteID: 4db54419a49162f10800000000000000
+      internalID: 2244509272346221524
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: anka 1 anura_8
+      name: Ankaanuraboss_8
       rect:
         serializedVersion: 2
-        x: 1637
+        x: 1034
         y: 0
-        width: 146
-        height: 177
+        width: 94
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -343,20 +343,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c8e78e1af06fca200800000000000000
-      internalID: 192799431071399564
+      spriteID: 48cf6d5dd5ba3ab20800000000000000
+      internalID: 3144545384342682756
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: anka 1 anura_9
+      name: Ankaanuraboss_9
       rect:
         serializedVersion: 2
-        x: 1837
+        x: 1162
         y: 0
-        width: 146
-        height: 176
+        width: 94
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -365,20 +365,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 79fe2af175a309a60800000000000000
-      internalID: 7678701510534033303
+      spriteID: 48e17b10b6c359330800000000000000
+      internalID: 3716943497752157828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: anka 1 anura_10
+      name: Ankaanuraboss_10
       rect:
         serializedVersion: 2
-        x: 2045
+        x: 1289
         y: 0
-        width: 139
-        height: 174
+        width: 90
+        height: 111
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -387,20 +387,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 64f4a99cb1dc76ab0800000000000000
-      internalID: -5014814140823613626
+      spriteID: 7e238c4ca239a8800800000000000000
+      internalID: 615466110988858087
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: anka 1 anura_11
+      name: Ankaanuraboss_11
       rect:
         serializedVersion: 2
-        x: 2245
+        x: 1417
         y: 0
-        width: 139
-        height: 174
+        width: 90
+        height: 111
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -409,20 +409,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b7858ca3fcb1278f0800000000000000
-      internalID: -544342028100020101
+      spriteID: 598f6f1290f8eedb0800000000000000
+      internalID: -4760710486696724331
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: anka 1 anura_12
+      name: Ankaanuraboss_12
       rect:
         serializedVersion: 2
-        x: 2445
+        x: 1545
         y: 0
-        width: 139
-        height: 174
+        width: 90
+        height: 111
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -431,20 +431,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 537220997260a4af0800000000000000
-      internalID: -411509648810432715
+      spriteID: 56b74b4b7c3bf1ae0800000000000000
+      internalID: -1576343674244793499
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: anka 1 anura_13
+      name: Ankaanuraboss_13
       rect:
         serializedVersion: 2
-        x: 2639
+        x: 1674
         y: 0
-        width: 144
-        height: 176
+        width: 93
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -453,8 +453,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 031f354611c356110800000000000000
-      internalID: 1253474116687884592
+      spriteID: 3a718aee97d65f430800000000000000
+      internalID: 3816076629728827299
       vertices: []
       indices: 
       edges: []
@@ -472,21 +472,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      anka 1 anura_0: 9215134296445632084
-      anka 1 anura_1: 6844959694043142254
-      anka 1 anura_10: -5014814140823613626
-      anka 1 anura_11: -544342028100020101
-      anka 1 anura_12: -411509648810432715
-      anka 1 anura_13: 1253474116687884592
-      anka 1 anura_2: -1605385219083695601
-      anka 1 anura_3: 3278951548881500443
-      anka 1 anura_4: -6905330774368316504
-      anka 1 anura_5: -1759434478704707211
-      anka 1 anura_6: -743924720747867854
-      anka 1 anura_7: -5750797032970111775
-      anka 1 anura_8: 192799431071399564
-      anka 1 anura_9: 7678701510534033303
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
