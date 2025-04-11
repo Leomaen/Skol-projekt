@@ -19,6 +19,7 @@ public class BossEnemy : MonoBehaviour
     public float laserActiveDuration = 1.0f;
     public float laserCooldown = 4f;
     public GameObject laserPrefab;
+    public Transform firePoint;
     
     [Header("Health")]
     public int maxHealth = 100;
@@ -28,7 +29,6 @@ public class BossEnemy : MonoBehaviour
     public Transform player;
     public LayerMask wallLayer;
     public Animator animator;
-    public Transform firePoint;
     
     // Components
     private SpriteRenderer spriteRenderer;
@@ -338,6 +338,6 @@ public class BossEnemy : MonoBehaviour
     {
         isAttacking = true;
         rb.linearVelocity = Vector2.zero;
-        Destroy(gameObject, 2f);
+        Destroy(gameObject);
     }
 }

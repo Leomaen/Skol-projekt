@@ -76,7 +76,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -472,7 +472,21 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Ankaanuraboss_0: -690729390554182173
+      Ankaanuraboss_1: 693783820758097047
+      Ankaanuraboss_10: 615466110988858087
+      Ankaanuraboss_11: -4760710486696724331
+      Ankaanuraboss_12: -1576343674244793499
+      Ankaanuraboss_13: 3816076629728827299
+      Ankaanuraboss_2: 4651382321308559748
+      Ankaanuraboss_3: -3137164700645896602
+      Ankaanuraboss_4: -1425309516911496628
+      Ankaanuraboss_5: 6187138868055887215
+      Ankaanuraboss_6: -3166060812177093276
+      Ankaanuraboss_7: 2244509272346221524
+      Ankaanuraboss_8: 3144545384342682756
+      Ankaanuraboss_9: 3716943497752157828
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
