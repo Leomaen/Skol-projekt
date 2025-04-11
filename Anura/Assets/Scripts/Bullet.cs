@@ -13,26 +13,33 @@ public class Bullet : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D collision)
-{
-    if (collision.gameObject.CompareTag("Wall"))
     {
-        animator.SetTrigger("hitWall");
-
-        Destroy(gameObject, 0.5f);
-
-        rb.linearVelocity = transform.right * 0;
-    }
-
-    if (collision.gameObject.CompareTag("Enemy"))
-    {
-        Enemy enemy = collision.GetComponent<Enemy>();
-        if (enemy != null) 
+        if (collision.gameObject.CompareTag("Wall"))
         {
-            enemy.takeDamage();
-            Destroy(gameObject);
+            animator.SetTrigger("hitWall");
+            Destroy(gameObject, 0.5f);
+            rb.linearVelocity = transform.right * 0;
         }
 
-    }
-}
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            // Check for regular enemy
+            Enemy enemy = collision.GetComponent<Enemy>();
+            if (enemy != null) 
+            {
+                enemy.takeDamage();
+                Destroy(gameObject);
+                return;
+            }
 
+            // Check for boss enemy
+            BossEnemy bossEnemy = collision.GetComponent<BossEnemy>();
+            if (bossEnemy != null)
+            {
+                bossEnemy.TakeDamage(StatsManager.Instance.damage);
+                Destroy(gameObject);
+                return;
+            }
+        }
+    }
 }

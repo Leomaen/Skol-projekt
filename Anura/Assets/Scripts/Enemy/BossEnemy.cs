@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossEnemy : MonoBehaviour
@@ -12,7 +11,7 @@ public class BossEnemy : MonoBehaviour
 
     [Header("Attack Properties")]
     public float attackCooldown = 3f;
-    public float attackChance = 0.7f; // Chance to attack when cooldown is ready
+    public float attackChance = 0.7f;
     public float rushSpeed = 8f;
     public float rushCooldown = 5f;
     public float rushDistance = 10f;
@@ -21,16 +20,22 @@ public class BossEnemy : MonoBehaviour
     public float laserCooldown = 4f;
     public GameObject laserPrefab;
     
+    [Header("Health")]
+    public int maxHealth = 100;
+    private int currentHealth;
+    
     [Header("References")]
     public Transform player;
     public LayerMask wallLayer;
+    public Animator animator;
+    public Transform firePoint;
     
-    // Animation parameters
-    private Animator animator;
+    // Components
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
+    private BoxCollider2D bossCollider;
     
-    // State tracking
+    // State variables
     private int currentWaypointIndex = 0;
     private float lastAttackTime;
     private float lastRushTime;
@@ -38,26 +43,34 @@ public class BossEnemy : MonoBehaviour
     private bool isAttacking = false;
     private bool isMovingToWaypoint = true;
     private float idleTimer = 0f;
-    
-    // Cached
-    private static readonly int IdleAnim = Animator.StringToHash("idle");
-    private static readonly int WalkAnim = Animator.StringToHash("walk");
-    private static readonly int RushAnim = Animator.StringToHash("rush");
-    private static readonly int ChargeUpLaserAnim = Animator.StringToHash("chargeuplaser");
-    private static readonly int ChargeDownLaserAnim = Animator.StringToHash("chargedownlaser");
+
+    // Add a field for damage flash effect
+    private Color originalColor;
+    private bool isFlashing = false;
+    [Header("Damage Visual")]
+    public float flashDuration = 0.15f;
+    public Color damageFlashColor = new Color(1f, 0.3f, 0.3f, 1f); // Red tint
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        InitializeComponents();
+        InitializeTimers();
+    }
+
+    void InitializeComponents()
+    {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        bossCollider = GetComponent<BoxCollider2D>();
+        currentHealth = maxHealth;
+        originalColor = spriteRenderer.color; // Store original color
         
         if (player == null)
-        {
             player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        }
-        
-        // Initialize attack timers
+    }
+    
+    void InitializeTimers()
+    {
         lastAttackTime = -attackCooldown;
         lastRushTime = -rushCooldown;
         lastLaserTime = -laserCooldown;
@@ -67,38 +80,65 @@ public class BossEnemy : MonoBehaviour
     {
         if (player == null) return;
 
-        // Face the player
-        spriteRenderer.flipX = player.position.x < transform.position.x;
+        HandleFacing();
         
-        // Don't process movement or attacks if currently attacking
-        if (isAttacking)
-            return;
-        
-        // Check if we can attack
-        if (Time.time - lastAttackTime >= attackCooldown && Random.value <= attackChance)
+        if (!isAttacking)
         {
-            // Choose an attack
-            if (Time.time - lastRushTime >= rushCooldown && 
-                Time.time - lastLaserTime >= laserCooldown)
+            TryAttack();
+            HandleMovement();
+        }
+    }
+    
+    void HandleFacing()
+    {
+        // Don't change facing during laser attacks
+        bool isFiringLaser = animator.GetCurrentAnimatorStateInfo(0).IsName("LaserAttack") || 
+                            animator.GetCurrentAnimatorStateInfo(0).IsName("LaserCharge");
+        
+        if (!isFiringLaser)
+        {
+            bool faceLeft = player.position.x < transform.position.x;
+            spriteRenderer.flipX = faceLeft;
+            
+            // Update firePoint position based on facing
+            if (firePoint != null)
             {
-                // Both attacks available, random choice
-                if (Random.value > 0.5f)
-                    StartCoroutine(RushAttack());
-                else
-                    StartCoroutine(LaserAttack());
-            }
-            else if (Time.time - lastRushTime >= rushCooldown)
-            {
-                StartCoroutine(RushAttack());
-            }
-            else if (Time.time - lastLaserTime >= laserCooldown)
-            {
-                StartCoroutine(LaserAttack());
+                Vector3 localPos = firePoint.localPosition;
+                localPos.x = Mathf.Abs(localPos.x) * (faceLeft ? -1 : 1);
+                firePoint.localPosition = localPos;
             }
         }
+    }
+    
+    void TryAttack()
+    {
+        if (Time.time - lastAttackTime < attackCooldown || Random.value > attackChance)
+            return;
+            
+        bool rushAvailable = Time.time - lastRushTime >= rushCooldown;
+        bool laserAvailable = Time.time - lastLaserTime >= laserCooldown;
         
-        // Handle movement between waypoints when not attacking
-        HandleMovement();
+        // Choose attack based on availability and last used
+        if (rushAvailable && laserAvailable)
+        {
+            // Favor the attack we haven't used recently
+            float rushWeight = lastRushTime < lastLaserTime ? 0.7f : 0.3f;
+            
+            if (Random.value < rushWeight)
+                StartCoroutine(RushAttack());
+            else
+                StartCoroutine(LaserAttack());
+        }
+        else if (rushAvailable)
+            StartCoroutine(RushAttack());
+        else if (laserAvailable)
+            StartCoroutine(LaserAttack());
+    }
+    
+    void FixedUpdate()
+    {
+        if (isMovingToWaypoint && !isAttacking && waypoints.Length > 0)
+            MoveTowardWaypoint();
     }
     
     void HandleMovement()
@@ -107,155 +147,197 @@ public class BossEnemy : MonoBehaviour
         
         if (isMovingToWaypoint)
         {
-            // Move toward current waypoint
-            Vector2 direction = (waypoints[currentWaypointIndex].position - transform.position).normalized;
-            rb.linearVelocity = direction * moveSpeed;
-            
-            // Play walk animation
-            animator.Play(WalkAnim);
-            
-            // Check if we reached the waypoint
             if (Vector2.Distance(transform.position, waypoints[currentWaypointIndex].position) < waypointReachedDistance)
             {
-                // Stop and idle at waypoint
+                // Reached waypoint - idle for a moment
                 rb.linearVelocity = Vector2.zero;
                 isMovingToWaypoint = false;
                 idleTimer = idleTimeAtWaypoint;
-                
-                // Play idle animation
-                animator.Play(IdleAnim);
             }
+            
+            animator.SetBool("isWalking", true);
         }
         else
         {
-            // Wait at waypoint
+            // Waiting at waypoint
             idleTimer -= Time.deltaTime;
+            
             if (idleTimer <= 0)
             {
                 // Move to next waypoint
                 currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
                 isMovingToWaypoint = true;
             }
+            
+            animator.SetBool("isWalking", true);
         }
+    }
+    
+    void MoveTowardWaypoint()
+    {
+        Vector2 direction = ((Vector2)waypoints[currentWaypointIndex].position - (Vector2)transform.position).normalized;
+        
+        // Check for walls in path
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, moveSpeed * Time.fixedDeltaTime + 0.1f, wallLayer);
+        
+        if (hit.collider == null)
+            rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+        else
+            StartCoroutine(FindAlternatePath());
+    }
+    
+    IEnumerator FindAlternatePath()
+    {
+        yield return new WaitForSeconds(1.0f);
+        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
     }
     
     IEnumerator RushAttack()
     {
-        isAttacking = true;
-        lastAttackTime = Time.time;
+        PrepareAttack();
         lastRushTime = Time.time;
         
-        // Stop movement
-        rb.linearVelocity = Vector2.zero;
+        animator.SetBool("isWalking", false);
         
-        // Play rush animation
-        animator.Play(RushAnim);
+        // Pre-animation delay then trigger rush
+        yield return new WaitForSeconds(0.2f);
+        animator.SetTrigger("rushTrigger");
+        yield return new WaitForSeconds(0.3f);
         
-        // Small delay before rushing
-        yield return new WaitForSeconds(0.5f);
+        // Calculate rush path toward player
+        Vector3 targetPos = player.position;
+        Vector2 rushDirection = (targetPos - transform.position).normalized;
         
-        // Calculate rush direction toward player
-        Vector2 rushDirection = (player.position - transform.position).normalized;
-        
-        // Check for wall collisions in rush direction
+        // Check for obstacles and adjust distance
         RaycastHit2D hit = Physics2D.Raycast(transform.position, rushDirection, rushDistance, wallLayer);
-        float actualRushDistance = hit.collider != null ? hit.distance * 0.9f : rushDistance;
+        float actualDistance = hit.collider != null ? hit.distance * 0.9f : rushDistance;
         
-        // Perform the rush
-        float rushDuration = actualRushDistance / rushSpeed;
-        float rushTimer = 0;
+        // Perform rush
+        animator.SetBool("isRushing", true);
+        yield return PerformRushMovement(rushDirection, actualDistance);
+        animator.SetBool("isRushing", false);
+        
+        // Cooldown period
+        yield return new WaitForSeconds(0.7f);
+        
+        FinishAttack();
+    }
+    
+    IEnumerator PerformRushMovement(Vector2 direction, float distance)
+    {
+        float duration = distance / rushSpeed;
+        float timer = 0;
         Vector2 startPos = transform.position;
-        Vector2 targetPos = startPos + (rushDirection * actualRushDistance);
+        Vector2 targetPos = startPos + (direction * distance);
         
-        while (rushTimer < rushDuration)
+        while (timer < duration)
         {
-            rushTimer += Time.deltaTime;
-            float t = rushTimer / rushDuration;
-            rb.MovePosition(Vector2.Lerp(startPos, targetPos, t));
+            timer += Time.deltaTime;
+            
+            // Check for walls during rush
+            RaycastHit2D hit = Physics2D.Raycast(rb.position, direction, bossCollider.size.x * 0.5f + 0.1f, wallLayer);
+            if (hit.collider != null) break;
+            
+            rb.MovePosition(Vector2.Lerp(startPos, targetPos, timer / duration));
             yield return null;
         }
-        
-        // Reset after attack
-        rb.linearVelocity = Vector2.zero;
-        animator.Play(IdleAnim);
-        
-        // Cooldown after attack
-        yield return new WaitForSeconds(0.5f);
-        
-        isAttacking = false;
     }
     
     IEnumerator LaserAttack()
     {
-        isAttacking = true;
-        lastAttackTime = Time.time;
+        PrepareAttack();
         lastLaserTime = Time.time;
         
-        // Stop movement
-        rb.linearVelocity = Vector2.zero;
+        // Lock orientation when starting laser
+        bool facingLeft = spriteRenderer.flipX;
         
-        // Get direction to player
-        Vector2 directionToPlayer = (player.position - transform.position).normalized;
-        
-        // Charge up laser animation
-        animator.Play(ChargeUpLaserAnim);
+        // Start laser charge
+        animator.SetBool("isWalking", false);
+        animator.SetTrigger("laserChargeTrigger");
         yield return new WaitForSeconds(laserChargeDuration);
         
-        // Spawn and shoot laser
-        if (laserPrefab != null)
-        {
-            GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
-            float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
-            laser.transform.rotation = Quaternion.Euler(0, 0, angle);
-            
-            Laser laserScript = laser.GetComponent<Laser>();
-            if (laserScript != null)
-            {
-                laserScript.direction = directionToPlayer;
-                laserScript.duration = laserActiveDuration;
-            }
-            else
-            {
-                Destroy(laser, laserActiveDuration);
-            }
-        }
+        // Get updated direction to player and fire
+        Vector2 laserDirection = (player.position - transform.position).normalized;
+        FireLaser(laserDirection);
         
-        // Charge down laser animation
-        animator.Play(ChargeDownLaserAnim);
         yield return new WaitForSeconds(laserActiveDuration);
         
-        // Reset after attack
-        animator.Play(IdleAnim);
+        // End laser sequence
+        animator.SetTrigger("laserEndTrigger");
+        yield return new WaitForSeconds(1.0f);
         
-        // Cooldown after attack
-        yield return new WaitForSeconds(0.5f);
-        
-        isAttacking = false;
+        FinishAttack();
     }
     
-    void OnDrawGizmos()
+    void FireLaser(Vector2 direction)
     {
-        // Visualize waypoints
-        if (waypoints != null)
+        if (laserPrefab == null) return;
+        
+        // Create and orient laser
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        GameObject laser = Instantiate(laserPrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
+        
+        // Configure laser behavior
+        Laser laserScript = laser.GetComponent<Laser>();
+        if (laserScript != null)
         {
-            Gizmos.color = Color.green;
-            for (int i = 0; i < waypoints.Length; i++)
-            {
-                if (waypoints[i] != null)
-                {
-                    Gizmos.DrawSphere(waypoints[i].position, 0.3f);
-                    
-                    // Draw lines connecting waypoints
-                    if (i < waypoints.Length - 1 && waypoints[i+1] != null)
-                    {
-                        Gizmos.DrawLine(waypoints[i].position, waypoints[i+1].position);
-                    }
-                    else if (i == waypoints.Length - 1 && waypoints[0] != null)
-                    {
-                        Gizmos.DrawLine(waypoints[i].position, waypoints[0].position);
-                    }
-                }
-            }
+            laserScript.direction = direction;
+            laserScript.duration = laserActiveDuration;
         }
+        else
+        {
+            Destroy(laser, laserActiveDuration);
+        }
+    }
+    
+    void PrepareAttack()
+    {
+        isAttacking = true;
+        lastAttackTime = Time.time;
+        rb.linearVelocity = Vector2.zero;
+    }
+    
+    void FinishAttack()
+    {
+        isAttacking = false;
+        animator.SetBool("isWalking", true);
+    }
+    
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        
+        // Add visual feedback - red flash when taking damage
+        if (!isFlashing)
+        {
+            StartCoroutine(DamageFlashEffect());
+        }
+        
+        if (currentHealth <= 0)
+            Die();
+    }
+    
+    // Add a new coroutine for the flash effect
+    private IEnumerator DamageFlashEffect()
+    {
+        isFlashing = true;
+        
+        // Change to damage flash color
+        spriteRenderer.color = damageFlashColor;
+        
+        // Wait for flash duration
+        yield return new WaitForSeconds(flashDuration);
+        
+        // Return to original color
+        spriteRenderer.color = originalColor;
+        
+        isFlashing = false;
+    }
+    
+    void Die()
+    {
+        isAttacking = true;
+        rb.linearVelocity = Vector2.zero;
+        Destroy(gameObject, 2f);
     }
 }
