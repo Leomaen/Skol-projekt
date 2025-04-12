@@ -51,6 +51,9 @@ public class BossEnemy : MonoBehaviour
     public float flashDuration = 0.15f;
     public Color damageFlashColor = new Color(1f, 0.3f, 0.3f, 1f); // Red tint
 
+    // Add a new class variable to track when laser is active
+    private bool isLaserActive = false;
+
     void Start()
     {
         InitializeComponents();
@@ -92,21 +95,18 @@ public class BossEnemy : MonoBehaviour
     void HandleFacing()
     {
         // Don't change facing during laser attacks
-        bool isFiringLaser = animator.GetCurrentAnimatorStateInfo(0).IsName("LaserAttack") || 
-                            animator.GetCurrentAnimatorStateInfo(0).IsName("LaserCharge");
-        
-        if (!isFiringLaser)
-        {
-            bool faceLeft = player.position.x < transform.position.x;
-            spriteRenderer.flipX = faceLeft;
+        if (isLaserActive)
+            return;
             
-            // Update firePoint position based on facing
-            if (firePoint != null)
-            {
-                Vector3 localPos = firePoint.localPosition;
-                localPos.x = Mathf.Abs(localPos.x) * (faceLeft ? -1 : 1);
-                firePoint.localPosition = localPos;
-            }
+        bool faceLeft = player.position.x < transform.position.x;
+        spriteRenderer.flipX = faceLeft;
+        
+        // Update firePoint position based on facing
+        if (firePoint != null)
+        {
+            Vector3 localPos = firePoint.localPosition;
+            localPos.x = Mathf.Abs(localPos.x) * (faceLeft ? -1 : 1);
+            firePoint.localPosition = localPos;
         }
     }
     
@@ -251,13 +251,16 @@ public class BossEnemy : MonoBehaviour
         // Lock orientation when starting laser
         bool facingLeft = spriteRenderer.flipX;
         
+        // Set flag to prevent rotation during the entire laser sequence
+        isLaserActive = true;
+        
         // Record player position before starting the charge animation
         Vector3 targetPosition = player.position;
         
         // Start laser charge
         animator.SetBool("isWalking", false);
         animator.SetTrigger("laserChargeTrigger");
-        
+
         // Create a more visible indicator with a primitive shape
         GameObject indicatorObj = new GameObject("LaserTargetIndicator");
         indicatorObj.transform.position = targetPosition;
@@ -308,6 +311,9 @@ public class BossEnemy : MonoBehaviour
         // End laser sequence
         animator.SetTrigger("laserEndTrigger");
         yield return new WaitForSeconds(1.0f);
+        
+        // Reset the laser active flag
+        isLaserActive = false;
         
         FinishAttack();
     }
