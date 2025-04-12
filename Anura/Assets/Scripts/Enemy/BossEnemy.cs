@@ -251,14 +251,57 @@ public class BossEnemy : MonoBehaviour
         // Lock orientation when starting laser
         bool facingLeft = spriteRenderer.flipX;
         
+        // Record player position before starting the charge animation
+        Vector3 targetPosition = player.position;
+        
         // Start laser charge
         animator.SetBool("isWalking", false);
         animator.SetTrigger("laserChargeTrigger");
+        
+        // Create a more visible indicator with a primitive shape
+        GameObject indicatorObj = new GameObject("LaserTargetIndicator");
+        indicatorObj.transform.position = targetPosition;
+        
+        // Add a sprite renderer and use a simple circle sprite
+        SpriteRenderer indicator = indicatorObj.AddComponent<SpriteRenderer>();
+        indicator.color = new Color(1f, 0f, 0f, 0.7f); // More visible red
+        
+        // Create a simple circle sprite dynamically
+        Texture2D texture = new Texture2D(32, 32);
+        Color[] colors = new Color[32 * 32];
+        for (int y = 0; y < 32; y++)
+        {
+            for (int x = 0; x < 32; x++)
+            {
+                float distanceFromCenter = Vector2.Distance(new Vector2(x, y), new Vector2(16, 16));
+                colors[y * 32 + x] = distanceFromCenter <= 14 ? 
+                    new Color(1, 0, 0, 0.7f) : // Red inside circle
+                    new Color(0, 0, 0, 0); // Transparent outside
+            }
+        }
+        texture.SetPixels(colors);
+        texture.Apply();
+        
+        Sprite circleSprite = Sprite.Create(texture, new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f));
+        indicator.sprite = circleSprite;
+        indicator.sortingOrder = 10; // Ensure it appears above other elements
+        
+        // Scale it for better visibility
+        indicatorObj.transform.localScale = new Vector3(1f, 1f, 1f);
+        
+        // Make it pulse for better visibility
+        StartCoroutine(PulseIndicator(indicatorObj));
+        
+        // Wait for charge duration
         yield return new WaitForSeconds(laserChargeDuration);
         
-        // Get updated direction to player and fire
-        Vector2 laserDirection = (player.position - transform.position).normalized;
+        // Use the recorded position from before the charge
+        Vector2 laserDirection = (targetPosition - transform.position).normalized;
         FireLaser(laserDirection);
+        
+        // Destroy the indicator
+        if (indicatorObj != null)
+            Destroy(indicatorObj);
         
         yield return new WaitForSeconds(laserActiveDuration);
         
@@ -269,20 +312,50 @@ public class BossEnemy : MonoBehaviour
         FinishAttack();
     }
     
+    // Helper coroutine to make the indicator pulse
+    private IEnumerator PulseIndicator(GameObject indicator)
+    {
+        if (indicator == null) yield break;
+        
+        float duration = laserChargeDuration;
+        float elapsed = 0f;
+        Vector3 originalScale = indicator.transform.localScale;
+        
+        while (elapsed < duration && indicator != null)
+        {
+            float scale = 0.8f + 0.4f * Mathf.PingPong(elapsed * 4f, 1f);
+            indicator.transform.localScale = originalScale * scale;
+            
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+    
     void FireLaser(Vector2 direction)
     {
         if (laserPrefab == null) return;
         
-        // Create and orient laser
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        // Add a slight randomness to make it more forgiving
+        float randomAngleOffset = Random.Range(-5f, 5f);
+        
+        // Apply the rotation to the direction vector
+        float radians = randomAngleOffset * Mathf.Deg2Rad;
+        Vector2 offsetDirection = new Vector2(
+            direction.x * Mathf.Cos(radians) - direction.y * Mathf.Sin(radians),
+            direction.x * Mathf.Sin(radians) + direction.y * Mathf.Cos(radians)
+        );
+        
+        // Create and orient laser with the offset direction
+        float angle = Mathf.Atan2(offsetDirection.y, offsetDirection.x) * Mathf.Rad2Deg;
         GameObject laser = Instantiate(laserPrefab, firePoint.position, Quaternion.Euler(0, 0, angle));
         
         // Configure laser behavior
         Laser laserScript = laser.GetComponent<Laser>();
         if (laserScript != null)
         {
-            laserScript.direction = direction;
+            laserScript.direction = offsetDirection;
             laserScript.duration = laserActiveDuration;
+            laserScript.damage = 1;
         }
         else
         {

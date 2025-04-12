@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Laser : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Laser : MonoBehaviour
     
     private LineRenderer lineRenderer;
     private float timer = 0f;
+    private HashSet<Collider2D> hitColliders = new HashSet<Collider2D>();
     
     void Start()
     {
@@ -61,14 +63,19 @@ public class Laser : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the collider is the player
-        if (other.CompareTag("Player"))
+        // Check if the collider is the player and hasn't been hit yet
+        if (other.CompareTag("Player") && !hitColliders.Contains(other))
         {
+            // Add to hit colliders to prevent multiple damage instances
+            hitColliders.Add(other);
+            
             // Try to get player health component and damage it
-            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
+            PlayerController player = other.GetComponent<PlayerController>();
+            if (player != null)
             {
-                playerHealth.TakeDamage(damage);
+                // Ensure we use exactly the damage value specified
+                player.TakeDamage(damage);
+                Debug.Log("Laser hit player for " + damage + " damage");
             }
         }
     }

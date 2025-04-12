@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float firePointDistance = 0.5f;
     [SerializeField] private Weapon weapon;
+
+    public static event Action OnPlayerDamaged;
     
 
     void Start()
@@ -93,5 +96,11 @@ public class PlayerController : MonoBehaviour
             firePoint.transform.rotation = Quaternion.Euler(0, 0, angle);
             
         }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        StatsManager.Instance.PlayerHealth -= amount;
+        OnPlayerDamaged?.Invoke();
     }
 }
