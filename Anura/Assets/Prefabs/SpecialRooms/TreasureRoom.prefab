@@ -409,7 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7a4a2ec3809dd46aa5bcaa869d2444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportDistance: 5
+  teleportDistance: 6
   roomCamera: {fileID: 5358439316818079357}
 --- !u!1 &2532351962591772998
 GameObject:
@@ -960,7 +960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7a4a2ec3809dd46aa5bcaa869d2444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportDistance: 5
+  teleportDistance: 6
   roomCamera: {fileID: 5358439316818079357}
 --- !u!1 &4686975345856750221
 GameObject:
@@ -976,7 +976,7 @@ GameObject:
   - component: {fileID: 2335933791386256584}
   - component: {fileID: 6738083111406243324}
   m_Layer: 0
-  m_Name: Treasureroom
+  m_Name: TreasureRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1448,7 +1448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7a4a2ec3809dd46aa5bcaa869d2444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportDistance: 5
+  teleportDistance: 6
   roomCamera: {fileID: 5358439316818079357}
 --- !u!1 &6854517081021672641
 GameObject:
@@ -2121,7 +2121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7a4a2ec3809dd46aa5bcaa869d2444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportDistance: 5
+  teleportDistance: 6
   roomCamera: {fileID: 5358439316818079357}
 --- !u!1 &9209077707074470176
 GameObject:
