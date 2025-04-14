@@ -1,5 +1,6 @@
 using System.Numerics;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Room : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class Room : MonoBehaviour
 
     public Vector2Int RoomIndex { get; set; }
 
+    [SerializeField] private bool isRoomCleared = false;
+    private List<GameObject> enemiesInRoom = new List<GameObject>();
+    private bool playerInRoom = false;
+    private bool doorsLocked = false;
+
     private void Awake()
     {
         // Ensure the room has a proper collider
@@ -38,6 +44,9 @@ public class Room : MonoBehaviour
         if (bottomDoor) bottomDoor.SetActive(false);
         if (leftDoor) leftDoor.SetActive(false);
         if (rightDoor) rightDoor.SetActive(false);
+
+        // Find all enemies in the room at start
+        FindEnemiesInRoom();
     }
 
     private void Start()
@@ -58,12 +67,38 @@ public class Room : MonoBehaviour
         }
         
         lastCameraSwitch = -cameraSwitchCooldown;
+
+        // Room is considered cleared if there are no enemies
+        isRoomCleared = enemiesInRoom.Count == 0;
+    }
+    
+    private void Update()
+    {
+        if (playerInRoom && !doorsLocked && enemiesInRoom.Count > 0)
+        {
+            LockDoors();
+        }
+        
+        // Check if all enemies are defeated
+        if (playerInRoom && doorsLocked)
+        {
+            // Remove any null references (destroyed enemies)
+            enemiesInRoom.RemoveAll(enemy => enemy == null);
+            
+            if (enemiesInRoom.Count == 0)
+            {
+                UnlockDoors();
+                isRoomCleared = true;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
+            playerInRoom = true;
+            
             // Only switch if we're not in a cooldown period
             if (Time.time - lastCameraSwitch >= cameraSwitchCooldown)
             {
@@ -73,6 +108,20 @@ public class Room : MonoBehaviour
                     lastCameraSwitch = Time.time;
                 }
             }
+            
+            // Lock doors if room is not cleared and has enemies
+            if (!isRoomCleared && enemiesInRoom.Count > 0)
+            {
+                LockDoors();
+            }
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            playerInRoom = false;
         }
     }
 
@@ -104,6 +153,47 @@ public class Room : MonoBehaviour
         }
     }
     
+    // Finds all enemies in the room
+    private void FindEnemiesInRoom()
+    {
+        // Find all objects with the "Enemy" tag that are children of this room
+        foreach (Transform child in transform)
+        {
+            if (child.CompareTag("Enemy"))
+            {
+                enemiesInRoom.Add(child.gameObject);
+            }
+        }
+        
+        Debug.Log($"Room {gameObject.name} has {enemiesInRoom.Count} enemies");
+    }
+    
+    // Locks all doors when player enters a room with enemies
+    private void LockDoors()
+    {
+        doorsLocked = true;
+        
+        if (topDoor) topDoor.GetComponent<Door>().LockDoor();
+        if (bottomDoor) bottomDoor.GetComponent<Door>().LockDoor();
+        if (leftDoor) leftDoor.GetComponent<Door>().LockDoor();
+        if (rightDoor) rightDoor.GetComponent<Door>().LockDoor();
+        
+        Debug.Log($"Doors locked in room {gameObject.name}");
+    }
+    
+    // Unlocks all doors when all enemies are defeated
+    private void UnlockDoors()
+    {
+        doorsLocked = false;
+        
+        if (topDoor) topDoor.GetComponent<Door>().UnlockDoor();
+        if (bottomDoor) bottomDoor.GetComponent<Door>().UnlockDoor();
+        if (leftDoor) leftDoor.GetComponent<Door>().UnlockDoor();
+        if (rightDoor) rightDoor.GetComponent<Door>().UnlockDoor();
+        
+        Debug.Log($"Doors unlocked in room {gameObject.name} - all enemies defeated!");
+    }
+
 #if UNITY_EDITOR
     // Only draw gizmos in Edit mode, not during play
     private void OnDrawGizmos()
