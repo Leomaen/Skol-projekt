@@ -10,6 +10,9 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private int minRooms = 10;
     [SerializeField] private List<RoomData> specialRooms;
 
+    [SerializeField] private int seed;
+    [SerializeField] private bool useRandomSeed = true;
+
     // Special room requirement tracking
     private bool hasBossRoomSpawned = false;
     private bool hasTreasureRoomSpawned = false;
@@ -34,6 +37,14 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
+        if (useRandomSeed)
+        {
+            seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+        }
+
+        UnityEngine.Random.InitState(seed);
+        Debug.Log($"Using seed: {seed}");
+
         roomGrid = new int[gridSizeX, gridSizeY];
         roomQueue = new Queue<Vector2Int>();
 
@@ -364,6 +375,9 @@ public class RoomManager : MonoBehaviour
         roomQueue.Clear();
         roomCount = 0;
         generationComplete = false;
+
+        UnityEngine.Random.InitState(seed);
+        Debug.Log($"Regenerating with seed: {seed}");
 
         Vector2Int initialRoomIndex = new Vector2Int(gridSizeX / 2, gridSizeY / 2);
         StartRoomGenerationFromRoom(initialRoomIndex);
