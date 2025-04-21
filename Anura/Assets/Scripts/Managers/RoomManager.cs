@@ -10,6 +10,7 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private int minRooms = 10;
     [SerializeField] private List<RoomData> specialRooms;
 
+    // TODO: Get seed from save
     [SerializeField] private int seed;
     [SerializeField] private bool useRandomSeed = true;
 
