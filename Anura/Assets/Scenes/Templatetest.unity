@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heartPrefab: {fileID: 3242191520371159263, guid: e1723473895c30c489a214f94546e99d, type: 3}
-  player: {fileID: 982738475}
+  player: {fileID: 0}
 --- !u!114 &152112742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,11 +428,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 743b422d96fe11e46afcbd8d1e6b9af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 5
   bulletSpeed: 5
   atkSpeed: 0.5
-  PlayerHealth: 4
-  maxHealth: 6
+  PlayerHealth: 3
+  maxHealth: 5
   movementSpeed: 10
 --- !u!4 &675096811
 Transform:
@@ -528,17 +528,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &982738475 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2006278111917931411, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
-  m_PrefabInstance: {fileID: 1997348721}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 053b962e1db8bfd4ebca01e679596dc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &982738477 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 221115458258063308, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}

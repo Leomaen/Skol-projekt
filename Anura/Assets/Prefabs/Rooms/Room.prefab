@@ -3791,8 +3791,7 @@ MonoBehaviour:
   roomCamera: {fileID: 1821692051941832781}
   cameraSwitchCooldown: 0.5
   isRoomCleared: 0
-  enemySpawnPoints:
-  - {fileID: 0}
+  enemySpawnPoints: []
 --- !u!61 &2335933791386256584
 BoxCollider2D:
   m_ObjectHideFlags: 0

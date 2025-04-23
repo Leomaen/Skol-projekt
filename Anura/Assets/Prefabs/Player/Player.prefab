@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8187568688461608311}
   - component: {fileID: 4483675539423309953}
   - component: {fileID: 3930679944281074174}
-  - component: {fileID: 2006278111917931411}
   - component: {fileID: 9063353956533583795}
+  - component: {fileID: 8240071401951919598}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -166,21 +166,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
---- !u!114 &2006278111917931411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3437698153413861460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 053b962e1db8bfd4ebca01e679596dc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 2454055271629105603}
-  firePointDistance: 0.5
-  weapon: {fileID: 9063353956533583795}
 --- !u!114 &9063353956533583795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +180,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 2454055271629105603}
   projectile: {fileID: 7604710241034763317, guid: c14fa7bdd26962541a8bd1683e6dd73b, type: 3}
+--- !u!114 &8240071401951919598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3437698153413861460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053b962e1db8bfd4ebca01e679596dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 2454055271629105603}
+  firePointDistance: 0.5
+  weapon: {fileID: 9063353956533583795}
 --- !u!1 &5168137982133634018
 GameObject:
   m_ObjectHideFlags: 0
