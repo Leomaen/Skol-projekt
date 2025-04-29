@@ -167,8 +167,9 @@ MonoBehaviour:
     roomType: 2
     maxPerFloor: 1
     currentCount: 0
-  seed: 123
+  seed: 1391232162
   useRandomSeed: 0
+  maxRegenerationAttempts: 5
   gridSizeX: 15
   gridSizeY: 15
 --- !u!4 &19965530
@@ -660,7 +661,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.01
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 00000000

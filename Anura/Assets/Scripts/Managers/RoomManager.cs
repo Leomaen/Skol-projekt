@@ -13,6 +13,11 @@ public class RoomManager : MonoBehaviour
     // TODO: Get seed from save
     [SerializeField] public int seed;
     [SerializeField] public bool useRandomSeed = true;
+    [SerializeField] private int maxRegenerationAttempts = 5;
+
+    // Track regeneration attempts
+    private int regenerationAttempts = 0;
+    private int originalSeed;
 
     // Special room requirement tracking
     private bool hasBossRoomSpawned = false;
@@ -43,11 +48,20 @@ public class RoomManager : MonoBehaviour
             seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
         }
 
+        originalSeed = seed;
+        regenerationAttempts = 0;
+        
+        InitializeGeneration();
+    }
+
+    private void InitializeGeneration()
+    {
         UnityEngine.Random.InitState(seed);
-        Debug.Log($"Using seed: {seed}");
+        Debug.Log($"Using seed: {seed}, Attempt: {regenerationAttempts + 1}");
 
         roomGrid = new int[gridSizeX, gridSizeY];
         roomQueue = new Queue<Vector2Int>();
+        roomCount = 0;
 
         Vector2Int initialRoomIndex = new Vector2Int(gridSizeX / 2, gridSizeY / 2);
         StartRoomGenerationFromRoom(initialRoomIndex);
@@ -91,42 +105,79 @@ public class RoomManager : MonoBehaviour
             // Check if we need to force spawn the special rooms before completing
             UpdateBranchEndRooms(); // Update branch ends first
             
-            // First place the boss room at a branch end
-            if (!hasBossRoomSpawned && branchEndRooms.Count > 0)
-            {
-                SpawnBossRoom();
-            }
-            
-            // Then place treasure and shop rooms if needed
-            if (!hasTreasureRoomSpawned)
-            {
-                SpawnSpecialRoom(RoomType.Treasure);
-            }
-            
-            if (!hasShopRoomSpawned)
-            {
-                SpawnSpecialRoom(RoomType.Shop);
-            }
+            // Attempt to place special rooms
+            AttemptToPlaceSpecialRooms();
             
             // Finalize generation if all required rooms are present
             if (HasAllRequiredRooms())
             {
                 Debug.Log($"Generation complete, {roomCount} rooms created");
                 generationComplete = true; 
-                
-                // Spawn player in Room-1
-                // GameObject startingRoom = GameObject.Find("Room-1");
-                // if (startingRoom != null)
-                // {
-                //     Vector3 spawnPosition = startingRoom.transform.position;
-                //     Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
-                // }
             }
             else
             {
                 // If we still don't have all required rooms, regenerate
                 Debug.Log("Failed to place all required rooms. Regenerating...");
                 RegenerateRooms();
+            }
+        }
+    }
+
+    private void AttemptToPlaceSpecialRooms()
+    {
+        // First place the boss room at a branch end
+        if (!hasBossRoomSpawned)
+        {
+            // If we've tried multiple times already, force boss room placement
+            if (regenerationAttempts >= 2 && roomObjects.Count > 0)
+            {
+                ForceBossRoomPlacement();
+            }
+            else if (branchEndRooms.Count > 0)
+            {
+                SpawnBossRoom();
+            }
+        }
+        
+        // Then place treasure and shop rooms if needed
+        if (!hasTreasureRoomSpawned)
+        {
+            SpawnSpecialRoom(RoomType.Treasure);
+        }
+        
+        if (!hasShopRoomSpawned)
+        {
+            SpawnSpecialRoom(RoomType.Shop);
+        }
+    }
+
+    private void ForceBossRoomPlacement()
+    {
+        // If no branch ends, pick any room except the starting room
+        List<GameObject> possibleRooms = roomObjects.FindAll(r => r.name != "Room-1");
+        
+        if (possibleRooms.Count > 0)
+        {
+            GameObject targetRoom = possibleRooms[UnityEngine.Random.Range(0, possibleRooms.Count)];
+            Vector2Int roomIndex = targetRoom.GetComponent<Room>().RoomIndex;
+            
+            RoomData bossRoomData = specialRooms.Find(r => r.roomType == RoomType.Boss);
+            if (bossRoomData != null)
+            {
+                roomObjects.Remove(targetRoom);
+                Destroy(targetRoom);
+                
+                var bossRoom = Instantiate(bossRoomData.roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+                bossRoom.GetComponent<Room>().RoomIndex = roomIndex;
+                bossRoom.name = $"Room-{roomCount}-Boss";
+                roomObjects.Add(bossRoom);
+                
+                OpenDoors(bossRoom, roomIndex.x, roomIndex.y);
+                
+                bossRoomData.currentCount++;
+                hasBossRoomSpawned = true;
+                
+                Debug.Log("Boss room forcefully placed after multiple attempts");
             }
         }
     }
@@ -277,17 +328,25 @@ public class RoomManager : MonoBehaviour
         if (roomCount >= maxRooms)
             return false;
 
-        if(UnityEngine.Random.value < 0.5f && roomIndex != Vector2Int.zero)
+        // Calculate skip chance based on regeneration attempts
+        // As attempts increase, skip chance decreases
+        float skipChance = Mathf.Max(0, 0.5f - (0.1f * regenerationAttempts));
+        
+        // Skip chance reduces with regeneration attempts, making more rooms generate
+        if (UnityEngine.Random.value < skipChance && roomIndex != Vector2Int.zero)
             return false;
 
-        if(CountAdjacentRooms(roomIndex) > 1)
+        // After enough regeneration attempts, be more lenient with adjacent rooms
+        int maxAdjacent = (regenerationAttempts >= 3) ? 2 : 1;
+        if(CountAdjacentRooms(roomIndex) > maxAdjacent)
             return false;
 
         // Try to spawn a special room
         RoomData specialRoom = null;
         
-        // UnityEngine.Random chance for special room if we haven't forced all required ones yet
-        if (UnityEngine.Random.value < 0.2f) // 20% chance for special room
+        // Chance for special rooms increases with regeneration attempts
+        float specialRoomChance = 0.2f + (0.1f * regenerationAttempts);
+        if (UnityEngine.Random.value < specialRoomChance) 
         {
             specialRoom = ChooseSpecialRoom();
             
@@ -296,8 +355,8 @@ public class RoomManager : MonoBehaviour
             {
                 if (specialRoom.roomType == RoomType.Boss)
                 {
-                    // For boss rooms, we need to check if this is a branch end
-                    if (CountAdjacentRooms(roomIndex) != 1)
+                    // For boss rooms, we become more lenient with placement after multiple attempts
+                    if (regenerationAttempts < 2 && CountAdjacentRooms(roomIndex) != 1)
                     {
                         specialRoom = null; // Not a branch end, can't place boss room here
                     }
@@ -372,16 +431,18 @@ public class RoomManager : MonoBehaviour
 
         roomObjects.ForEach(Destroy);
         roomObjects.Clear();
-        roomGrid = new int[gridSizeX, gridSizeY];
         roomQueue.Clear();
-        roomCount = 0;
         generationComplete = false;
-
-        UnityEngine.Random.InitState(seed);
-        Debug.Log($"Regenerating with seed: {seed}");
-
-        Vector2Int initialRoomIndex = new Vector2Int(gridSizeX / 2, gridSizeY / 2);
-        StartRoomGenerationFromRoom(initialRoomIndex);
+        
+        regenerationAttempts++;
+        
+        // If we've tried too many times with this seed, modify it slightly
+        if (regenerationAttempts >= maxRegenerationAttempts) {
+            seed = originalSeed + regenerationAttempts;
+            Debug.Log($"Maximum regeneration attempts reached. Modifying seed to: {seed}");
+        }
+        
+        InitializeGeneration();
     }
 
     void OpenDoors(GameObject room, int x, int y) {
