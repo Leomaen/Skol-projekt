@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.IO;
 public class PauseManager : MonoBehaviour
 {
 
@@ -32,5 +33,15 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
         pauseMenuUI.SetActive(false);
+    }
+
+    public void OnSaveGameButtonClicked()
+    {
+        SavedGameData gameData = new SavedGameData();
+        gameData.seed = FindFirstObjectByType<RoomManager>().seed;
+        string json = JsonUtility.ToJson(gameData, true);
+        string saveFilePath = Path.Combine(Application.persistentDataPath, "save.json");
+        System.IO.File.WriteAllText(saveFilePath, json);
+        Debug.Log("Game saved to: " + saveFilePath);
     }
 }
