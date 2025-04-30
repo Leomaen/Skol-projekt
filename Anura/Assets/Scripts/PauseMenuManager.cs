@@ -5,6 +5,7 @@ public class PauseManager : MonoBehaviour
 
     bool isPaused = false;
     [SerializeField] GameObject pauseMenuUI;
+    [SerializeField] GameManager gameManager;
 
     void Update()
     {
@@ -37,11 +38,6 @@ public class PauseManager : MonoBehaviour
 
     public void OnSaveGameButtonClicked()
     {
-        SavedGameData gameData = new SavedGameData();
-        gameData.seed = FindFirstObjectByType<RoomManager>().seed;
-        string json = JsonUtility.ToJson(gameData, true);
-        string saveFilePath = Path.Combine(Application.persistentDataPath, "save.json");
-        System.IO.File.WriteAllText(saveFilePath, json);
-        Debug.Log("Game saved to: " + saveFilePath);
+        gameManager.SaveGameData();
     }
 }

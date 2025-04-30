@@ -1,7 +1,7 @@
 using System;
 
 [Serializable]
-public class SavedGameData
+public class GameData
 {
     public int seed;
 }

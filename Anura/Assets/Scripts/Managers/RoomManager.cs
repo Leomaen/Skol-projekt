@@ -9,14 +9,12 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private int maxRooms = 15;
     [SerializeField] private int minRooms = 10;
     [SerializeField] private List<RoomData> specialRooms;
-
-    // TODO: Get seed from save
-    [SerializeField] public int seed;
-    [SerializeField] public bool useRandomSeed = true;
+    [SerializeField] GameManager gameManager;
     [SerializeField] private int maxRegenerationAttempts = 5;
 
     // Track regeneration attempts
     private int regenerationAttempts = 0;
+    private int seed;
     private int originalSeed;
 
     // Special room requirement tracking
@@ -43,15 +41,21 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
-        if (useRandomSeed)
+        InitializeSeed();
+        regenerationAttempts = 0; 
+        InitializeGeneration();
+    }
+
+    private void InitializeSeed()
+    {
+        if (gameManager.gameData.seed == 0)  // Using 0 as default/unset value
         {
-            seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+            gameManager.gameData.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+            Debug.Log($"Generated new seed: {gameManager.gameData.seed}");
         }
 
-        originalSeed = seed;
-        regenerationAttempts = 0;
-        
-        InitializeGeneration();
+        originalSeed = gameManager.gameData.seed;
+        seed = originalSeed;
     }
 
     private void InitializeGeneration()
@@ -112,6 +116,8 @@ public class RoomManager : MonoBehaviour
             if (HasAllRequiredRooms())
             {
                 Debug.Log($"Generation complete, {roomCount} rooms created");
+                gameManager.gameData.seed = seed;
+                gameManager.SaveGameData();
                 generationComplete = true; 
             }
             else
