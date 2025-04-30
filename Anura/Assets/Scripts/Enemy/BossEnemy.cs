@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BossEnemy : MonoBehaviour
@@ -30,6 +31,16 @@ public class BossEnemy : MonoBehaviour
     public LayerMask wallLayer;
     public Animator animator;
     
+    [Header("Contact Damage")]
+    public int contactDamage = 1;
+    public float contactDamageCooldown = 1.0f;
+    private float lastContactDamageTime = 0f;
+    private HashSet<Collider2D> hitColliders = new HashSet<Collider2D>();
+    
+    [Header("Damage Visual")]
+    public float flashDuration = 0.15f;
+    public Color damageFlashColor = new Color(1f, 0.3f, 0.3f, 1f); // Red tint
+
     // Components
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
@@ -47,9 +58,6 @@ public class BossEnemy : MonoBehaviour
     // Add a field for damage flash effect
     private Color originalColor;
     private bool isFlashing = false;
-    [Header("Damage Visual")]
-    public float flashDuration = 0.15f;
-    public Color damageFlashColor = new Color(1f, 0.3f, 0.3f, 1f); // Red tint
 
     // Add a new class variable to track when laser is active
     private bool isLaserActive = false;
@@ -418,5 +426,23 @@ public class BossEnemy : MonoBehaviour
         isAttacking = true;
         rb.linearVelocity = Vector2.zero;
         Destroy(gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // Check if the collider is the player and enough time has passed since last damage
+        if (other.CompareTag("Player") && Time.time - lastContactDamageTime >= contactDamageCooldown)
+        {
+            // Reset the timer for contact damage
+            lastContactDamageTime = Time.time;
+            
+            // Try to get player controller and apply damage
+            PlayerController player = other.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.TakeDamage(contactDamage);
+                Debug.Log("Boss contact hit player for " + contactDamage + " damage");
+            }
+        }
     }
 }

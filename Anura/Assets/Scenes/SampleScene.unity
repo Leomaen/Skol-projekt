@@ -150,7 +150,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalRoomPrefabs:
   - {fileID: 4686975345856750221, guid: 93d5c35ded4a8e948b4cea7ffe0c5a8e, type: 3}
+  - {fileID: 4686975345856750221, guid: 019a15da9062cd94180b949182a929f6, type: 3}
   - {fileID: 4686975345856750221, guid: 0e955eeaf6b7d2c45bb3b2ab306c1c38, type: 3}
+  - {fileID: 4686975345856750221, guid: d38412e8d51311546bdce6159a9bf247, type: 3}
+  - {fileID: 4686975345856750221, guid: 0787edb0b5d1d444984e62fc7de6b596, type: 3}
+  - {fileID: 4686975345856750221, guid: 3c2175e0bf0e40b45aa638a90dce05bf, type: 3}
+  - {fileID: 4686975345856750221, guid: 138ad3dff58da5649ae539407b3f2a8b, type: 3}
+  - {fileID: 4686975345856750221, guid: 9dc3a36ae7925c9499132bd1e19c72fb, type: 3}
+  - {fileID: 4686975345856750221, guid: 343cc2b040aad1c45a9d458c3e3e7dc4, type: 3}
+  - {fileID: 4686975345856750221, guid: d811e1526e2784d4f9fee1ef73fc0652, type: 3}
+  - {fileID: 4686975345856750221, guid: 31c9d1e822f5577409a13a8bfecc502e, type: 3}
   playerPrefab: {fileID: 3437698153413861460, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
   maxRooms: 15
   minRooms: 10
@@ -167,8 +176,12 @@ MonoBehaviour:
     roomType: 2
     maxPerFloor: 1
     currentCount: 0
-  seed: -1210449276
-  useRandomSeed: 0
+  - roomPrefab: {fileID: 4686975345856750221, guid: 61016b50aac7290438b987b87d72790f, type: 3}
+    roomType: 4
+    maxPerFloor: 1
+    currentCount: 0
+  seed: -563806737
+  useRandomSeed: 1
   maxRegenerationAttempts: 5
   gridSizeX: 15
   gridSizeY: 15
@@ -1010,11 +1023,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 221115458258063308, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.474
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 221115458258063308, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.131
+      value: 0.51
       objectReference: {fileID: 0}
     - target: {fileID: 221115458258063308, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1046,6 +1059,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 221115458258063308, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 221115458258063308, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2006278111917931411, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
