@@ -103,10 +103,4 @@ public class PlayerController : MonoBehaviour
         StatsManager.Instance.PlayerHealth -= amount;
         OnPlayerDamaged?.Invoke();
     }
-
-    // Add this new public method to expose the movement direction
-    public Vector2 GetMovementDirection()
-    {
-        return movementDirection;
-    }
 }

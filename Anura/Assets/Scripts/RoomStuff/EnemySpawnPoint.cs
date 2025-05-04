@@ -5,6 +5,7 @@ public class EnemySpawnPoint : MonoBehaviour
     public GameObject enemyPrefab;
     
     // You can add spawn properties like:
+    [SerializeField] private float spawnDelay = 0f;
     [SerializeField] private bool randomizePosition = false;
     [SerializeField] private float randomRadius = 1f;
     
