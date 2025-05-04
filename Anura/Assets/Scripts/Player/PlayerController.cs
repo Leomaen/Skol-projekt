@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -47,23 +48,22 @@ public class PlayerController : MonoBehaviour
     
     void HandleFirePointRotation()
     {
-
         bool canShoot = Time.time > lastShotTime + StatsManager.Instance.atkSpeed;
 
         // Check arrow key input
         if (Input.GetKey(KeyCode.UpArrow))
         {
             PositionAndRotateFirePoint(Vector2.up, 90f);
-                if(canShoot) {
-                    weapon.Shoot();
-                    lastShotTime = Time.time;
+            if(canShoot) {
+                ShootWithModifiers();
+                lastShotTime = Time.time;
             }
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
             PositionAndRotateFirePoint(Vector2.down, 270f);
             if(canShoot) {
-                weapon.Shoot();
+                ShootWithModifiers();
                 lastShotTime = Time.time;
             }
         }
@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
         {
             PositionAndRotateFirePoint(Vector2.left, 180f);
             if(canShoot) {
-                weapon.Shoot();
+                ShootWithModifiers();
                 lastShotTime = Time.time;
             }
         }
@@ -79,9 +79,71 @@ public class PlayerController : MonoBehaviour
         {
             PositionAndRotateFirePoint(Vector2.right, 0f);
             if(canShoot) {
-                weapon.Shoot();
+                ShootWithModifiers();
                 lastShotTime = Time.time;
             }
+        }
+    }
+    
+    void ShootWithModifiers()
+    {
+        // Default behavior - shoot a single bullet
+        weapon.Shoot();
+        
+        // Check for weapon modifiers if ItemManager exists
+        if (ItemManager.Instance != null)
+        {
+            // Double shot modifier
+            if (HasWeaponModifier(WeaponModifierType.DoubleShot))
+            {
+                // Shoot a second bullet with a small delay
+                StartCoroutine(DelayedShot(0.1f));
+            }
+            
+            // Spread shot modifier
+            if (HasWeaponModifier(WeaponModifierType.Spread))
+            {
+                // Shoot two additional bullets at an angle
+                ShootAtAngle(15);
+                ShootAtAngle(-15);
+            }
+        }
+    }
+    
+    // Helper method to check if a weapon modifier is active
+    bool HasWeaponModifier(WeaponModifierType modifierType)
+    {
+        if (ItemManager.Instance == null) return false;
+        
+        foreach (var modifier in ItemManager.Instance.activeWeaponModifiers)
+        {
+            if (modifier.modifierType == modifierType)
+                return true;
+        }
+        return false;
+    }
+    
+    IEnumerator DelayedShot(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        weapon.Shoot();
+    }
+    
+    void ShootAtAngle(float angleOffset)
+    {
+        if (firePoint != null)
+        {
+            // Save original rotation
+            Quaternion originalRotation = firePoint.rotation;
+            
+            // Apply angle offset
+            firePoint.Rotate(0, 0, angleOffset);
+            
+            // Shoot
+            weapon.Shoot();
+            
+            // Restore original rotation
+            firePoint.rotation = originalRotation;
         }
     }
     
