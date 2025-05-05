@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     public void NewGame()
     {
         Time.timeScale = 1f;
-        gameState.Initialize();
     }
     public void LoadGame()
     {

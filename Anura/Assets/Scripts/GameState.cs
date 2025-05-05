@@ -31,12 +31,7 @@ public class GameState : ScriptableObject
       Debug.LogError($"Failed to save game: {e.Message}");
     }
   }
-
-  public void Initialize()
-  {
-    world = new WorldState();
-  }
-
+  
   public void Load()
   {
     string path = Path.Combine(Application.persistentDataPath, "save.json");
