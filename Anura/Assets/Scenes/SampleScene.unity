@@ -167,7 +167,7 @@ MonoBehaviour:
     roomType: 2
     maxPerFloor: 1
     currentCount: 0
-  gameManager: {fileID: 299955221}
+  gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
   maxRegenerationAttempts: 5
   gridSizeX: 15
   gridSizeY: 15
@@ -447,8 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a432a0b17eb5c479177238b892ee9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameData:
-    seed: 0
+  gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
 --- !u!4 &299955222
 Transform:
   m_ObjectHideFlags: 0
@@ -962,9 +961,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1448515199}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
-        m_MethodName: OnSaveGameButtonClicked
+      - m_Target: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
+        m_TargetAssemblyTypeName: GameState, Assembly-CSharp
+        m_MethodName: Save
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1502,7 +1501,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 24121232}
-  gameManager: {fileID: 299955221}
 --- !u!1 &1747511792
 GameObject:
   m_ObjectHideFlags: 0

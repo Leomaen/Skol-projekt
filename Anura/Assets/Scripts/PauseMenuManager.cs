@@ -1,25 +1,25 @@
 using UnityEngine;
 using System.IO;
+using System;
 public class PauseManager : MonoBehaviour
 {
 
     bool isPaused = false;
     [SerializeField] GameObject pauseMenuUI;
-    [SerializeField] GameManager gameManager;
 
     void Update()
     {
-      if (Input.GetKeyDown(KeyCode.Escape))
-      {
-          if (isPaused)
-          {
-              ResumeGame();
-          }
-          else
-          {
-              PauseGame();
-          }
-      }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+            {
+                ResumeGame();
+            }
+            else
+            {
+                PauseGame();
+            }
+        }
     }
 
     public void PauseGame()
@@ -34,10 +34,5 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
         pauseMenuUI.SetActive(false);
-    }
-
-    public void OnSaveGameButtonClicked()
-    {
-        gameManager.SaveGameData();
     }
 }
