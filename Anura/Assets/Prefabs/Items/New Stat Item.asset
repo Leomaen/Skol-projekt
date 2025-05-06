@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Speed up!
   description: 
-  icon: {fileID: 21300064, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
+  icon: {fileID: -8305358921124636501, guid: b52f5cc325fd1244584b81ad2f8e3640, type: 3}
   itemType: 0
   statType: 0
   modifierValue: 5
