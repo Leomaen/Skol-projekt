@@ -1,6 +1,7 @@
 using System.Numerics;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Room : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class Room : MonoBehaviour
     // Add these new variables for enemy spawning
     [SerializeField] private List<EnemySpawnPoint> enemySpawnPoints = new List<EnemySpawnPoint>();
     private bool enemiesSpawned = false;
+    [SerializeField] private int enemySpawnDelay = 0;
+    private bool enemiesSpawning = false;
 
     private void Awake()
     {
@@ -49,9 +52,6 @@ public class Room : MonoBehaviour
         if (leftDoor) leftDoor.SetActive(false);
         if (rightDoor) rightDoor.SetActive(false);
         
-        // We don't find enemies at Awake anymore since they won't exist yet
-        // Instead, collect spawn points
-        CollectEnemySpawnPoints();
     }
 
     private void Start()
@@ -85,17 +85,17 @@ public class Room : MonoBehaviour
         }
         
         // Check if all enemies are defeated
-        if (playerInRoom && doorsLocked)
+    if (playerInRoom && doorsLocked && !enemiesSpawning)
+    {
+        // Remove any null references (destroyed enemies)
+        enemiesInRoom.RemoveAll(enemy => enemy == null);
+        
+        if (enemiesInRoom.Count == 0)
         {
-            // Remove any null references (destroyed enemies)
-            enemiesInRoom.RemoveAll(enemy => enemy == null);
-            
-            if (enemiesInRoom.Count == 0)
-            {
-                UnlockDoors();
-                isRoomCleared = true;
-            }
+            UnlockDoors();
+            isRoomCleared = true;
         }
+    }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -117,13 +117,9 @@ public class Room : MonoBehaviour
             // Spawn enemies if this room hasn't been cleared yet
             if (!isRoomCleared && !enemiesSpawned)
             {
-                SpawnEnemies();
-            }
-            
-            // Lock doors if room is not cleared and has enemies
-            if (!isRoomCleared && enemiesInRoom.Count > 0)
-            {
                 LockDoors();
+
+                SpawnEnemies();
             }
         }
     }
@@ -170,20 +166,20 @@ public class Room : MonoBehaviour
         }
     }
     
-    // Collect enemy spawn points instead of actual enemies
-    private void CollectEnemySpawnPoints()
-    {
-        // Find all EnemySpawnPoint components in children
-        enemySpawnPoints.AddRange(GetComponentsInChildren<EnemySpawnPoint>(true));
-        
-        Debug.Log($"Room {gameObject.name} has {enemySpawnPoints.Count} enemy spawn points");
-    }
     
     // Spawn enemies when entering the room
     private void SpawnEnemies()
     {
         enemiesInRoom.Clear();
-        
+        enemiesSpawning = true; // Set the flag before starting the spawn
+        StartCoroutine(SpawnEnemiesWithDelay());
+        enemiesSpawned = true;
+    }
+
+    private IEnumerator SpawnEnemiesWithDelay()
+    {
+        yield return new WaitForSeconds(enemySpawnDelay);
+
         foreach (var spawnPoint in enemySpawnPoints)
         {
             if (spawnPoint != null && spawnPoint.enemyPrefab != null)
@@ -193,8 +189,9 @@ public class Room : MonoBehaviour
             }
         }
         
-        enemiesSpawned = true;
-        Debug.Log($"Spawned {enemiesInRoom.Count} enemies in room {gameObject.name}");
+        Debug.Log($"Spawned {enemiesInRoom.Count} enemies in room {gameObject.name} after delay");
+        enemiesSpawning = false;
+
     }
     
     // Destroy all enemies when leaving the room

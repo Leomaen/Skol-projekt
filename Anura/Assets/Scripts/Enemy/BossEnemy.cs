@@ -64,8 +64,32 @@ public class BossEnemy : MonoBehaviour
 
     void Start()
     {
+        FindWaypoints();
+
         InitializeComponents();
         InitializeTimers();
+    }
+
+    void FindWaypoints()
+    {
+        GameObject[] waypointObjects = GameObject.FindGameObjectsWithTag("BossWaypoints");
+
+        if (waypointObjects.Length > 0)
+        {
+            waypoints = new Transform[waypointObjects.Length];
+
+            for (int i = 0; i < waypointObjects.Length; i++)
+            {
+                waypoints[i] = waypointObjects[i].transform;
+            }
+
+            Debug.Log($"Found {waypoints.Length} waypoints for boss movement");
+       }
+
+       else
+       {
+        Debug.Log("No waypoints found :(");
+       }
     }
 
     void InitializeComponents()

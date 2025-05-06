@@ -95,6 +95,6 @@ public class Door : MonoBehaviour
         }
         
         // Reset the door's appearance
-        GetComponent<SpriteRenderer>().color = Color.white;
+    GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
     }
 }
