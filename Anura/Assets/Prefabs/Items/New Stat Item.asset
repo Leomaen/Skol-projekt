@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e725bb120ecfbe7468e5791a134a99af, type: 3}
   m_Name: New Stat Item
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Speed up!
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300064, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
   itemType: 0
   statType: 0
-  modifierValue: 0
+  modifierValue: 5
