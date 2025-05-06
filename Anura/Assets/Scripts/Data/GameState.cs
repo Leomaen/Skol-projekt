@@ -2,13 +2,18 @@ using System;
 using System.IO;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GameState", menuName = "ScriptableObjects/GameState")]
+[CreateAssetMenu(fileName = "GameState", menuName = "Scriptable Objects/GameState")]
 public class GameState : ScriptableObject
 {
+
+  [SerializeField] private string saveName = "game-state.json";
+  private string savePath;
   public WorldState world = new();
 
   public void OnEnable()
   {
+    savePath = Path.Combine(Application.persistentDataPath, saveName);
+
     RoomManager.OnGenerationComplete += Save;
   }
 
@@ -17,30 +22,38 @@ public class GameState : ScriptableObject
     RoomManager.OnGenerationComplete -= Save;
   }
 
+  public bool HasSave()
+  {
+    return File.Exists(savePath);
+  }
+
   public void Save()
   {
-    string path = Path.Combine(Application.persistentDataPath, "save.json");
     try
     {
       string json = JsonUtility.ToJson(this, true);
-      File.WriteAllText(path, json);
-      Debug.Log($"Game saved to: {path}");
+      File.WriteAllText(savePath, json);
+      Debug.Log($"Game saved to: {savePath}");
     }
-    catch (System.Exception e)
+    catch (Exception e)
     {
       Debug.LogError($"Failed to save game: {e.Message}");
     }
   }
-  
+
   public void Load()
   {
-    string path = Path.Combine(Application.persistentDataPath, "save.json");
+    if (!HasSave())
+    {
+      Debug.LogWarning("No save file found.");
+      return;
+    }
     try
     {
-      string json = File.ReadAllText(path);
+      string json = File.ReadAllText(savePath);
       JsonUtility.FromJsonOverwrite(json, this);
     }
-    catch (System.Exception e)
+    catch (Exception e)
     {
       Debug.LogError($"Failed to load game: {e.Message}");
     }
