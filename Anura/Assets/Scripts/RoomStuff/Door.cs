@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -8,7 +9,11 @@ public class Door : MonoBehaviour
     [SerializeField] private bool isLocked = false;
     [SerializeField] private GameObject lockedVisual; // Visual indicator when door is locked
     
+    // Add reference to SceneFader
+    [SerializeField] private SceneFader sceneFader;
+    
     private BoxCollider2D doorCollider;
+    private bool isTransitioning = false;
 
     private void Awake()
     {
@@ -24,6 +29,12 @@ public class Door : MonoBehaviour
         {
             lockedVisual.SetActive(false);
         }
+        
+        // If no sceneFader assigned, try to find it
+        if (sceneFader == null)
+        {
+            sceneFader = FindObjectOfType<SceneFader>();
+        }
     }
 
     private void Start()
@@ -38,36 +49,60 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && !isLocked)
+        if (collision.CompareTag("Player") && !isLocked && !isTransitioning)
         {
-            // Deactivate this room's camera when exiting through the door
-            if (roomCamera != null)
-            {
-                roomCamera.gameObject.SetActive(false);
-            }
-
-            Vector3 teleportOffset = Vector3.zero;
-            
-            switch (gameObject.name)
-            {
-                case "TopDoor":
-                    teleportOffset = new Vector3(0, teleportDistance, 0);
-                    break;
-                case "BottomDoor":
-                    teleportOffset = new Vector3(0, -teleportDistance, 0);
-                    break;
-                case "LeftDoor":
-                    teleportOffset = new Vector3(-teleportDistance, 0, 0);
-                    break;
-                case "RightDoor":
-                    teleportOffset = new Vector3(teleportDistance, 0, 0);
-                    break;
-            }
-            
-            collision.transform.position += teleportOffset;
-            
-            // The room's trigger will activate the correct camera
+            // Start door transition coroutine
+            StartCoroutine(DoorTransition(collision.transform));
         }
+    }
+    
+    private IEnumerator DoorTransition(Transform player)
+    {
+        isTransitioning = true;
+        
+        // Fade out
+        sceneFader.FadeOut(SceneFader.FadeType.PlainBlack);
+        
+        // Wait for fade to complete
+        yield return new WaitForSeconds(sceneFader.FadeDuration);
+        
+        // Deactivate this room's camera
+        if (roomCamera != null)
+        {
+            roomCamera.gameObject.SetActive(false);
+        }
+
+        // Calculate teleport position
+        Vector3 teleportOffset = Vector3.zero;
+        switch (gameObject.name)
+        {
+            case "TopDoor":
+                teleportOffset = new Vector3(0, teleportDistance, 0);
+                break;
+            case "BottomDoor":
+                teleportOffset = new Vector3(0, -teleportDistance, 0);
+                break;
+            case "LeftDoor":
+                teleportOffset = new Vector3(-teleportDistance, 0, 0);
+                break;
+            case "RightDoor":
+                teleportOffset = new Vector3(teleportDistance, 0, 0);
+                break;
+        }
+        
+        // Teleport the player
+        player.position += teleportOffset;
+        
+        // Small delay before fading back in
+        yield return new WaitForSeconds(0.1f);
+        
+        // Fade back in
+        sceneFader.FadeIn(SceneFader.FadeType.PlainBlack);
+        
+        // Wait for fade to complete
+        yield return new WaitForSeconds(sceneFader.FadeDuration);
+        
+        isTransitioning = false;
     }
     
     public void LockDoor()
@@ -95,6 +130,6 @@ public class Door : MonoBehaviour
         }
         
         // Reset the door's appearance
-    GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
     }
 }
