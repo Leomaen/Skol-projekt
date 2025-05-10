@@ -18,6 +18,13 @@ public class UserData : ScriptableObject
 
   public async void Verify(VerifyCallback callback = null)
   {
+    if (string.IsNullOrEmpty(sessionToken))
+    {
+      Debug.LogWarning("Session token is empty. User is not logged in.");
+      callback?.Invoke(false, null, "User is not logged in");
+      return;
+    }
+
     try
     {
       using UnityWebRequest webRequest = UnityWebRequest.Get(baseUrl + "/auth/verify");
@@ -78,6 +85,13 @@ public class UserData : ScriptableObject
 
       if (webRequest.result != UnityWebRequest.Result.Success)
       {
+        if (webRequest.responseCode == 401)
+        {
+          Debug.LogError("Unauthorized: Invalid username or password.");
+          callback?.Invoke(false, "Invalid username or password.");
+          return;
+        }
+
         string errorMessage = $"Login failed: {webRequest.error} (Status: {webRequest.responseCode})";
         Debug.LogError(errorMessage);
         callback?.Invoke(false, errorMessage);

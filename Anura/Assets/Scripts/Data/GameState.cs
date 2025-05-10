@@ -22,6 +22,11 @@ public class GameState : ScriptableObject
     RoomManager.OnGenerationComplete -= Save;
   }
 
+  public void NewGame()
+  {
+    world = new WorldState();
+  }
+
   public bool HasSave()
   {
     return File.Exists(savePath);
