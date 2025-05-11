@@ -30,12 +30,14 @@ public class MainMenuManager : MonoBehaviour
             loadGameButton.interactable = false;
         }
 
+        userData.Load();
 
-        userData.Verify((success, user, message) =>
+        userData.Verify(async (success, user, message) =>
         {
             if (success)
             {
                 Debug.Log("User verified successfully.");
+                await userData.PullStats();
                 signInButton.SetActive(false);
                 signOutButton.SetActive(true);
             }
@@ -78,11 +80,12 @@ public class MainMenuManager : MonoBehaviour
         string usernameOrEmail = userNameInputField.text;
         string password = passwordInputField.text;
 
-        userData.Login(usernameOrEmail, password, (success, message) =>
+        userData.Login(usernameOrEmail, password, async (success, message) =>
         {
             Debug.Log(message);
             if (success)
             {
+                await userData.PullStats();
                 signInButton.SetActive(false);
                 signOutButton.SetActive(true);
                 signInPanel.SetActive(false);
@@ -94,6 +97,14 @@ public class MainMenuManager : MonoBehaviour
                 signInErrorText.text = message;
             }
         });
+    }
+
+    public void OnSignOutButtonClicked()
+    {
+        Debug.Log("Signing Out...");
+        userData.SignOut();
+        signInButton.SetActive(true);
+        signOutButton.SetActive(false);
     }
 
     public void OnQuitGameButtonClicked()

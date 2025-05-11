@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameState : ScriptableObject
 {
 
-  [SerializeField] private string saveName = "game-state.json";
+  private readonly string saveName = "game-state.json";
   private string savePath;
   public WorldState world = new();
 

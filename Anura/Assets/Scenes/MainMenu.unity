@@ -2686,7 +2686,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1195768009}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: OnSignOutButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
