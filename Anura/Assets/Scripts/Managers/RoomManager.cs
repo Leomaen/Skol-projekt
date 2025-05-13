@@ -50,6 +50,24 @@ public class RoomManager : MonoBehaviour
         InitializeGeneration();
     }
 
+    public void GoToNextFloor()
+    {
+        gameState.world.floor++;
+
+        gameState.world.isGenerated = false;
+
+        regenerationAttempts = 0;
+
+        roomObjects.ForEach(Destroy);
+        roomObjects.Clear();
+        roomQueue.Clear();
+        generationComplete = false;
+
+        InitializeSeed();
+        InitializeGeneration();
+
+        Debug.Log($"Moving to floor {gameState.world.floor}");
+    }
     private void InitializeSeed()
     {
         if (gameState.world.seed == 0)  // Using 0 as default/unset value
@@ -59,7 +77,7 @@ public class RoomManager : MonoBehaviour
         }
 
         originalSeed = gameState.world.seed;
-        seed = originalSeed;
+        seed = originalSeed + ((gameState.world.floor - 1) * 10000);
     }
 
     private void InitializeGeneration()
@@ -146,7 +164,10 @@ public class RoomManager : MonoBehaviour
             if (HasAllRequiredRooms())
             {
                 Debug.Log($"Generation complete, {roomCount} rooms created");
-                gameState.world.seed = seed;
+                if (gameState.world.floor == 1)
+                {
+                    gameState.world.seed = seed;
+                }
                 gameState.world.isGenerated = true;
                 generationComplete = true;
 

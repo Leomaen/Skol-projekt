@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c4735d2ef7aad409e1bb810381916b, type: 3}
   m_Name: GameState
   m_EditorClassIdentifier: 
-  isPaused: 0
+  world:
+    seed: 315731326
+    floor: 1
+    isGenerated: 1

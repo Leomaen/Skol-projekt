@@ -1096,7 +1096,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -74.7, y: -0.5}
-  m_SizeDelta: {x: 166.7732, y: 18}
+  m_SizeDelta: {x: 223.2, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &332232929
 MonoBehaviour:
@@ -1118,7 +1118,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stats
+  m_text: Statistics
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dcf85f94bd6b1f2439232f477ca2deb0, type: 2}
   m_sharedMaterial: {fileID: 8683125171823885387, guid: dcf85f94bd6b1f2439232f477ca2deb0, type: 2}
@@ -1210,7 +1210,7 @@ GameObject:
   - component: {fileID: 437066659}
   - component: {fileID: 437066658}
   m_Layer: 5
-  m_Name: StatsButton
+  m_Name: StatisticsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1233,8 +1233,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -315.1, y: -32.8}
-  m_SizeDelta: {x: 90.1847, y: 24.8735}
+  m_AnchoredPosition: {x: -281.7, y: -32.8}
+  m_SizeDelta: {x: 157.4, y: 24.8735}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &437066658
 MonoBehaviour:
@@ -1500,7 +1500,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -19.1, y: 3.2}
+  m_AnchoredPosition: {x: -19.100006, y: 3.199997}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &887902977
@@ -2904,10 +2904,10 @@ RectTransform:
   - {fileID: 1923811890}
   m_Father: {fileID: 133251531}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -291.4, y: 57}
-  m_SizeDelta: {x: 135.1177, y: 22.0863}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 119.600006, y: -168}
+  m_SizeDelta: {x: 135.11768, y: 22.086304}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1367344042
 MonoBehaviour:

@@ -12,7 +12,7 @@ using JetBrains.Annotations;
 public class UserData : ScriptableObject
 {
   public OnlineUser user;
-  public StatsData stats = new();
+  public StatisticsData stats = new();
 
   public string sessionToken = string.Empty;
 
@@ -217,7 +217,7 @@ public class UserData : ScriptableObject
       string jsonResponse = webRequest.downloadHandler.text;
       Debug.Log($"Pull Stats Response: {jsonResponse}");
 
-      StatsData serverStats = JsonUtility.FromJson<StatsData>(jsonResponse);
+      StatisticsData serverStats = JsonUtility.FromJson<StatisticsData>(jsonResponse);
       if (serverStats != null)
       {
         MergeStats(serverStats);
@@ -267,7 +267,7 @@ public class UserData : ScriptableObject
       string jsonResponse = webRequest.downloadHandler.text;
       Debug.Log($"Push Stats Response: {jsonResponse}");
 
-      StatsData serverStats = JsonUtility.FromJson<StatsData>(jsonResponse);
+      StatisticsData serverStats = JsonUtility.FromJson<StatisticsData>(jsonResponse);
       if (serverStats != null)
       {
         MergeStats(serverStats);
@@ -284,7 +284,7 @@ public class UserData : ScriptableObject
     }
   }
 
-  private void MergeStats(StatsData serverStats)
+  private void MergeStats(StatisticsData serverStats)
   {
     stats.playTime = Math.Max(stats.playTime, serverStats.playTime);
     stats.totalDeaths = Math.Max(stats.totalDeaths, serverStats.totalDeaths);
@@ -293,28 +293,27 @@ public class UserData : ScriptableObject
     stats.furthestLevelReached = Math.Max(stats.furthestLevelReached, serverStats.furthestLevelReached);
     stats.highestSpeedStat = Math.Max(stats.highestSpeedStat, serverStats.highestSpeedStat);
   }
+}
 
+[Serializable]
+public class OnlineUser
+{
+  public string _id;
+  public string username;
+  public StatisticsData stats;
+  public string thumbnail;
+}
 
-  [Serializable]
-  public class OnlineUser
-  {
-    public string _id;
-    public string username;
-    public StatsData stats;
-    public string thumbnail;
-  }
+[Serializable]
+public class LoginResponse
+{
+  public bool success;
+  public string token;
+  public string error;
+}
 
-  [Serializable]
-  public class LoginResponse
-  {
-    public bool success;
-    public string token;
-    public string error;
-  }
-
-  [Serializable]
-  public class UserResponse
-  {
-    public OnlineUser user;
-  }
+[Serializable]
+public class UserResponse
+{
+  public OnlineUser user;
 }

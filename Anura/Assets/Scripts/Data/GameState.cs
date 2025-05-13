@@ -13,12 +13,13 @@ public class GameState : ScriptableObject
   public void OnEnable()
   {
     savePath = Path.Combine(Application.persistentDataPath, saveName);
-
+    Door.OnDoorCollision += Save;
     RoomManager.OnGenerationComplete += Save;
   }
 
   public void OnDisable()
   {
+    Door.OnDoorCollision += Save;
     RoomManager.OnGenerationComplete -= Save;
   }
 
@@ -69,6 +70,6 @@ public class GameState : ScriptableObject
 public class WorldState
 {
   public int seed = 0;
+  public int floor = 1;
   public bool isGenerated = false;
-  // public Dictionary<Vector2Int, RoomInfo> rooms = new Dictionary<Vector2Int, RoomInfo>();
 }

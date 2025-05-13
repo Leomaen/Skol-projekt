@@ -1,7 +1,7 @@
 using System;
 
 [Serializable]
-public class StatsData
+public class StatisticsData
 {
   public int playTime;
   public int totalDeaths;
