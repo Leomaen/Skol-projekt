@@ -3678,37 +3678,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teleportDistance: 6
   roomCamera: {fileID: 5358439316818079357}
---- !u!1 &3441504969593091254
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6156714317267962776}
-  m_Layer: 0
-  m_Name: asdasd
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6156714317267962776
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3441504969593091254}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.840623, y: -1.4462713, z: -0.07788354}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5494343383703275326}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4686975345856750221
 GameObject:
   m_ObjectHideFlags: 0
@@ -3748,7 +3717,6 @@ Transform:
   - {fileID: 7278403764654842408}
   - {fileID: 3412382528074349049}
   - {fileID: 7208480953286141270}
-  - {fileID: 6156714317267962776}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &3780268101767928032
@@ -3877,15 +3845,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 1821692051941832781}
-  enemyPrefabs:
-  - {fileID: 5887116297022971363, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
-  spawnPoints:
-  - {fileID: 6156714317267962776}
-  doorObjects:
-  - {fileID: 3254363549529769729}
-  - {fileID: 5755836405255169805}
-  - {fileID: 9150932655587028508}
-  - {fileID: 2513634211661545456}
 --- !u!1 &4882569657909401997
 GameObject:
   m_ObjectHideFlags: 0
@@ -5167,10 +5126,6 @@ PrefabInstance:
     - target: {fileID: 7947911505737750448, guid: d5762f992ea3bd544bb8287f66e8f844, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7947911505737750450, guid: d5762f992ea3bd544bb8287f66e8f844, type: 3}
-      propertyPath: m_Color.a
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7947911505737750450, guid: d5762f992ea3bd544bb8287f66e8f844, type: 3}
       propertyPath: m_SortingOrder

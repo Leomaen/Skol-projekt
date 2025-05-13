@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq; // Added for Linq operations
 
 public class RoomManager : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class RoomManager : MonoBehaviour
 
     // For tracking branch end rooms (potential boss room locations)
     private List<Vector2Int> branchEndRooms = new List<Vector2Int>();
+    private Vector2Int startRoomIndex; // Added to store the index of the start room
 
     int roomWidth = 20;
     int roomHeight = 12;
@@ -65,12 +67,22 @@ public class RoomManager : MonoBehaviour
         UnityEngine.Random.InitState(seed);
         Debug.Log($"Using seed: {seed}, Attempt: {regenerationAttempts + 1}");
 
+        // Reset special room counts before generation
+        foreach (var roomData in specialRooms)
+        {
+            roomData.currentCount = 0;
+        }
+        hasBossRoomSpawned = false;
+        hasTreasureRoomSpawned = false;
+        hasShopRoomSpawned = false;
+        branchEndRooms.Clear();
+
         roomGrid = new int[gridSizeX, gridSizeY];
         roomQueue = new Queue<Vector2Int>();
         roomCount = 0;
 
-        Vector2Int initialRoomIndex = new Vector2Int(gridSizeX / 2, gridSizeY / 2);
-        StartRoomGenerationFromRoom(initialRoomIndex);
+        startRoomIndex = new Vector2Int(gridSizeX / 2, gridSizeY / 2); // Store start index
+        StartRoomGenerationFromRoom(startRoomIndex);
     }
 
     private void StartRoomGenerationFromRoom(Vector2Int roomIndex)
@@ -81,10 +93,25 @@ public class RoomManager : MonoBehaviour
         roomGrid[x, y] = 1;
         roomCount++;
 
-        // Choose a UnityEngine.Random normal room from the list
-        GameObject normalRoomPrefab = normalRoomPrefabs[UnityEngine.Random.Range(0, normalRoomPrefabs.Count)];
-        var initialRoom = Instantiate(normalRoomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
-        initialRoom.name = $"Room-{roomCount}";
+        // Find the Start room data
+        RoomData startRoomData = specialRooms.Find(r => r.roomType == RoomType.Start);
+        GameObject roomPrefab;
+
+        if (startRoomData != null && startRoomData.roomPrefab != null)
+        {
+            roomPrefab = startRoomData.roomPrefab;
+            startRoomData.currentCount++; // Mark the start room as used
+            Debug.Log("Using designated Start room prefab.");
+        }
+        else
+        {
+            // Fallback to a random normal room if no Start room is defined or prefab is missing
+            Debug.LogWarning("Start room data not found or prefab missing. Using random normal room as fallback.");
+            roomPrefab = normalRoomPrefabs[UnityEngine.Random.Range(0, normalRoomPrefabs.Count)];
+        }
+
+        var initialRoom = Instantiate(roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
+        initialRoom.name = $"Room-{roomCount}-Start"; // Naming convention for start room
         initialRoom.GetComponent<Room>().RoomIndex = roomIndex;
         roomObjects.Add(initialRoom);
     }
@@ -165,7 +192,7 @@ public class RoomManager : MonoBehaviour
     private void ForceBossRoomPlacement()
     {
         // If no branch ends, pick any room except the starting room
-        List<GameObject> possibleRooms = roomObjects.FindAll(r => r.name != "Room-1");
+        List<GameObject> possibleRooms = roomObjects.FindAll(r => r.GetComponent<Room>().RoomIndex != startRoomIndex); // Use startRoomIndex
 
         if (possibleRooms.Count > 0)
         {
@@ -180,7 +207,7 @@ public class RoomManager : MonoBehaviour
 
                 var bossRoom = Instantiate(bossRoomData.roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
                 bossRoom.GetComponent<Room>().RoomIndex = roomIndex;
-                bossRoom.name = $"Room-{roomCount}-Boss";
+                bossRoom.name = $"Room-Boss-{roomIndex.x}-{roomIndex.y}"; // Adjusted naming
                 roomObjects.Add(bossRoom);
 
                 OpenDoors(bossRoom, roomIndex.x, roomIndex.y);
@@ -212,9 +239,8 @@ public class RoomManager : MonoBehaviour
                     Vector2Int index = new Vector2Int(x, y);
                     if (CountAdjacentRooms(index) == 1)
                     {
-                        // Check if this room isn't the starting room
-                        GameObject room = roomObjects.Find(r => r.GetComponent<Room>().RoomIndex == index);
-                        if (room != null && room.name != "Room-1")
+                        // Check if this room isn't the starting room using its index
+                        if (index != startRoomIndex)
                         {
                             branchEndRooms.Add(index);
                         }
@@ -247,7 +273,7 @@ public class RoomManager : MonoBehaviour
             // Spawn the boss room
             var bossRoom = Instantiate(bossRoomData.roomPrefab, GetPositionFromGridIndex(bossRoomIndex), Quaternion.identity);
             bossRoom.GetComponent<Room>().RoomIndex = bossRoomIndex;
-            bossRoom.name = $"Room-{roomCount}-Boss";
+            bossRoom.name = $"Room-Boss-{bossRoomIndex.x}-{bossRoomIndex.y}"; // Adjusted naming
             roomObjects.Add(bossRoom);
 
             // Open doors to connect to adjacent rooms
@@ -264,6 +290,9 @@ public class RoomManager : MonoBehaviour
 
     private void SpawnSpecialRoom(RoomType roomType)
     {
+        // Ensure we don't try to spawn the Start room again
+        if (roomType == RoomType.Start) return;
+
         RoomData specialRoomData = specialRooms.Find(r => r.roomType == roomType);
         if (specialRoomData == null) return;
 
@@ -280,9 +309,8 @@ public class RoomManager : MonoBehaviour
                 if (roomGrid[x, y] == 0 || branchEndRooms.Contains(index))
                     continue;
 
-                // Skip the starting room
-                GameObject room = roomObjects.Find(r => r.GetComponent<Room>().RoomIndex == index);
-                if (room != null && room.name == "Room-1")
+                // Skip the starting room using its index
+                if (index == startRoomIndex)
                     continue;
 
                 availableLocations.Add(index);
@@ -304,7 +332,7 @@ public class RoomManager : MonoBehaviour
             // Spawn the special room
             var specialRoom = Instantiate(specialRoomData.roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
             specialRoom.GetComponent<Room>().RoomIndex = roomIndex;
-            specialRoom.name = $"Room-{roomCount}-{roomType}";
+            specialRoom.name = $"Room-{roomType}-{roomIndex.x}-{roomIndex.y}"; // Adjusted naming
             roomObjects.Add(specialRoom);
 
             // Open doors
@@ -352,14 +380,14 @@ public class RoomManager : MonoBehaviour
         if (CountAdjacentRooms(roomIndex) > maxAdjacent)
             return false;
 
-        // Try to spawn a special room
+        // Try to spawn a special room (excluding Start)
         RoomData specialRoom = null;
 
         // Chance for special rooms increases with regeneration attempts
         float specialRoomChance = 0.2f + (0.1f * regenerationAttempts);
         if (UnityEngine.Random.value < specialRoomChance)
         {
-            specialRoom = ChooseSpecialRoom();
+            specialRoom = ChooseSpecialRoom(); // ChooseSpecialRoom now excludes Start type
 
             // Update tracking flags for required special rooms
             if (specialRoom != null)
@@ -404,11 +432,15 @@ public class RoomManager : MonoBehaviour
 
         var newRoom = Instantiate(roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
         newRoom.GetComponent<Room>().RoomIndex = roomIndex;
-        newRoom.name = $"Room-{roomCount}";
+        // Adjust naming to be more descriptive
         if (specialRoom != null)
         {
             specialRoom.currentCount++;
-            newRoom.name += $"-{specialRoom.roomType}";
+            newRoom.name = $"Room-{specialRoom.roomType}-{x}-{y}";
+        }
+        else
+        {
+            newRoom.name = $"Room-Normal-{x}-{y}";
         }
         roomObjects.Add(newRoom);
 
@@ -419,7 +451,8 @@ public class RoomManager : MonoBehaviour
 
     private RoomData ChooseSpecialRoom()
     {
-        var availableRooms = specialRooms.FindAll(r => r.currentCount < r.maxPerFloor);
+        // Filter out the Start room type and rooms that have reached their max count
+        var availableRooms = specialRooms.FindAll(r => r.roomType != RoomType.Start && r.currentCount < r.maxPerFloor);
         if (availableRooms.Count > 0)
         {
             return availableRooms[UnityEngine.Random.Range(0, availableRooms.Count)];
@@ -451,11 +484,12 @@ public class RoomManager : MonoBehaviour
         // If we've tried too many times with this seed, modify it slightly
         if (regenerationAttempts >= maxRegenerationAttempts)
         {
-            seed = originalSeed + regenerationAttempts;
+            seed = originalSeed + regenerationAttempts; // Use originalSeed + attempts to ensure different outcome
             Debug.Log($"Maximum regeneration attempts reached. Modifying seed to: {seed}");
+            regenerationAttempts = 0; // Reset attempts after modifying seed significantly
         }
 
-        InitializeGeneration();
+        InitializeGeneration(); // Calls InitializeGeneration which now resets counts
     }
 
     void OpenDoors(GameObject room, int x, int y)
