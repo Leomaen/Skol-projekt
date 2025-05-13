@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using System.Linq; // Added for Linq operations
 
@@ -10,21 +10,21 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private int maxRooms = 15;
     [SerializeField] private int minRooms = 10;
     [SerializeField] private List<RoomData> specialRooms;
-
-    // TODO: Get seed from save
-    [SerializeField] private int seed;
-    [SerializeField] private bool useRandomSeed = true;
+    public GameState gameState;
     [SerializeField] private int maxRegenerationAttempts = 5;
+
+    public static event Action OnGenerationComplete;
 
     // Track regeneration attempts
     private int regenerationAttempts = 0;
+    private int seed;
     private int originalSeed;
 
     // Special room requirement tracking
     private bool hasBossRoomSpawned = false;
     private bool hasTreasureRoomSpawned = false;
     private bool hasShopRoomSpawned = false;
-    
+
     // For tracking branch end rooms (potential boss room locations)
     private List<Vector2Int> branchEndRooms = new List<Vector2Int>();
     private Vector2Int startRoomIndex; // Added to store the index of the start room
@@ -36,7 +36,7 @@ public class RoomManager : MonoBehaviour
 
     private List<GameObject> roomObjects = new List<GameObject>();
     private Queue<Vector2Int> roomQueue = new Queue<Vector2Int>();
-    
+
     private int[,] roomGrid;
 
     private int roomCount;
@@ -45,15 +45,21 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
-        if (useRandomSeed)
+        InitializeSeed();
+        regenerationAttempts = 0;
+        InitializeGeneration();
+    }
+
+    private void InitializeSeed()
+    {
+        if (gameState.world.seed == 0)  // Using 0 as default/unset value
         {
-            seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+            gameState.world.seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+            Debug.Log($"Generated new seed: {gameState.world.seed}");
         }
 
-        originalSeed = seed;
-        regenerationAttempts = 0;
-        
-        InitializeGeneration();
+        originalSeed = gameState.world.seed;
+        seed = originalSeed;
     }
 
     private void InitializeGeneration()
@@ -112,7 +118,7 @@ public class RoomManager : MonoBehaviour
 
     private void Update()
     {
-        if(roomQueue.Count > 0 && roomCount < maxRooms && !generationComplete)
+        if (roomQueue.Count > 0 && roomCount < maxRooms && !generationComplete)
         {
             Vector2Int roomIndex = roomQueue.Dequeue();
             int gridX = roomIndex.x;
@@ -123,7 +129,8 @@ public class RoomManager : MonoBehaviour
             TryGenerateRoom(new Vector2Int(gridX, gridY + 1));
             TryGenerateRoom(new Vector2Int(gridX, gridY - 1));
         }
-        else if (roomCount < minRooms){
+        else if (roomCount < minRooms)
+        {
             Debug.Log($"RoomCount was less than minRooms. Trying again");
             RegenerateRooms();
         }
@@ -131,15 +138,19 @@ public class RoomManager : MonoBehaviour
         {
             // Check if we need to force spawn the special rooms before completing
             UpdateBranchEndRooms(); // Update branch ends first
-            
+
             // Attempt to place special rooms
             AttemptToPlaceSpecialRooms();
-            
+
             // Finalize generation if all required rooms are present
             if (HasAllRequiredRooms())
             {
                 Debug.Log($"Generation complete, {roomCount} rooms created");
-                generationComplete = true; 
+                gameState.world.seed = seed;
+                gameState.world.isGenerated = true;
+                generationComplete = true;
+
+                OnGenerationComplete?.Invoke();
             }
             else
             {
@@ -165,13 +176,13 @@ public class RoomManager : MonoBehaviour
                 SpawnBossRoom();
             }
         }
-        
+
         // Then place treasure and shop rooms if needed
         if (!hasTreasureRoomSpawned)
         {
             SpawnSpecialRoom(RoomType.Treasure);
         }
-        
+
         if (!hasShopRoomSpawned)
         {
             SpawnSpecialRoom(RoomType.Shop);
@@ -187,23 +198,23 @@ public class RoomManager : MonoBehaviour
         {
             GameObject targetRoom = possibleRooms[UnityEngine.Random.Range(0, possibleRooms.Count)];
             Vector2Int roomIndex = targetRoom.GetComponent<Room>().RoomIndex;
-            
+
             RoomData bossRoomData = specialRooms.Find(r => r.roomType == RoomType.Boss);
             if (bossRoomData != null)
             {
                 roomObjects.Remove(targetRoom);
                 Destroy(targetRoom);
-                
+
                 var bossRoom = Instantiate(bossRoomData.roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
                 bossRoom.GetComponent<Room>().RoomIndex = roomIndex;
                 bossRoom.name = $"Room-Boss-{roomIndex.x}-{roomIndex.y}"; // Adjusted naming
                 roomObjects.Add(bossRoom);
-                
+
                 OpenDoors(bossRoom, roomIndex.x, roomIndex.y);
-                
+
                 bossRoomData.currentCount++;
                 hasBossRoomSpawned = true;
-                
+
                 Debug.Log("Boss room forcefully placed after multiple attempts");
             }
         }
@@ -213,11 +224,11 @@ public class RoomManager : MonoBehaviour
     {
         return hasBossRoomSpawned && hasTreasureRoomSpawned && hasShopRoomSpawned;
     }
-    
+
     private void UpdateBranchEndRooms()
     {
         branchEndRooms.Clear();
-        
+
         // Check each room to see if it's a branch end (only one connection)
         for (int x = 0; x < gridSizeX; x++)
         {
@@ -237,46 +248,46 @@ public class RoomManager : MonoBehaviour
                 }
             }
         }
-        
+
         Debug.Log($"Found {branchEndRooms.Count} branch end rooms suitable for boss placement");
     }
-    
+
     private void SpawnBossRoom()
     {
         if (branchEndRooms.Count == 0) return;
-        
+
         // Pick a UnityEngine.Random branch end for the boss room
         Vector2Int bossRoomIndex = branchEndRooms[UnityEngine.Random.Range(0, branchEndRooms.Count)];
-        
+
         // Find the boss room data
         RoomData bossRoomData = specialRooms.Find(r => r.roomType == RoomType.Boss);
         if (bossRoomData == null) return;
-        
+
         // Find and remove the existing room at this location
         GameObject existingRoom = roomObjects.Find(r => r.GetComponent<Room>().RoomIndex == bossRoomIndex);
         if (existingRoom != null)
         {
             roomObjects.Remove(existingRoom);
             Destroy(existingRoom);
-            
+
             // Spawn the boss room
             var bossRoom = Instantiate(bossRoomData.roomPrefab, GetPositionFromGridIndex(bossRoomIndex), Quaternion.identity);
             bossRoom.GetComponent<Room>().RoomIndex = bossRoomIndex;
             bossRoom.name = $"Room-Boss-{bossRoomIndex.x}-{bossRoomIndex.y}"; // Adjusted naming
             roomObjects.Add(bossRoom);
-            
+
             // Open doors to connect to adjacent rooms
             int x = bossRoomIndex.x;
             int y = bossRoomIndex.y;
             OpenDoors(bossRoom, x, y);
-            
+
             bossRoomData.currentCount++;
             hasBossRoomSpawned = true;
-            
+
             Debug.Log("Boss room placed at a branch end");
         }
     }
-    
+
     private void SpawnSpecialRoom(RoomType roomType)
     {
         // Ensure we don't try to spawn the Start room again
@@ -284,65 +295,65 @@ public class RoomManager : MonoBehaviour
 
         RoomData specialRoomData = specialRooms.Find(r => r.roomType == roomType);
         if (specialRoomData == null) return;
-        
+
         // Try to find an available location for the special room
         List<Vector2Int> availableLocations = new List<Vector2Int>();
-        
+
         for (int x = 0; x < gridSizeX; x++)
         {
             for (int y = 0; y < gridSizeY; y++)
             {
                 Vector2Int index = new Vector2Int(x, y);
-                
+
                 // Skip if no room here or if it's a branch end (reserved for boss rooms)
                 if (roomGrid[x, y] == 0 || branchEndRooms.Contains(index))
                     continue;
-                
+
                 // Skip the starting room using its index
                 if (index == startRoomIndex)
                     continue;
-                
+
                 availableLocations.Add(index);
             }
         }
-        
+
         if (availableLocations.Count == 0) return;
-        
+
         // Pick a UnityEngine.Random location
         Vector2Int roomIndex = availableLocations[UnityEngine.Random.Range(0, availableLocations.Count)];
-        
+
         // Find and remove the existing room
         GameObject existingRoom = roomObjects.Find(r => r.GetComponent<Room>().RoomIndex == roomIndex);
         if (existingRoom != null)
         {
             roomObjects.Remove(existingRoom);
             Destroy(existingRoom);
-            
+
             // Spawn the special room
             var specialRoom = Instantiate(specialRoomData.roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
             specialRoom.GetComponent<Room>().RoomIndex = roomIndex;
             specialRoom.name = $"Room-{roomType}-{roomIndex.x}-{roomIndex.y}"; // Adjusted naming
             roomObjects.Add(specialRoom);
-            
+
             // Open doors
             int x = roomIndex.x;
             int y = roomIndex.y;
             OpenDoors(specialRoom, x, y);
-            
+
             specialRoomData.currentCount++;
-            
+
             if (roomType == RoomType.Treasure)
                 hasTreasureRoomSpawned = true;
             else if (roomType == RoomType.Shop)
                 hasShopRoomSpawned = true;
-            
+
             Debug.Log($"{roomType} room placed");
         }
     }
 
     private bool TryGenerateRoom(Vector2Int roomIndex)
     {
-        int x = roomIndex.x; 
+        int x = roomIndex.x;
         int y = roomIndex.y;
 
         // Check if position is within grid bounds
@@ -359,25 +370,25 @@ public class RoomManager : MonoBehaviour
         // Calculate skip chance based on regeneration attempts
         // As attempts increase, skip chance decreases
         float skipChance = Mathf.Max(0, 0.5f - (0.1f * regenerationAttempts));
-        
+
         // Skip chance reduces with regeneration attempts, making more rooms generate
         if (UnityEngine.Random.value < skipChance && roomIndex != Vector2Int.zero)
             return false;
 
         // After enough regeneration attempts, be more lenient with adjacent rooms
         int maxAdjacent = (regenerationAttempts >= 3) ? 2 : 1;
-        if(CountAdjacentRooms(roomIndex) > maxAdjacent)
+        if (CountAdjacentRooms(roomIndex) > maxAdjacent)
             return false;
 
         // Try to spawn a special room (excluding Start)
         RoomData specialRoom = null;
-        
+
         // Chance for special rooms increases with regeneration attempts
         float specialRoomChance = 0.2f + (0.1f * regenerationAttempts);
-        if (UnityEngine.Random.value < specialRoomChance) 
+        if (UnityEngine.Random.value < specialRoomChance)
         {
             specialRoom = ChooseSpecialRoom(); // ChooseSpecialRoom now excludes Start type
-            
+
             // Update tracking flags for required special rooms
             if (specialRoom != null)
             {
@@ -418,7 +429,7 @@ public class RoomManager : MonoBehaviour
             // Pick a random normal room from the list
             roomPrefab = normalRoomPrefabs[UnityEngine.Random.Range(0, normalRoomPrefabs.Count)];
         }
-        
+
         var newRoom = Instantiate(roomPrefab, GetPositionFromGridIndex(roomIndex), Quaternion.identity);
         newRoom.GetComponent<Room>().RoomIndex = roomIndex;
         // Adjust naming to be more descriptive
@@ -449,13 +460,14 @@ public class RoomManager : MonoBehaviour
         return null;
     }
 
-    private void RegenerateRooms(){
+    private void RegenerateRooms()
+    {
         // Reset special room counts
         foreach (var room in specialRooms)
         {
             room.currentCount = 0;
         }
-        
+
         // Reset special room tracking
         hasBossRoomSpawned = false;
         hasTreasureRoomSpawned = false;
@@ -466,20 +478,22 @@ public class RoomManager : MonoBehaviour
         roomObjects.Clear();
         roomQueue.Clear();
         generationComplete = false;
-        
+
         regenerationAttempts++;
-        
+
         // If we've tried too many times with this seed, modify it slightly
-        if (regenerationAttempts >= maxRegenerationAttempts) {
+        if (regenerationAttempts >= maxRegenerationAttempts)
+        {
             seed = originalSeed + regenerationAttempts; // Use originalSeed + attempts to ensure different outcome
             Debug.Log($"Maximum regeneration attempts reached. Modifying seed to: {seed}");
             regenerationAttempts = 0; // Reset attempts after modifying seed significantly
         }
-        
+
         InitializeGeneration(); // Calls InitializeGeneration which now resets counts
     }
 
-    void OpenDoors(GameObject room, int x, int y) {
+    void OpenDoors(GameObject room, int x, int y)
+    {
         Room newRoomScript = room.GetComponent<Room>();
 
         Room leftRoomScript = GetRoomScriptAt(new Vector2Int(x - 1, y));
@@ -487,29 +501,30 @@ public class RoomManager : MonoBehaviour
         Room topRoomScript = GetRoomScriptAt(new Vector2Int(x, y + 1));
         Room bottomRoomScript = GetRoomScriptAt(new Vector2Int(x, y - 1));
 
-        if(x > 0 && roomGrid[x - 1, y] != 0)
+        if (x > 0 && roomGrid[x - 1, y] != 0)
         {
             newRoomScript.OpenDoor(Vector2Int.left);
             leftRoomScript.OpenDoor(Vector2Int.right);
         }
-        if(x < gridSizeX - 1 && roomGrid[x + 1, y] != 0)
+        if (x < gridSizeX - 1 && roomGrid[x + 1, y] != 0)
         {
             newRoomScript.OpenDoor(Vector2Int.right);
             rightRoomScript.OpenDoor(Vector2Int.left);
         }
-        if(y > 0 && roomGrid[x, y - 1] != 0 )
+        if (y > 0 && roomGrid[x, y - 1] != 0)
         {
             newRoomScript.OpenDoor(Vector2Int.down);
             bottomRoomScript.OpenDoor(Vector2Int.up);
         }
-        if(y < gridSizeY - 1 && roomGrid[x, y + 1] != 0)
+        if (y < gridSizeY - 1 && roomGrid[x, y + 1] != 0)
         {
             newRoomScript.OpenDoor(Vector2Int.up);
             topRoomScript.OpenDoor(Vector2Int.down);
         }
     }
 
-    Room GetRoomScriptAt(Vector2Int index){
+    Room GetRoomScriptAt(Vector2Int index)
+    {
         GameObject roomObject = roomObjects.Find(r => r.GetComponent<Room>().RoomIndex == index);
         if (roomObject != null)
             return roomObject.GetComponent<Room>();
@@ -522,21 +537,22 @@ public class RoomManager : MonoBehaviour
         int y = roomIndex.y;
         int count = 0;
 
-        if(x > 0 && roomGrid[x - 1, y] != 0) count ++;
-        if(x < gridSizeX - 1 && roomGrid[x + 1, y] != 0) count ++;
-        if(y > 0 && roomGrid[x, y - 1] != 0) count ++;
-        if(y < gridSizeY - 1 && roomGrid[x, y + 1] != 0) count ++; 
+        if (x > 0 && roomGrid[x - 1, y] != 0) count++;
+        if (x < gridSizeX - 1 && roomGrid[x + 1, y] != 0) count++;
+        if (y > 0 && roomGrid[x, y - 1] != 0) count++;
+        if (y < gridSizeY - 1 && roomGrid[x, y + 1] != 0) count++;
 
         return count;
     }
 
-    private Vector3 GetPositionFromGridIndex(Vector2Int gridIndex) {
+    private Vector3 GetPositionFromGridIndex(Vector2Int gridIndex)
+    {
         int gridX = gridIndex.x;
-        int gridY = gridIndex.y; 
+        int gridY = gridIndex.y;
         return new Vector3(roomWidth * (gridX - gridSizeX / 2), roomHeight * (gridY - gridSizeY / 2));
     }
 
-    private void OnDrawGizmos() 
+    private void OnDrawGizmos()
     {
         Color gizmoColor = new Color(0, 1, 1, 0.05f);
         Gizmos.color = gizmoColor;
