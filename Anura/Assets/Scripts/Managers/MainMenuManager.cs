@@ -20,7 +20,6 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
-
         if (gameState.HasSave())
         {
             loadGameButton.interactable = true;
