@@ -3206,6 +3206,7 @@ MonoBehaviour:
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
   lockedVisual: {fileID: 0}
+  sceneFader: {fileID: 0}
 --- !u!1 &2532351962591772998
 GameObject:
   m_ObjectHideFlags: 0
@@ -3759,6 +3760,7 @@ MonoBehaviour:
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
   lockedVisual: {fileID: 0}
+  sceneFader: {fileID: 0}
 --- !u!1 &4686975345856750221
 GameObject:
   m_ObjectHideFlags: 0
@@ -3869,6 +3871,7 @@ MonoBehaviour:
   cameraSwitchCooldown: 0.5
   isRoomCleared: 0
   enemySpawnPoints: []
+  enemySpawnDelay: 0
 --- !u!61 &2335933791386256584
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4252,6 +4255,7 @@ MonoBehaviour:
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
   lockedVisual: {fileID: 0}
+  sceneFader: {fileID: 0}
 --- !u!1 &6854517081021672641
 GameObject:
   m_ObjectHideFlags: 0
@@ -4972,6 +4976,7 @@ MonoBehaviour:
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
   lockedVisual: {fileID: 0}
+  sceneFader: {fileID: 0}
 --- !u!1001 &530390547740822914
 PrefabInstance:
   m_ObjectHideFlags: 0
