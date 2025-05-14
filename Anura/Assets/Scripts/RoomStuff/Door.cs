@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public static event Action OnDoorCollision;
-    [SerializeField] private int teleportDistance = 5;
+    [SerializeField] private float teleportDistance = 5;
     [SerializeField] private Camera roomCamera; // Reference to the camera in the current room
 
     [SerializeField] private bool isLocked = false;
