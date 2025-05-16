@@ -3,11 +3,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
+using System.Collections;
 
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] string gameSceneName = "SampleScene";
     [SerializeField] Button loadGameButton;
+    [SerializeField] SceneFader sceneFader;
     public GameState gameState;
     public UserData userData;
     public GameObject signInPanel;
@@ -36,7 +39,7 @@ public class MainMenuManager : MonoBehaviour
             if (success)
             {
                 Debug.Log("User verified successfully.");
-                await userData.PullStats();
+                await userData.PushStats();
                 signInButton.SetActive(false);
                 signOutButton.SetActive(true);
             }
@@ -52,13 +55,17 @@ public class MainMenuManager : MonoBehaviour
     public void OnNewGameButtonClicked()
     {
         gameState.NewGame();
-        SceneManager.LoadScene(gameSceneName);
+        sceneFader.FadeOut(SceneFader.FadeType.Goop, () => {
+            SceneManager.LoadScene(gameSceneName);
+        });
     }
 
     public void OnLoadGameButtonClicked()
     {
         gameState.Load();
-        SceneManager.LoadScene(gameSceneName);
+        sceneFader.FadeOut(SceneFader.FadeType.Goop, () => {
+            SceneManager.LoadScene(gameSceneName);
+        });
     }
 
     public void OpenSignInPanel()
@@ -84,7 +91,7 @@ public class MainMenuManager : MonoBehaviour
             Debug.Log(message);
             if (success)
             {
-                await userData.PullStats();
+                await userData.PushStats();
                 signInButton.SetActive(false);
                 signOutButton.SetActive(true);
                 signInPanel.SetActive(false);
@@ -97,6 +104,7 @@ public class MainMenuManager : MonoBehaviour
             }
         });
     }
+
 
     public void OnSignOutButtonClicked()
     {

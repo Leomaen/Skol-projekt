@@ -118,8 +118,6 @@ public class Door : MonoBehaviour
             lockedVisual.SetActive(true);
         }
 
-        // Visual feedback - you could change the door's appearance here
-        GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f); // Darken the door
     }
 
     public void UnlockDoor()
@@ -132,7 +130,5 @@ public class Door : MonoBehaviour
             lockedVisual.SetActive(false);
         }
 
-        // Reset the door's appearance
-        GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
     }
 }

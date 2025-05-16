@@ -252,7 +252,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -648,7 +648,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -782,7 +782,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -877,7 +877,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -948,7 +948,7 @@ MonoBehaviour:
   teleportDistance: 3.5
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
-  lockedVisual: {fileID: 0}
+  lockedVisual: {fileID: 2861909099007774508}
   sceneFader: {fileID: 0}
 --- !u!1 &3837087542597666602
 GameObject:
@@ -4863,7 +4863,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4934,7 +4934,7 @@ MonoBehaviour:
   teleportDistance: 3.5
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
-  lockedVisual: {fileID: 0}
+  lockedVisual: {fileID: 1051215198882351259}
   sceneFader: {fileID: 0}
 --- !u!1 &7248300598692224080
 GameObject:
@@ -5093,7 +5093,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -5188,7 +5188,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5259,7 +5259,7 @@ MonoBehaviour:
   teleportDistance: 3.5
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
-  lockedVisual: {fileID: 0}
+  lockedVisual: {fileID: 7313185040367959753}
   sceneFader: {fileID: 0}
 --- !u!1 &7482861783785083210
 GameObject:
@@ -5340,7 +5340,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5411,7 +5411,7 @@ MonoBehaviour:
   teleportDistance: 3.5
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
-  lockedVisual: {fileID: 0}
+  lockedVisual: {fileID: 3270529502594306479}
   sceneFader: {fileID: 0}
 --- !u!1 &7548461032265260190
 GameObject:

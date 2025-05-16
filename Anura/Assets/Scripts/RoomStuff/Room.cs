@@ -228,10 +228,10 @@ public class Room : MonoBehaviour
     {
         doorsLocked = false;
         
-        if (topDoor) topDoor.GetComponent<Door>().UnlockDoor();
-        if (bottomDoor) bottomDoor.GetComponent<Door>().UnlockDoor();
-        if (leftDoor) leftDoor.GetComponent<Door>().UnlockDoor();
-        if (rightDoor) rightDoor.GetComponent<Door>().UnlockDoor();
+        if (topDoor && topDoor.activeSelf) topDoor.GetComponent<Door>().UnlockDoor();
+        if (bottomDoor && bottomDoor.activeSelf) bottomDoor.GetComponent<Door>().UnlockDoor();
+        if (leftDoor && leftDoor.activeSelf) leftDoor.GetComponent<Door>().UnlockDoor();
+        if (rightDoor && rightDoor.activeSelf) rightDoor.GetComponent<Door>().UnlockDoor();
         
         Debug.Log($"Doors unlocked in room {gameObject.name} - all enemies defeated!");
     }

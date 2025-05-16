@@ -3,6 +3,8 @@ using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System;
+using UnityEngine.SceneManagement;
 
 public class SceneFader : MonoBehaviour
 {
@@ -20,6 +22,8 @@ public class SceneFader : MonoBehaviour
     private UnityEngine.UI.Image _image;
     private Material _material;
 
+    private GameObject _persistentRootObject;
+    
     public enum FadeType
     {
         PlainBlack,
@@ -28,6 +32,18 @@ public class SceneFader : MonoBehaviour
 
     private void Awake()
     {
+
+        _image = GetComponent<UnityEngine.UI.Image>();
+        if (_image == null) {
+            Debug.LogError("SceneFader: Image component not found on GameObject.", this.gameObject);
+            this.enabled = false; 
+            return;
+        }
+        if (_image.material == null) {
+            Debug.LogError("SceneFader: The Image component has no material assigned.", this.gameObject);
+            this.enabled = false;
+            return;
+        }
         _image = GetComponent<UnityEngine.UI.Image>();
 
         Material mat = _image.material;
@@ -35,7 +51,11 @@ public class SceneFader : MonoBehaviour
         _material = _image.material;
 
         _lastEffect = _usePlainBlack;
+
+        _image.raycastTarget = false;
     }
+
+    
 
     private void Update()
     {
@@ -50,16 +70,16 @@ public class SceneFader : MonoBehaviour
         }
     }
 
-    public void FadeOut(FadeType fadeType)
+    public void FadeOut(FadeType fadeType, Action onComplete = null)
     {
         ChangeFadeEffect(fadeType);
-        StartFadeOut();
+        StartFadeOut(onComplete);
     }
 
-    public void FadeIn(FadeType fadeType)
+    public void FadeIn(FadeType fadeType, Action onComplete = null)
     {
         ChangeFadeEffect(fadeType);
-        StartFadeIn();
+        StartFadeIn(onComplete);
     }
 
     private void ChangeFadeEffect(FadeType fadeType)
@@ -88,19 +108,23 @@ public class SceneFader : MonoBehaviour
         _lastEffect = effectToTurnOn;
     }
 
-    private void StartFadeIn()
+    private void StartFadeIn(Action onComplete = null)
     {
         _material.SetFloat(_fadeAmount, 1f);
 
         _material.DOFloat(0f, _fadeAmount, FadeDuration)
-                .SetEase(Ease.InOutSine);
+                .SetEase(Ease.InOutSine)
+                .SetUpdate(true) // Make tween ignore Time.timeScale
+                .OnComplete(() => onComplete?.Invoke());
     }
 
-    private void StartFadeOut()
+    private void StartFadeOut(Action onComplete = null)
     {
         _material.SetFloat(_fadeAmount, 0f);
 
         _material.DOFloat(1f, _fadeAmount, FadeDuration)
-                .SetEase(Ease.InOutSine);
+                .SetEase(Ease.InOutSine)
+                .SetUpdate(true) // Make tween ignore Time.timeScale
+                .OnComplete(() => onComplete?.Invoke());
     }
 }

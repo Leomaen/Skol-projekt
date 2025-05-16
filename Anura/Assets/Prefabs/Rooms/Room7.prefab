@@ -2977,7 +2977,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -4569,7 +4569,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -4958,10 +4958,10 @@ MonoBehaviour:
   bottomDoorTree: {fileID: 6327166080202127210}
   rightDoorTree: {fileID: 4515597086526569105}
   leftDoorTree: {fileID: 602334484790109132}
-  topDoor: {fileID: 0}
-  bottomDoor: {fileID: 0}
-  rightDoor: {fileID: 0}
-  leftDoor: {fileID: 0}
+  topDoor: {fileID: 1097568490123090246}
+  bottomDoor: {fileID: 8969715531986630801}
+  rightDoor: {fileID: 4488778215737280640}
+  leftDoor: {fileID: 2417808549648101338}
   roomCamera: {fileID: 1821692051941832781}
   cameraSwitchCooldown: 0.5
   isRoomCleared: 0
@@ -5546,7 +5546,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -5855,7 +5855,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
