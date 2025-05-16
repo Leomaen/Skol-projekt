@@ -101,6 +101,11 @@ public class RoomManager : MonoBehaviour
 
         startRoomIndex = new Vector2Int(gridSizeX / 2, gridSizeY / 2); // Store start index
         StartRoomGenerationFromRoom(startRoomIndex);
+
+        if (NotificationTitles.Instance != null)
+        {
+            NotificationTitles.Instance.ShowNotification($"Floor {gameState.world.floor}");
+        }
     }
 
     private void StartRoomGenerationFromRoom(Vector2Int roomIndex)

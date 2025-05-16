@@ -41,6 +41,13 @@ public class ItemManager : MonoBehaviour
         OnItemsChanged?.Invoke();
         
         Debug.Log($"Added item: {item.itemName}");
+
+        // Show notification for the picked-up item
+        if (NotificationTitles.Instance != null)
+        {
+            // Assuming your Item class has a 'itemName' or similar public string property
+            NotificationTitles.Instance.ShowNotification(item.itemName); 
+        }
     }
     
     public void RemoveItem(Item item)

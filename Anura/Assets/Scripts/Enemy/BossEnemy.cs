@@ -41,6 +41,9 @@ public class BossEnemy : MonoBehaviour
     public float flashDuration = 0.15f;
     public Color damageFlashColor = new Color(1f, 0.3f, 0.3f, 1f); // Red tint
 
+    [Header("Boss Info")]
+    public string bossDisplayName = "The Ancient Guardian";
+
     // Components
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
@@ -66,6 +69,11 @@ public class BossEnemy : MonoBehaviour
     {
         InitializeComponents();
         InitializeTimers();
+
+        if (NotificationTitles.Instance != null && !string.IsNullOrEmpty(bossDisplayName))
+        {
+            NotificationTitles.Instance.ShowNotification(bossDisplayName, 4f); // Optionally use a longer duration for boss titles
+        }
     }
 
     void InitializeComponents()
