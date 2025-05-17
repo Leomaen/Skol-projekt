@@ -4115,10 +4115,10 @@ MonoBehaviour:
   bottomDoorTree: {fileID: 2752860725855725759}
   rightDoorTree: {fileID: 5822824012368357714}
   leftDoorTree: {fileID: 8626607033331214636}
-  topDoor: {fileID: 0}
-  bottomDoor: {fileID: 0}
-  rightDoor: {fileID: 0}
-  leftDoor: {fileID: 0}
+  topDoor: {fileID: 3139744232995702579}
+  bottomDoor: {fileID: 7111943990829347330}
+  rightDoor: {fileID: 6167308711003239806}
+  leftDoor: {fileID: 8475373998931622779}
   roomCamera: {fileID: 1821692051941832781}
   cameraSwitchCooldown: 0.5
   isRoomCleared: 0

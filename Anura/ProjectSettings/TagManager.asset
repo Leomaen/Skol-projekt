@@ -7,7 +7,7 @@ TagManager:
   - RoomCamera
   - Wall
   - Enemy
-  - BossWaypoints
+  - BossWaypoint
   layers:
   - Default
   - TransparentFX

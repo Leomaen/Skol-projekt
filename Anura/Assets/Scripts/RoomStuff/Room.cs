@@ -131,7 +131,7 @@ public class Room : MonoBehaviour
             playerInRoom = false;
             
             // Destroy enemies when leaving the room if the room isn't cleared
-            if (!isRoomCleared)
+            if (!isRoomCleared && !doorsLocked) 
             {
                 DestroyEnemies();
             }

@@ -145,9 +145,9 @@ GameObject:
   - component: {fileID: 8736035613272953508}
   - component: {fileID: 7616600549022568293}
   - component: {fileID: 6068978851624218317}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BottomDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,7 +256,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.07124765}
+  m_Offset: {x: -0.033058643, y: -0.08380945}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -266,7 +266,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.8575047}
+  m_Size: {x: 2.6677136, y: 0.8323811}
   m_EdgeRadius: 0
 --- !u!1 &1821692051941832781
 GameObject:
@@ -336,7 +336,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.3
+  orthographic size: 5.2
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -541,9 +541,9 @@ GameObject:
   - component: {fileID: 4946629897130617554}
   - component: {fileID: 5060107000319361797}
   - component: {fileID: 4351414979581539130}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TopDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -652,7 +652,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.022992775}
+  m_Offset: {x: -0.1355145, y: 0.16786176}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -662,7 +662,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.9540144}
+  m_Size: {x: 2.4368792, y: 0.6642765}
   m_EdgeRadius: 0
 --- !u!1 &3270529502594306479
 GameObject:
@@ -675,9 +675,9 @@ GameObject:
   - component: {fileID: 3708386334544021532}
   - component: {fileID: 519864600943598521}
   - component: {fileID: 2582191840812584322}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -786,7 +786,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.14684382, y: 0}
+  m_Offset: {x: 0.25001073, y: 0.01494658}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -796,7 +796,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.70631236, y: 1}
+  m_Size: {x: 0.49997857, y: 2.0462754}
   m_EdgeRadius: 0
 --- !u!1 &3584145583162545296
 GameObject:
@@ -3705,16 +3705,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 10, y: 5, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 19
-      m_TileSpriteIndex: 19
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 15
@@ -3755,7 +3745,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 61
+  - m_RefCount: 60
     m_Data: {fileID: 11400000, guid: 96945c2584c47b44ebe75d015b3cde49, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 694c62b9b4b97814187f4b31011fc63f, type: 2}
@@ -3806,7 +3796,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 61
+  - m_RefCount: 60
     m_Data: {fileID: 21300054, guid: a07735877a3bd644094331b137b71878, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300028, guid: a07735877a3bd644094331b137b71878, type: 3}
@@ -3819,7 +3809,7 @@ Tilemap:
   - m_RefCount: 8
     m_Data: {fileID: 21300012, guid: a07735877a3bd644094331b137b71878, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 241
+  - m_RefCount: 240
     m_Data:
       e00: 1
       e01: 0
@@ -3892,7 +3882,7 @@ Tilemap:
       e32: 1.2e-43
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 241
+  - m_RefCount: 240
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -4331,7 +4321,7 @@ GameObject:
   - component: {fileID: 2364950704500725998}
   m_Layer: 0
   m_Name: Waypoint1
-  m_TagString: BossWaypoints
+  m_TagString: BossWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4764,7 +4754,7 @@ GameObject:
   - component: {fileID: 5599748815224642269}
   m_Layer: 0
   m_Name: Waypoint2
-  m_TagString: BossWaypoints
+  m_TagString: BossWaypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4986,9 +4976,9 @@ GameObject:
   - component: {fileID: 1640172103727523665}
   - component: {fileID: 1540994404883624236}
   - component: {fileID: 3008676934909515901}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5097,7 +5087,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.09789586, y: 0}
+  m_Offset: {x: -0.25099522, y: 0.007473707}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5107,7 +5097,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8042083, y: 1}
+  m_Size: {x: 0.49800953, y: 2.1210089}
   m_EdgeRadius: 0
 --- !u!1 &7378707596273090516
 GameObject:
