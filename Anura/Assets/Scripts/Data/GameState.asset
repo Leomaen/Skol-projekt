@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameState
   m_EditorClassIdentifier: 
   world:
-    seed: 1804312858
+    seed: 38570382
     floor: 1
     isGenerated: 1
   stats:
