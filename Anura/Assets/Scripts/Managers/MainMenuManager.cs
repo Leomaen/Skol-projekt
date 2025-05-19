@@ -13,8 +13,11 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] SceneFader sceneFader;
     public GameState gameState;
     public UserData userData;
-    public GameObject signInPanel;
 
+    public GameObject statisticsPanel;
+    public TMP_Text statisticsText;
+
+    public GameObject signInPanel;
     public TMP_InputField userNameInputField;
     public TMP_InputField passwordInputField;
     public GameObject signInButton;
@@ -55,7 +58,8 @@ public class MainMenuManager : MonoBehaviour
     public void OnNewGameButtonClicked()
     {
         gameState.NewGame();
-        sceneFader.FadeOut(SceneFader.FadeType.Goop, () => {
+        sceneFader.FadeOut(SceneFader.FadeType.Goop, () =>
+        {
             SceneManager.LoadScene(gameSceneName);
         });
     }
@@ -63,9 +67,25 @@ public class MainMenuManager : MonoBehaviour
     public void OnLoadGameButtonClicked()
     {
         gameState.Load();
-        sceneFader.FadeOut(SceneFader.FadeType.Goop, () => {
+        sceneFader.FadeOut(SceneFader.FadeType.Goop, () =>
+        {
             SceneManager.LoadScene(gameSceneName);
         });
+    }
+
+    public async void OpenStatisticsPanel()
+    {
+        Debug.Log("Opening Statistics Panel...");
+        await userData.PushStats();
+        statisticsPanel.SetActive(true);
+
+        statisticsText.text = JsonUtility.ToJson(userData.stats, true);
+    }
+
+    public void CloseStatisticsPanel()
+    {
+        Debug.Log("Closing Statistics Panel...");
+        statisticsPanel.SetActive(false);
     }
 
     public void OpenSignInPanel()

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using NUnit.Framework;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GameState", menuName = "Scriptable Objects/GameState")]
@@ -25,7 +26,10 @@ public class GameState : ScriptableObject
 
   public void OnDestroy()
   {
-    Save();
+    if (HasSave())
+    {
+      Save();
+    }
   }
 
   public void NewGame()
@@ -67,6 +71,26 @@ public class GameState : ScriptableObject
     catch (Exception e)
     {
       Debug.LogError($"Failed to load game: {e.Message}");
+    }
+  }
+
+  public void DeleteSave()
+  {
+    if (HasSave())
+    {
+      try
+      {
+        File.Delete(savePath);
+        Debug.Log($"Save file deleted: {savePath}");
+      }
+      catch (Exception e)
+      {
+        Debug.LogError($"Failed to delete save file: {e.Message}");
+      }
+    }
+    else
+    {
+      Debug.LogWarning("No save file found to delete.");
     }
   }
 }
