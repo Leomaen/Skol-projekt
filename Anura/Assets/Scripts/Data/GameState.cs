@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using NUnit.Framework;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GameState", menuName = "Scriptable Objects/GameState")]
@@ -25,7 +26,10 @@ public class GameState : ScriptableObject
 
   public void OnDestroy()
   {
-    Save();
+    if (HasSave())
+    {
+      Save();
+    }
   }
 
   public void NewGame()

@@ -34,7 +34,10 @@ public class UserData : ScriptableObject
 
   public void OnDestroy()
   {
-    Save();
+    if (HasSave())
+    {
+      Save();
+    }
   }
 
   public bool HasSave()
