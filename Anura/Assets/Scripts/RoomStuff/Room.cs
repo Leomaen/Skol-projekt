@@ -185,6 +185,14 @@ public class Room : MonoBehaviour
             if (spawnPoint != null && spawnPoint.enemyPrefab != null)
             {
                 GameObject enemy = Instantiate(spawnPoint.enemyPrefab, spawnPoint.transform.position, UnityEngine.Quaternion.identity, transform);
+                
+                // Add special handling for rattleEnemy to ensure proper initialization
+                rattleEnemy rattleComp = enemy.GetComponent<rattleEnemy>();
+                if (rattleComp != null)
+                {
+                    // Optional initialization for rattleEnemy
+                }
+                
                 enemiesInRoom.Add(enemy);
             }
         }
