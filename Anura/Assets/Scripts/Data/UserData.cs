@@ -29,10 +29,7 @@ public class UserData : ScriptableObject
 
   public void OnDestroy()
   {
-    if (HasSave())
-    {
-      Save();
-    }
+    Save();
   }
 
   public bool HasSave()
@@ -40,7 +37,7 @@ public class UserData : ScriptableObject
     return File.Exists(savePath);
   }
 
-  public void Save()
+  public void Save(bool pushToServer = true)
   {
     try
     {
@@ -51,6 +48,12 @@ public class UserData : ScriptableObject
     catch (Exception e)
     {
       Debug.LogError($"Failed to save game: {e.Message}");
+    }
+    if (pushToServer)
+    {
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+      PushStats();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
     }
   }
 
@@ -111,7 +114,7 @@ public class UserData : ScriptableObject
         {
           user = response.user;
           Debug.Log("User verified successfully.");
-          Save();
+          Save(false);
           callback?.Invoke(true, user, "User verified successfully");
         }
         else
@@ -169,7 +172,7 @@ public class UserData : ScriptableObject
       if (response != null && !string.IsNullOrEmpty(response.token))
       {
         sessionToken = response.token;
-        Save();
+        Save(false);
         Debug.Log("Login successful, token received.");
         callback?.Invoke(true, "Login successful");
         Verify();
@@ -224,7 +227,7 @@ public class UserData : ScriptableObject
       if (serverStats != null)
       {
         MergeStats(serverStats);
-        Save();
+        Save(false);
         Debug.Log("Stats pulled and merged successfully.");
         return true;
       }
@@ -274,7 +277,7 @@ public class UserData : ScriptableObject
       if (serverStats != null)
       {
         MergeStats(serverStats);
-        Save();
+        Save(false);
         Debug.Log("Stats pushed and updated from server successfully.");
       }
 
@@ -294,7 +297,6 @@ public class UserData : ScriptableObject
     stats.totalKills = Math.Max(stats.totalKills, serverStats.totalKills);
     stats.totalItemsCollected = Math.Max(stats.totalItemsCollected, serverStats.totalItemsCollected);
     stats.furthestLevelReached = Math.Max(stats.furthestLevelReached, serverStats.furthestLevelReached);
-    stats.highestSpeedStat = Math.Max(stats.highestSpeedStat, serverStats.highestSpeedStat);
   }
 }
 

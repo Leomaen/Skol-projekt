@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
+  userData: {fileID: 11400000, guid: c6b0a55f2b19f1447a9e81949f6e282d, type: 2}
   normalRoomPrefabs:
   - {fileID: 4686975345856750221, guid: 93d5c35ded4a8e948b4cea7ffe0c5a8e, type: 3}
   - {fileID: 4686975345856750221, guid: 019a15da9062cd94180b949182a929f6, type: 3}
@@ -2030,6 +2031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
+  userData: {fileID: 11400000, guid: c6b0a55f2b19f1447a9e81949f6e282d, type: 2}
 --- !u!4 &859916703
 Transform:
   m_ObjectHideFlags: 0
@@ -2877,6 +2879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
+  userData: {fileID: 11400000, guid: c6b0a55f2b19f1447a9e81949f6e282d, type: 2}
   gameOverPanel: {fileID: 735539170}
   pauseMenuPanel: {fileID: 24121232}
 --- !u!114 &1116521450
@@ -3344,6 +3347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 24121232}
   mainMenuSceneName: MainMenu
+  userData: {fileID: 11400000, guid: c6b0a55f2b19f1447a9e81949f6e282d, type: 2}
 --- !u!1 &1715686578
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameOverManager : MonoBehaviour
 {
     public GameState gameState;
+    public UserData userData;
     public GameObject gameOverPanel;
     public GameObject pauseMenuPanel;
     private bool gameOverTriggered = false;
@@ -15,7 +16,7 @@ public class GameOverManager : MonoBehaviour
         }
     }
 
-    public void GameOver()
+    public async void GameOver()
     {
         if (gameOverTriggered) return;
         gameOverTriggered = true;
@@ -24,6 +25,9 @@ public class GameOverManager : MonoBehaviour
         gameState.DeleteSave();
         pauseMenuPanel.SetActive(false);
         gameOverPanel.SetActive(true);
+        userData.stats.totalDeaths++;
+        userData.Save();
+        await userData.PushStats();
 
         Debug.Log("Game over :(");
     }

@@ -8,5 +8,4 @@ public class StatisticsData
   public int totalKills;
   public int totalItemsCollected;
   public int furthestLevelReached;
-  public int highestSpeedStat;
 }

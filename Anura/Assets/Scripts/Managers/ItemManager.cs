@@ -10,6 +10,7 @@ public class WeaponModifier
 public class ItemManager : MonoBehaviour
 {
     public GameState gameState;
+    public UserData userData;
     public static ItemManager Instance { get; private set; }
     // Event that fires when items change
     public event Action OnItemsChanged;
@@ -36,6 +37,8 @@ public class ItemManager : MonoBehaviour
         item.ApplyEffect();
         OnItemsChanged?.Invoke();
 
+        userData.stats.totalItemsCollected++;
+        userData.Save();
         Debug.Log($"Added item: {item.itemName}");
 
         // Show notification for the picked-up item
@@ -60,6 +63,8 @@ public class ItemManager : MonoBehaviour
 
     public void AddWeaponModifier(WeaponModifier modifier)
     {
+        userData.stats.totalItemsCollected++;
+        userData.Save();
         gameState.activeWeaponModifiers.Add(modifier);
         OnItemsChanged?.Invoke();
     }

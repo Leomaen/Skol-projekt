@@ -6,6 +6,7 @@ using System.Linq; // Added for Linq operations
 public class RoomManager : MonoBehaviour
 {
     public GameState gameState;
+    public UserData userData;
 
     [SerializeField] List<GameObject> normalRoomPrefabs;  // List of normal room prefabs
     [SerializeField] GameObject playerPrefab;
@@ -54,9 +55,13 @@ public class RoomManager : MonoBehaviour
     public void GoToNextFloor()
     {
         gameState.world.floor++;
+        if (gameState.world.floor > userData.stats.furthestLevelReached)
+        {
+            userData.stats.furthestLevelReached = gameState.world.floor;
+            userData.Save();
+        }
 
         gameState.world.isGenerated = false;
-
         regenerationAttempts = 0;
 
         roomObjects.ForEach(Destroy);
