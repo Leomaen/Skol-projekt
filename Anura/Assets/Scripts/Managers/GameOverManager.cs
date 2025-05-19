@@ -8,7 +8,13 @@ public class GameOverManager : MonoBehaviour
     public GameObject pauseMenuPanel;
     private bool gameOverTriggered = false;
 
-    void Update()
+    void Awake()
+    {
+        PlayerController.OnPlayerDamaged += CheckIfGameOver;
+    }
+
+
+    private void CheckIfGameOver()
     {
         if (!gameOverTriggered && gameState.stats.PlayerHealth <= 0)
         {
@@ -23,7 +29,7 @@ public class GameOverManager : MonoBehaviour
 
         Time.timeScale = 0f;
         gameState.DeleteSave();
-        pauseMenuPanel.SetActive(false);
+        if (pauseMenuPanel != null) { pauseMenuPanel.SetActive(false); }
         gameOverPanel.SetActive(true);
         userData.stats.totalDeaths++;
         userData.Save();

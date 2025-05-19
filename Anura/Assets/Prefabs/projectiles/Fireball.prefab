@@ -188,5 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2a360ace1a92654db643e40b0d393ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
   rb: {fileID: 5335290516009075124}
   animator: {fileID: 8346880490364527245}

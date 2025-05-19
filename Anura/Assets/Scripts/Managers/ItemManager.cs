@@ -14,9 +14,6 @@ public class ItemManager : MonoBehaviour
     public UserData userData;
     public static ItemManager Instance { get; private set; }
 
-    // List to track which items have been permanently collected (by unique ID)
-    private HashSet<string> collectedItemIds = new HashSet<string>();
-
     // Event that fires when items change
     public event Action OnItemsChanged;
 
@@ -28,7 +25,6 @@ public class ItemManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
 
             // Subscribe to scene change events
             SceneManager.sceneLoaded += OnSceneLoaded;
@@ -56,7 +52,10 @@ public class ItemManager : MonoBehaviour
         }
 
         // Force item refreshes when a new scene loads
-        InvokeItemChangeEvent();
+        if (scene.name == "SampleScene")
+        {
+            InvokeItemChangeEvent();
+        }
     }
 
     // Helper method to safely invoke the OnItemsChanged event
@@ -153,7 +152,7 @@ public class ItemManager : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(uniqueItemId))
         {
-            collectedItemIds.Add(uniqueItemId);
+            gameState.collectedItemIds.Add(uniqueItemId);
             Debug.Log($"Item registered as picked up: {uniqueItemId}");
         }
     }
@@ -161,14 +160,14 @@ public class ItemManager : MonoBehaviour
     // Method to check if an item has been collected already
     public bool HasItemBeenCollected(string uniqueItemId)
     {
-        return !string.IsNullOrEmpty(uniqueItemId) && collectedItemIds.Contains(uniqueItemId);
+        return !string.IsNullOrEmpty(uniqueItemId) && gameState.collectedItemIds.Contains(uniqueItemId);
     }
 
     // For debugging or save/load functionality
     public string[] GetAllCollectedItemIds()
     {
-        string[] result = new string[collectedItemIds.Count];
-        collectedItemIds.CopyTo(result);
+        string[] result = new string[gameState.collectedItemIds.Count];
+        gameState.collectedItemIds.CopyTo(result);
         return result;
     }
 }

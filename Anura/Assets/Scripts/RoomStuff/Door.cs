@@ -13,7 +13,7 @@ public class Door : MonoBehaviour
 
     // Add reference to SceneFader
     [SerializeField] private SceneFader sceneFader;
-
+    [SerializeField] private PlayerController playerController;
     private BoxCollider2D doorCollider;
     private bool isTransitioning = false;
 
@@ -36,6 +36,11 @@ public class Door : MonoBehaviour
         if (sceneFader == null)
         {
             sceneFader = FindFirstObjectByType<SceneFader>();
+        }
+
+        if (playerController == null)
+        {
+            playerController = FindFirstObjectByType<PlayerController>();
         }
     }
 
@@ -62,6 +67,7 @@ public class Door : MonoBehaviour
     private IEnumerator DoorTransition(Transform player)
     {
         isTransitioning = true;
+        playerController.isTransitioning = true;
 
         // Fade out
         sceneFader.FadeOut(SceneFader.FadeType.PlainBlack);
@@ -106,6 +112,7 @@ public class Door : MonoBehaviour
         yield return new WaitForSeconds(sceneFader.FadeDuration);
 
         isTransitioning = false;
+        playerController.isTransitioning = false;
     }
 
     public void LockDoor()

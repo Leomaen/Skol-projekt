@@ -41,8 +41,6 @@ public class StatsUI : MonoBehaviour
     {
         int speedValue = Mathf.RoundToInt(gameState.stats.movementSpeed);
         string romanNumeral = ConvertToRoman(speedValue);
-        Debug.Log(statsSlots[0]);
-        Debug.Log(statsSlots[0].GetComponentInChildren<TMP_Text>());
         statsSlots[0].GetComponentInChildren<TMP_Text>().text = "Speed: " + romanNumeral;
     }
 

@@ -13,6 +13,8 @@ public class GameState : ScriptableObject
 
   public List<Item> activeItems = new();
   public List<WeaponModifier> activeWeaponModifiers = new();
+  public List<string> collectedItemIds = new();
+
 
   public void OnEnable()
   {
@@ -41,6 +43,7 @@ public class GameState : ScriptableObject
     stats = new();
     activeItems = new();
     activeWeaponModifiers = new();
+    collectedItemIds = new();
   }
 
   public bool HasSave()

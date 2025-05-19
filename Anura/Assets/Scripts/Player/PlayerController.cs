@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Weapon weapon;
 
     public static event Action OnPlayerDamaged;
-
+    public bool isTransitioning = false;
 
     void Start()
     {
@@ -39,10 +39,13 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = 0f;
         float verticalInput = 0f;
 
-        if (Input.GetKey(KeyCode.W)) verticalInput += 1f;
-        if (Input.GetKey(KeyCode.S)) verticalInput -= 1f;
-        if (Input.GetKey(KeyCode.A)) horizontalInput -= 1f;
-        if (Input.GetKey(KeyCode.D)) horizontalInput += 1f;
+        if (!isTransitioning)
+        {
+            if (Input.GetKey(KeyCode.W)) verticalInput += 1f;
+            if (Input.GetKey(KeyCode.S)) verticalInput -= 1f;
+            if (Input.GetKey(KeyCode.A)) horizontalInput -= 1f;
+            if (Input.GetKey(KeyCode.D)) horizontalInput += 1f;
+        }
 
         movementDirection = new Vector2(horizontalInput, verticalInput).normalized;
     }
