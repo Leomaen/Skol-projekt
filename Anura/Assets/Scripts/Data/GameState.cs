@@ -69,6 +69,26 @@ public class GameState : ScriptableObject
       Debug.LogError($"Failed to load game: {e.Message}");
     }
   }
+
+  public void DeleteSave()
+  {
+    if (HasSave())
+    {
+      try
+      {
+        File.Delete(savePath);
+        Debug.Log($"Save file deleted: {savePath}");
+      }
+      catch (Exception e)
+      {
+        Debug.LogError($"Failed to delete save file: {e.Message}");
+      }
+    }
+    else
+    {
+      Debug.LogWarning("No save file found to delete.");
+    }
+  }
 }
 
 [Serializable]
