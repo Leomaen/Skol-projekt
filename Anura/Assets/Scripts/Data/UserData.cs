@@ -1,20 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
 using System.IO;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using JetBrains.Annotations;
 
 [CreateAssetMenu(fileName = "UserData", menuName = "Scriptable Objects/UserData")]
 public class UserData : ScriptableObject
 {
+  public string sessionToken = string.Empty;
   public OnlineUser user;
   public StatisticsData stats = new();
-
-  public string sessionToken = string.Empty;
 
   private readonly string saveName = "user-data.json";
   private string savePath;

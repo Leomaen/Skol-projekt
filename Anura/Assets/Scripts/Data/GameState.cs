@@ -1,15 +1,18 @@
+using System.Collections.Generic;
 using System;
 using System.IO;
-using NUnit.Framework;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GameState", menuName = "Scriptable Objects/GameState")]
 public class GameState : ScriptableObject
 {
-
   private readonly string saveName = "game-state.json";
   private string savePath;
   public WorldState world = new();
+  public StatsState stats = new();
+
+  public List<Item> activeItems = new();
+  public List<WeaponModifier> activeWeaponModifiers = new();
 
   public void OnEnable()
   {
@@ -34,7 +37,10 @@ public class GameState : ScriptableObject
 
   public void NewGame()
   {
-    world = new WorldState();
+    world = new();
+    stats = new();
+    activeItems = new();
+    activeWeaponModifiers = new();
   }
 
   public bool HasSave()
@@ -101,4 +107,20 @@ public class WorldState
   public int seed = 0;
   public int floor = 1;
   public bool isGenerated = false;
+}
+
+[Serializable]
+public class StatsState
+{
+  [Header("Combat Stats")]
+  public int damage = 50;
+  public int bulletSpeed = 5;
+  public float atkSpeed = 0.5f;
+
+  [Header("Health Stats")]
+  public int PlayerHealth = 6;
+  public int maxHealth = 6;
+
+  [Header("Movement Stats")]
+  public float movementSpeed = 10f;
 }

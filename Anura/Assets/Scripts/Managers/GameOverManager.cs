@@ -9,7 +9,7 @@ public class GameOverManager : MonoBehaviour
 
     void Update()
     {
-        if (!gameOverTriggered && StatsManager.Instance.PlayerHealth <= 0)
+        if (!gameOverTriggered && gameState.stats.PlayerHealth <= 0)
         {
             GameOver();
         }

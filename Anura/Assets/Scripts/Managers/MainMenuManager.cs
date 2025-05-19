@@ -8,12 +8,12 @@ using System.Collections;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [SerializeField] string gameSceneName = "SampleScene";
-    [SerializeField] Button loadGameButton;
-    [SerializeField] SceneFader sceneFader;
     public GameState gameState;
     public UserData userData;
 
+    [SerializeField] string gameSceneName = "SampleScene";
+    [SerializeField] Button loadGameButton;
+    [SerializeField] SceneFader sceneFader;
     public GameObject statisticsPanel;
     public TMP_Text statisticsText;
 

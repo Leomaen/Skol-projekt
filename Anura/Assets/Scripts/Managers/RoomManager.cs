@@ -5,12 +5,13 @@ using System.Linq; // Added for Linq operations
 
 public class RoomManager : MonoBehaviour
 {
+    public GameState gameState;
+
     [SerializeField] List<GameObject> normalRoomPrefabs;  // List of normal room prefabs
     [SerializeField] GameObject playerPrefab;
     [SerializeField] private int maxRooms = 15;
     [SerializeField] private int minRooms = 10;
     [SerializeField] private List<RoomData> specialRooms;
-    public GameState gameState;
     [SerializeField] private int maxRegenerationAttempts = 5;
 
     public static event Action OnGenerationComplete;

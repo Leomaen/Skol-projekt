@@ -3,13 +3,14 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
+    public GameState gameState;
     public Rigidbody2D rb;
     public Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb.linearVelocity = transform.right * StatsManager.Instance.bulletSpeed;
+        rb.linearVelocity = transform.right * gameState.stats.bulletSpeed;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -25,7 +26,7 @@ public class Bullet : MonoBehaviour
         {
             // Check for regular enemy
             Enemy enemy = collision.GetComponent<Enemy>();
-            if (enemy != null) 
+            if (enemy != null)
             {
                 enemy.takeDamage();
                 Destroy(gameObject);
@@ -36,7 +37,7 @@ public class Bullet : MonoBehaviour
             BossEnemy bossEnemy = collision.GetComponent<BossEnemy>();
             if (bossEnemy != null)
             {
-                bossEnemy.TakeDamage(StatsManager.Instance.damage);
+                bossEnemy.TakeDamage(gameState.stats.damage);
                 Destroy(gameObject);
                 return;
             }

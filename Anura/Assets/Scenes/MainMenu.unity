@@ -2669,11 +2669,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1d4deb7f4aaab4f9b2ed48456252bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
+  userData: {fileID: 11400000, guid: c6b0a55f2b19f1447a9e81949f6e282d, type: 2}
   gameSceneName: SampleScene
   loadGameButton: {fileID: 1367344042}
   sceneFader: {fileID: 1608809252}
-  gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
-  userData: {fileID: 11400000, guid: c6b0a55f2b19f1447a9e81949f6e282d, type: 2}
   statisticsPanel: {fileID: 879772012}
   statisticsText: {fileID: 909676177}
   signInPanel: {fileID: 1929913669}

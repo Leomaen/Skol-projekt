@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class HealthManager : MonoBehaviour
 {
+    public GameState gameState;
     public GameObject heartPrefab;
     public PlayerController player;
     List<HealthHeart> hearts = new List<HealthHeart>();
@@ -19,24 +20,24 @@ public class HealthManager : MonoBehaviour
 
     public void Start()
     {
-        DrawHearts();   
+        DrawHearts();
     }
 
     public void DrawHearts()
     {
         ClearHearts();
 
-        float maxHealthRemainder = StatsManager.Instance.maxHealth % 2;
-        int heartsToMake = (int)(StatsManager.Instance.maxHealth / 2 + maxHealthRemainder);
+        float maxHealthRemainder = gameState.stats.maxHealth % 2;
+        int heartsToMake = (int)(gameState.stats.maxHealth / 2 + maxHealthRemainder);
 
-        for(int i = 0; i < heartsToMake; i++)
+        for (int i = 0; i < heartsToMake; i++)
         {
             CreateEmptyHeart();
         }
 
-        for(int i = 0; i < hearts.Count; i++)
+        for (int i = 0; i < hearts.Count; i++)
         {
-            int heartStatusRemainder = Mathf.Clamp(StatsManager.Instance.PlayerHealth - (i*2), 0, 2);
+            int heartStatusRemainder = Mathf.Clamp(gameState.stats.PlayerHealth - (i * 2), 0, 2);
             hearts[i].SetHeartImage((HeartStatus)heartStatusRemainder);
         }
 
@@ -46,13 +47,13 @@ public class HealthManager : MonoBehaviour
     {
         GameObject newHeart = Instantiate(heartPrefab);
         newHeart.transform.SetParent(transform);
-        
+
         // Fix for heart scaling issue
         RectTransform rectTransform = newHeart.GetComponent<RectTransform>();
         if (rectTransform != null)
         {
             rectTransform.localScale = Vector3.one;
-            
+
             // Optional - if you need specific size, uncomment and adjust values
             // rectTransform.sizeDelta = new Vector2(50, 50);
         }
@@ -64,11 +65,11 @@ public class HealthManager : MonoBehaviour
 
     public void ClearHearts()
     {
-        foreach(Transform t in transform)
+        foreach (Transform t in transform)
         {
             Destroy(t.gameObject);
         }
         hearts = new List<HealthHeart>();
     }
-    
+
 }

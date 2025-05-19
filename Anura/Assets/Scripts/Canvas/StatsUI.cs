@@ -5,6 +5,7 @@ using System.Collections;
 
 public class StatsUI : MonoBehaviour
 {
+    public GameState gameState;
     public GameObject[] statsSlots;
 
     private void Awake()
@@ -20,7 +21,7 @@ public class StatsUI : MonoBehaviour
         {
             yield return null;
         }
-        
+
         // Now it's safe to subscribe
         ItemManager.Instance.OnItemsChanged += OnItemsChanged;
         Debug.Log("Successfully subscribed to OnItemsChanged event");
@@ -36,31 +37,38 @@ public class StatsUI : MonoBehaviour
         UpdateAllStats();
     }
 
-    private void UpdateSpeed() {
-        int speedValue = Mathf.RoundToInt(StatsManager.Instance.movementSpeed);
+    private void UpdateSpeed()
+    {
+        int speedValue = Mathf.RoundToInt(gameState.stats.movementSpeed);
         string romanNumeral = ConvertToRoman(speedValue);
+        Debug.Log(statsSlots[0]);
+        Debug.Log(statsSlots[0].GetComponentInChildren<TMP_Text>());
         statsSlots[0].GetComponentInChildren<TMP_Text>().text = "Speed: " + romanNumeral;
     }
 
-    private void UpdateDamage() {
-        int damageValue = Mathf.RoundToInt(StatsManager.Instance.damage);
+    private void UpdateDamage()
+    {
+        int damageValue = Mathf.RoundToInt(gameState.stats.damage);
         string romanNumeral = ConvertToRoman(damageValue);
         statsSlots[1].GetComponentInChildren<TMP_Text>().text = "Damage: " + romanNumeral;
     }
 
-    private void UpdateatkSpeed() {
-        int atkSpeedValue = Mathf.RoundToInt(StatsManager.Instance.atkSpeed);
+    private void UpdateatkSpeed()
+    {
+        int atkSpeedValue = Mathf.RoundToInt(gameState.stats.atkSpeed);
         string romanNumeral = ConvertToRoman(atkSpeedValue);
         statsSlots[2].GetComponentInChildren<TMP_Text>().text = "ATKSpeed: " + romanNumeral;
     }
 
-    private void UpdateBulletSpeed() {
-        int bulletSpeedValue = Mathf.RoundToInt(StatsManager.Instance.bulletSpeed);
+    private void UpdateBulletSpeed()
+    {
+        int bulletSpeedValue = Mathf.RoundToInt(gameState.stats.bulletSpeed);
         string romanNumeral = ConvertToRoman(bulletSpeedValue);
         statsSlots[3].GetComponentInChildren<TMP_Text>().text = "BulletSpeed: " + romanNumeral;
     }
 
-    public void UpdateAllStats() {
+    public void UpdateAllStats()
+    {
         UpdateSpeed();
         UpdateDamage();
         UpdateatkSpeed();
@@ -90,7 +98,7 @@ public class StatsUI : MonoBehaviour
         };
 
         string result = "";
-        
+
         foreach (var kvp in romanNumerals)
         {
             while (number >= kvp.Key)
@@ -99,7 +107,7 @@ public class StatsUI : MonoBehaviour
                 number -= kvp.Key;
             }
         }
-        
+
         return result;
     }
 }

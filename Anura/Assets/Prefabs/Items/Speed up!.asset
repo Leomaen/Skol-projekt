@@ -16,5 +16,6 @@ MonoBehaviour:
   description: 
   icon: {fileID: -8305358921124636501, guid: b52f5cc325fd1244584b81ad2f8e3640, type: 3}
   itemType: 0
+  gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
   statType: 0
   modifierValue: 5

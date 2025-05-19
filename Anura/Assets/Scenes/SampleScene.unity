@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e2de1965286f44db94f09b30ea5105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
   normalRoomPrefabs:
   - {fileID: 4686975345856750221, guid: 93d5c35ded4a8e948b4cea7ffe0c5a8e, type: 3}
   - {fileID: 4686975345856750221, guid: 019a15da9062cd94180b949182a929f6, type: 3}
@@ -180,7 +181,6 @@ MonoBehaviour:
     roomType: 4
     maxPerFloor: 1
     currentCount: 0
-  gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
   maxRegenerationAttempts: 5
   gridSizeX: 15
   gridSizeY: 15
@@ -1994,6 +1994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800c5437eb0d19f48a382f94f664a787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
   statsSlots:
   - {fileID: 1747511792}
   - {fileID: 2139383206}
@@ -2028,7 +2029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a6d0fe3148e5841896d2c0463d13ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeItems: []
+  gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
 --- !u!4 &859916703
 Transform:
   m_ObjectHideFlags: 0
@@ -2241,6 +2242,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthUI
       objectReference: {fileID: 0}
+    - target: {fileID: 5184111545888541217, guid: ec2320a671040d94989548fbdf248ab8, type: 3}
+      propertyPath: gameState
+      value: 
+      objectReference: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3683,6 +3688,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 4272532957968330843, guid: 7232ef933466d91418be355a06460642, type: 3}
+    - target: {fileID: 8240071401951919598, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
+      propertyPath: gameState
+      value: 
+      objectReference: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3979,7 +3988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2047984285
 Transform:
   m_ObjectHideFlags: 0
@@ -4007,12 +4016,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 743b422d96fe11e46afcbd8d1e6b9af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 50
-  bulletSpeed: 5
-  atkSpeed: 0.5
-  PlayerHealth: 6
-  maxHealth: 6
-  movementSpeed: 10
 --- !u!1 &2073016449
 GameObject:
   m_ObjectHideFlags: 0
