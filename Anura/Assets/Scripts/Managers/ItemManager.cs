@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class WeaponModifier
 {
@@ -15,8 +16,14 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private List<Item> activeItems = new List<Item>();
     [SerializeField] private List<WeaponModifier> activeWeaponModifiers = new List<WeaponModifier>();
     
+    // List to track which items have been permanently collected (by unique ID)
+    private HashSet<string> collectedItemIds = new HashSet<string>();
+    
     // Event that fires when items change
     public event Action OnItemsChanged;
+    
+    // Event that fires when scene is starting - for item pickups to check if they should appear
+    public static event Action<string> OnCheckItemsInScene;
     
     private void Awake()
     {
@@ -24,10 +31,49 @@ public class ItemManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            
+            // Subscribe to scene change events
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+    
+    private void OnDestroy()
+    {
+        // Unsubscribe from scene events when destroyed
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"Scene loaded: {scene.name}, checking for previously collected items");
+        
+        // Allow item pickups to check if they should appear
+        if (OnCheckItemsInScene != null)
+        {
+            OnCheckItemsInScene.Invoke(scene.name);
+        }
+        
+        // Force item refreshes when a new scene loads
+        InvokeItemChangeEvent();
+    }
+    
+    // Helper method to safely invoke the OnItemsChanged event
+    private void InvokeItemChangeEvent()
+    {
+        if (OnItemsChanged != null)
+        {
+            try
+            {
+                OnItemsChanged.Invoke();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Error in OnItemsChanged event: {e.Message}");
+            }
         }
     }
     
@@ -36,18 +82,29 @@ public class ItemManager : MonoBehaviour
         // Don't add null items
         if (item == null) return;
         
+        // Don't check for duplicates - each item should be instantiated uniquely
         activeItems.Add(item);
-        item.ApplyEffect();
-        OnItemsChanged?.Invoke();
+        
+        try
+        {
+            item.ApplyEffect();
+            Debug.Log($"Applied effect of item: {item.itemName}");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error applying item effect: {e.Message}");
+        }
         
         Debug.Log($"Added item: {item.itemName}");
 
         // Show notification for the picked-up item
         if (NotificationTitles.Instance != null)
         {
-            // Assuming your Item class has a 'itemName' or similar public string property
             NotificationTitles.Instance.ShowNotification(item.itemName); 
         }
+        
+        // Notify listeners after item is fully added
+        InvokeItemChangeEvent();
     }
     
     public void RemoveItem(Item item)
@@ -87,5 +144,29 @@ public class ItemManager : MonoBehaviour
     public List<Item> GetActiveItems()
     {
         return activeItems;
+    }
+    
+    // Method to register an item as permanently collected
+    public void RegisterItemPickup(string uniqueItemId)
+    {
+        if (!string.IsNullOrEmpty(uniqueItemId))
+        {
+            collectedItemIds.Add(uniqueItemId);
+            Debug.Log($"Item registered as picked up: {uniqueItemId}");
+        }
+    }
+    
+    // Method to check if an item has been collected already
+    public bool HasItemBeenCollected(string uniqueItemId)
+    {
+        return !string.IsNullOrEmpty(uniqueItemId) && collectedItemIds.Contains(uniqueItemId);
+    }
+    
+    // For debugging or save/load functionality
+    public string[] GetAllCollectedItemIds()
+    {
+        string[] result = new string[collectedItemIds.Count];
+        collectedItemIds.CopyTo(result);
+        return result;
     }
 }
