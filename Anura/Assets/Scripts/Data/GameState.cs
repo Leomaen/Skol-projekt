@@ -23,6 +23,11 @@ public class GameState : ScriptableObject
     RoomManager.OnGenerationComplete -= Save;
   }
 
+  public void OnDestroy()
+  {
+    Save();
+  }
+
   public void NewGame()
   {
     world = new WorldState();

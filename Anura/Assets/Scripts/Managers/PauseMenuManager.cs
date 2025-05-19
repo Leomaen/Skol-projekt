@@ -44,4 +44,15 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         SceneManager.LoadScene(mainMenuSceneName);
     }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quiting Game...");
+#if UNITY_STANDALONE
+        Application.Quit();
+#endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
 }

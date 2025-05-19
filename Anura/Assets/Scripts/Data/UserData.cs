@@ -32,6 +32,11 @@ public class UserData : ScriptableObject
     savePath = Path.Combine(Application.persistentDataPath, saveName);
   }
 
+  public void OnDestroy()
+  {
+    Save();
+  }
+
   public bool HasSave()
   {
     return File.Exists(savePath);
