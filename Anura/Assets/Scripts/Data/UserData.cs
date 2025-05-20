@@ -114,7 +114,7 @@ public class UserData : ScriptableObject
         {
           user = response.user;
           Debug.Log("User verified successfully.");
-          Save(false);
+          Save();
           callback?.Invoke(true, user, "User verified successfully");
         }
         else
@@ -246,7 +246,7 @@ public class UserData : ScriptableObject
 
   public async Task<bool> PushStats()
   {
-    if (user == null)
+    if (sessionToken == string.Empty || user == null || user._id == string.Empty)
     {
       Debug.LogWarning("User is not logged in. Cannot push stats.");
       return false;

@@ -106,12 +106,11 @@ public class MainMenuManager : MonoBehaviour
         string usernameOrEmail = userNameInputField.text;
         string password = passwordInputField.text;
 
-        userData.Login(usernameOrEmail, password, async (success, message) =>
+        userData.Login(usernameOrEmail, password, (success, message) =>
         {
             Debug.Log(message);
             if (success)
             {
-                await userData.PushStats();
                 signInButton.SetActive(false);
                 signOutButton.SetActive(true);
                 signInPanel.SetActive(false);

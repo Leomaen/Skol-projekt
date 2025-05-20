@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13212d8b69b1b1c48942adc9d121475c, type: 3}
   m_Name: UserData
   m_EditorClassIdentifier: 
-  sessionToken: 07a5955f459e49f6889786f63a6e1c16
+  sessionToken: c9a28eaaeb0a429fa6f7abac26b03f3b
   user:
     _id: da81a9bffce7497aa48cd1c18728279c
     username: aMeow
     stats:
-      playTime: 101865
-      totalDeaths: 5
+      playTime: 1463706
+      totalDeaths: 9
       totalKills: 555556
-      totalItemsCollected: 5
+      totalItemsCollected: 15
       furthestLevelReached: 3
     thumbnail: 519af37a-4629-4443-9754-e71937b88e7f.png
   stats:
-    playTime: 110884
-    totalDeaths: 5
+    playTime: 1508255
+    totalDeaths: 9
     totalKills: 555556
-    totalItemsCollected: 5
+    totalItemsCollected: 15
     furthestLevelReached: 3
