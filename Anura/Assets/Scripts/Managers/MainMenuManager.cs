@@ -77,6 +77,7 @@ public class MainMenuManager : MonoBehaviour
     {
         Debug.Log("Opening Statistics Panel...");
         await userData.PushStats();
+        AudioManager.Instance.PlayMenuOpen();
         statisticsPanel.SetActive(true);
 
         statisticsText.text = JsonUtility.ToJson(userData.stats, true);
@@ -85,18 +86,21 @@ public class MainMenuManager : MonoBehaviour
     public void CloseStatisticsPanel()
     {
         Debug.Log("Closing Statistics Panel...");
+        AudioManager.Instance.PlayMenuClose();
         statisticsPanel.SetActive(false);
     }
 
     public void OpenSignInPanel()
     {
         Debug.Log("Opening Sign In Form...");
+        AudioManager.Instance.PlayMenuOpen();
         signInPanel.SetActive(true);
     }
 
     public void CloseSignInPanel()
     {
         Debug.Log("Closing Sign In Form...");
+        AudioManager.Instance.PlayMenuClose();
         signInPanel.SetActive(false);
     }
 
@@ -113,7 +117,7 @@ public class MainMenuManager : MonoBehaviour
             {
                 signInButton.SetActive(false);
                 signOutButton.SetActive(true);
-                signInPanel.SetActive(false);
+                CloseSignInPanel();
             }
             else
             {

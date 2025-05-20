@@ -30,6 +30,7 @@ public class GameOverManager : MonoBehaviour
         Time.timeScale = 0f;
         gameState.DeleteSave();
         if (pauseMenuPanel != null) { pauseMenuPanel.SetActive(false); }
+        AudioManager.Instance.PlayMenuOpen();
         gameOverPanel.SetActive(true);
         userData.stats.totalDeaths++;
         userData.Save();
