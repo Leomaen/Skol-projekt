@@ -23,7 +23,9 @@ MonoBehaviour:
     PlayerHealth: 6
     maxHealth: 6
     movementSpeed: 15
+    movementSpeed: 15
   activeItems:
   - {fileID: 0}
   collectedItemIds:
+  - SampleScene_4,4_-2,4_0_Speed up!
   - SampleScene_4,4_-2,4_0_Speed up!

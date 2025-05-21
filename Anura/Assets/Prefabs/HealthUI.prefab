@@ -215,5 +215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ede18bd411789f4b8d9c569d0bcb98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
   heartPrefab: {fileID: 3242191520371159263, guid: e1723473895c30c489a214f94546e99d, type: 3}
   player: {fileID: 0}
