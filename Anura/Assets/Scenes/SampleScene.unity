@@ -3771,6 +3771,10 @@ PrefabInstance:
       propertyPath: gameState
       value: 
       objectReference: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
+    - target: {fileID: 8240071401951919598, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
+      propertyPath: footstepDelay
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

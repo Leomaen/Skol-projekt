@@ -94,6 +94,7 @@ public class ItemManager : MonoBehaviour
 
         userData.stats.totalItemsCollected++;
         userData.Save();
+        AudioManager.Instance.PlaySound("ItemPickup");
         Debug.Log($"Added item: {item.itemName}");
 
         // Show notification for the picked-up item
@@ -123,6 +124,7 @@ public class ItemManager : MonoBehaviour
         userData.stats.totalItemsCollected++;
         userData.Save();
         gameState.activeWeaponModifiers.Add(modifier);
+        AudioManager.Instance.PlaySound("ItemPickup");
         OnItemsChanged?.Invoke();
     }
 

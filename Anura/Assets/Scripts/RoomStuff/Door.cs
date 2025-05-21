@@ -68,6 +68,7 @@ public class Door : MonoBehaviour
     {
         isTransitioning = true;
         playerController.isTransitioning = true;
+        AudioManager.Instance.PlaySound("Teleport");
 
         // Fade out
         sceneFader.FadeOut(SceneFader.FadeType.PlainBlack);

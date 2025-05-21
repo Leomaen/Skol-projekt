@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 movementDirection;
     public Transform firePoint;
     private float lastShotTime = 0f;
+    private bool isWalking = false;
+        private float lastFootstepTime = 0f;
+    [SerializeField] private float footstepDelay = 0.3f;
 
     [SerializeField] private float firePointDistance = 0.5f;
     [SerializeField] private Weapon weapon;
@@ -46,8 +49,25 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.A)) horizontalInput -= 1f;
             if (Input.GetKey(KeyCode.D)) horizontalInput += 1f;
         }
+        bool isMovingNow = (verticalInput != 0f || horizontalInput != 0f);
 
+  if (isMovingNow && Time.time > lastFootstepTime + footstepDelay)
+        {
+            PlayFootstepSound();
+            lastFootstepTime = Time.time;
+        }
+
+        // Update walking state
+        isWalking = isMovingNow;
+        
         movementDirection = new Vector2(horizontalInput, verticalInput).normalized;
+    }
+
+    private void PlayFootstepSound()
+    {
+            int randomSound = UnityEngine.Random.Range(0, 4);
+        
+        AudioManager.Instance.PlaySound($"PlayerWalk{randomSound}");
     }
 
     void HandleFirePointRotation()

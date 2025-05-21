@@ -140,10 +140,10 @@ public class Room : MonoBehaviour
 
     public void OpenDoor(Vector2Int direction)
     {
-        if (direction == Vector2Int.up && topDoor != null) 
+        if (direction == Vector2Int.up && topDoor != null)
         {
-            topDoor.SetActive(true); 
-            topDoorTree.SetActive(false); 
+            topDoor.SetActive(true);
+            topDoorTree.SetActive(false);
             Debug.Log($"Opening top door in {gameObject.name}");
         }
         if (direction == Vector2Int.down && bottomDoor != null) 
@@ -235,6 +235,7 @@ public class Room : MonoBehaviour
     private void UnlockDoors()
     {
         doorsLocked = false;
+        AudioManager.Instance.PlaySound("DoorOpen");
         
         if (topDoor && topDoor.activeSelf) topDoor.GetComponent<Door>().UnlockDoor();
         if (bottomDoor && bottomDoor.activeSelf) bottomDoor.GetComponent<Door>().UnlockDoor();

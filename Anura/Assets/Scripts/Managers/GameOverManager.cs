@@ -27,6 +27,7 @@ public class GameOverManager : MonoBehaviour
         if (gameOverTriggered) return;
         gameOverTriggered = true;
 
+        AudioManager.Instance.PlaySound("PlayerDeath");
         Time.timeScale = 0f;
         gameState.DeleteSave();
         if (pauseMenuPanel != null) { pauseMenuPanel.SetActive(false); }
