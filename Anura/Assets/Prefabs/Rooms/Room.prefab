@@ -3810,7 +3810,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.10409279, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3820,7 +3820,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.79181445, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &5450651364894080997
 MonoBehaviour:
@@ -3839,6 +3839,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &2369546435531917710
 GameObject:
   m_ObjectHideFlags: 0
@@ -3991,6 +3992,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &2825807680502451692
 GameObject:
   m_ObjectHideFlags: 0
@@ -4277,6 +4279,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &3542073436932785006
 GameObject:
   m_ObjectHideFlags: 0
@@ -4533,7 +4536,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.09789586, y: 0}
+  m_Offset: {x: -0.25678086, y: -0.060212255}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4543,7 +4546,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8042083, y: 1}
+  m_Size: {x: 0.4864383, y: 1.7334948}
   m_EdgeRadius: 0
 --- !u!1 &3796271179228695908
 GameObject:
@@ -4697,6 +4700,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &3941207912898742917
 GameObject:
   m_ObjectHideFlags: 0
@@ -5434,7 +5438,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.14684382, y: 0}
+  m_Offset: {x: 0.22615297, y: 0.07930964}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5444,7 +5448,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.70631236, y: 1}
+  m_Size: {x: 0.5476941, y: 1.7930976}
   m_EdgeRadius: 0
 --- !u!1 &6168249005472532548
 GameObject:
