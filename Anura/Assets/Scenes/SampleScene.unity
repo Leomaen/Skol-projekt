@@ -151,7 +151,6 @@ MonoBehaviour:
   gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
   userData: {fileID: 11400000, guid: c6b0a55f2b19f1447a9e81949f6e282d, type: 2}
   normalRoomPrefabs:
-  - {fileID: 4686975345856750221, guid: 93d5c35ded4a8e948b4cea7ffe0c5a8e, type: 3}
   - {fileID: 4686975345856750221, guid: 019a15da9062cd94180b949182a929f6, type: 3}
   - {fileID: 4686975345856750221, guid: 0e955eeaf6b7d2c45bb3b2ab306c1c38, type: 3}
   - {fileID: 4686975345856750221, guid: d38412e8d51311546bdce6159a9bf247, type: 3}
