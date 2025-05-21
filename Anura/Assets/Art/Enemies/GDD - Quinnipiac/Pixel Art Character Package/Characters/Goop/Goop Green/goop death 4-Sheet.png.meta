@@ -1,88 +1,15 @@
 fileFormatVersion: 2
 guid: ee04d1ef177532840b48d5c9708ab2a3
+AssetOrigin:
+  serializedVersion: 1
+  productId: 312497
+  packageName: Pixel Art Character Package
+  packageVersion: 1.0
+  assetPath: Assets/Art/Enemies/GDD - Quinnipiac/Pixel Art Character Package/Characters/Goop/Goop
+    Green/goop death 4-Sheet.png
+  uploadId: 746928
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 6980657930420887346
-    second: goop death 4-Sheet_0
-  - first:
-      213: 4758369726969119525
-    second: goop death 4-Sheet_1
-  - first:
-      213: 8673552792948283124
-    second: goop death 4-Sheet_2
-  - first:
-      213: -6782149127601222536
-    second: goop death 4-Sheet_3
-  - first:
-      213: -4490662583980192006
-    second: goop death 4-Sheet_4
-  - first:
-      213: 8450837349371197690
-    second: goop death 4-Sheet_5
-  - first:
-      213: -5827746149871621944
-    second: goop death 4-Sheet_6
-  - first:
-      213: -7923779846821754135
-    second: goop death 4-Sheet_7
-  - first:
-      213: 2343261250201372352
-    second: goop death 4-Sheet_8
-  - first:
-      213: 2884389008780347584
-    second: goop death 4-Sheet_9
-  - first:
-      213: -6032755788443662085
-    second: goop death 4-Sheet_10
-  - first:
-      213: -8411220360805156421
-    second: goop death 4-Sheet_11
-  - first:
-      213: -2029619481987810029
-    second: goop death 4-Sheet_12
-  - first:
-      213: -3326608710259211446
-    second: goop death 4-Sheet_13
-  - first:
-      213: -4954527826630934385
-    second: goop death 4-Sheet_14
-  - first:
-      213: 794428270443650918
-    second: goop death 4-Sheet_15
-  - first:
-      213: 4222477571517527332
-    second: goop death 4-Sheet_16
-  - first:
-      213: -5750511529025793599
-    second: goop death 4-Sheet_17
-  - first:
-      213: 3062996947712066423
-    second: goop death 4-Sheet_18
-  - first:
-      213: -3263674984385058210
-    second: goop death 4-Sheet_19
-  - first:
-      213: 6150708562791676403
-    second: goop death 4-Sheet_20
-  - first:
-      213: 3877309750896648655
-    second: goop death 4-Sheet_21
-  - first:
-      213: 8885091309031912055
-    second: goop death 4-Sheet_22
-  - first:
-      213: 5307237046825719724
-    second: goop death 4-Sheet_23
-  - first:
-      213: 6132402618456515581
-    second: goop death 4-Sheet_24
-  - first:
-      213: 5447166447058404417
-    second: goop death 4-Sheet_25
-  - first:
-      213: 4039251543860720992
-    second: goop death 4-Sheet_26
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -120,7 +47,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -196,8 +123,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 256
+        width: 325
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,8 +133,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa2c1e27baf1dd64dabef1b76a753f9f
-      internalID: 756119271
+      spriteID: 3f51f47da40c9cc42a8bd2aeabcb77bf
+      internalID: 589864741
       vertices: []
       indices: 
       edges: []
@@ -216,10 +143,10 @@ TextureImporter:
       name: goop death 4-Sheet_1
       rect:
         serializedVersion: 2
-        x: 256
+        x: 325
         y: 0
-        width: 256
-        height: 256
+        width: 325
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -228,8 +155,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dcde143fc3d3f004daf03e395448295c
-      internalID: -1120218999
+      spriteID: 91bb94f13075f8d45b58b4f28f44ff6a
+      internalID: 1909095687
       vertices: []
       indices: 
       edges: []
@@ -238,10 +165,10 @@ TextureImporter:
       name: goop death 4-Sheet_2
       rect:
         serializedVersion: 2
-        x: 512
+        x: 650
         y: 0
-        width: 256
-        height: 256
+        width: 325
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,8 +177,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d69999a0ba750704c803db6606b62585
-      internalID: -161103522
+      spriteID: 519739408d3bd4a45ba4185de19d67d5
+      internalID: -853541218
       vertices: []
       indices: 
       edges: []
@@ -260,10 +187,10 @@ TextureImporter:
       name: goop death 4-Sheet_3
       rect:
         serializedVersion: 2
-        x: 768
+        x: 975
         y: 0
-        width: 256
-        height: 256
+        width: 325
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,8 +199,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4881e856912fd304caa77b865c2f37d9
-      internalID: -1789763100
+      spriteID: 08a3f0e3389ccff4c99962b0424a4291
+      internalID: -1536821413
       vertices: []
       indices: 
       edges: []
@@ -282,10 +209,10 @@ TextureImporter:
       name: goop death 4-Sheet_4
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 1300
         y: 0
-        width: 256
-        height: 256
+        width: 325
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -294,8 +221,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efa36a408612a424b8540751491ec6ab
-      internalID: -1345964659
+      spriteID: def4875d715a9e54aad02919c4bfaaf8
+      internalID: 1907714288
       vertices: []
       indices: 
       edges: []
@@ -304,10 +231,10 @@ TextureImporter:
       name: goop death 4-Sheet_5
       rect:
         serializedVersion: 2
-        x: 1280
+        x: 1625
         y: 0
-        width: 256
-        height: 256
+        width: 325
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -316,8 +243,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f33848b7f676914997ff47e177efb58
-      internalID: -2057641452
+      spriteID: d34f88a9d0cd9884ab1674c0dbe06e13
+      internalID: -1217205093
       vertices: []
       indices: 
       edges: []
@@ -326,10 +253,10 @@ TextureImporter:
       name: goop death 4-Sheet_6
       rect:
         serializedVersion: 2
-        x: 1536
+        x: 1950
         y: 0
-        width: 256
-        height: 256
+        width: 325
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -338,8 +265,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34602d0fa0e806a4f9c0d09d269f6f38
-      internalID: -1097702020
+      spriteID: b3e820684e61a8f449eb745c8ba93fc3
+      internalID: -1720602249
       vertices: []
       indices: 
       edges: []
@@ -348,10 +275,10 @@ TextureImporter:
       name: goop death 4-Sheet_7
       rect:
         serializedVersion: 2
-        x: 1792
+        x: 2275
         y: 0
-        width: 256
-        height: 256
+        width: 325
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -360,8 +287,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7abc57211381744429e61532e6023cf8
-      internalID: -1215896834
+      spriteID: bc1d80b0de3d03546a0574e7ba5bb3cb
+      internalID: -485738809
       vertices: []
       indices: 
       edges: []
@@ -370,10 +297,10 @@ TextureImporter:
       name: goop death 4-Sheet_8
       rect:
         serializedVersion: 2
-        x: 2048
+        x: 2600
         y: 0
-        width: 256
-        height: 256
+        width: 325
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -382,8 +309,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18a2d858d7231bb48a2fd62002bf9797
-      internalID: -2007504104
+      spriteID: 4d4ba8a0fc6ee4b479a834434aaa4765
+      internalID: -645424612
       vertices: []
       indices: 
       edges: []
@@ -392,10 +319,10 @@ TextureImporter:
       name: goop death 4-Sheet_9
       rect:
         serializedVersion: 2
-        x: 2304
+        x: 2925
         y: 0
-        width: 256
-        height: 256
+        width: 325
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -404,8 +331,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: af5aacc1083c5294d931317b430217a1
-      internalID: 1010197151
+      spriteID: 41a46ca1d19ea524c9f6f67fd7bef443
+      internalID: 919968888
       vertices: []
       indices: 
       edges: []
@@ -414,10 +341,10 @@ TextureImporter:
       name: goop death 4-Sheet_10
       rect:
         serializedVersion: 2
-        x: 2560
+        x: 3250
         y: 0
-        width: 256
-        height: 256
+        width: 325
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -426,8 +353,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f52cd18a778a7e408294d3a5067a8e1
-      internalID: 134221362
+      spriteID: 3fe54e0bc20102d4da94236935566903
+      internalID: 869673273
       vertices: []
       indices: 
       edges: []
@@ -436,10 +363,10 @@ TextureImporter:
       name: goop death 4-Sheet_11
       rect:
         serializedVersion: 2
-        x: 2816
+        x: 3575
         y: 0
-        width: 256
-        height: 256
+        width: 325
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -448,8 +375,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c53068538c592b14b985f81831dce76c
-      internalID: 1262234064
+      spriteID: d005907fbd4045f4e95f85c48f298189
+      internalID: 1151553596
       vertices: []
       indices: 
       edges: []
@@ -458,10 +385,10 @@ TextureImporter:
       name: goop death 4-Sheet_12
       rect:
         serializedVersion: 2
-        x: 3072
+        x: 3900
         y: 0
-        width: 256
-        height: 256
+        width: 325
+        height: 275
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -470,8 +397,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b8a9badc80df9c4bba671f4e876d1c6
-      internalID: 2108243118
+      spriteID: 90eacc2e200a4094895cfff5a8341b8c
+      internalID: -1558713987
       vertices: []
       indices: 
       edges: []
@@ -480,7 +407,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b66839d77bb677d48af5e94c29ec1e64
+    spriteID: e59315b24e2a52f4dbb55866a280d52c
     internalID: 0
     vertices: []
     indices: 
@@ -490,19 +417,19 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      goop death 4-Sheet_0: 756119271
-      goop death 4-Sheet_1: -1120218999
-      goop death 4-Sheet_10: 134221362
-      goop death 4-Sheet_11: 1262234064
-      goop death 4-Sheet_12: 2108243118
-      goop death 4-Sheet_2: -161103522
-      goop death 4-Sheet_3: -1789763100
-      goop death 4-Sheet_4: -1345964659
-      goop death 4-Sheet_5: -2057641452
-      goop death 4-Sheet_6: -1097702020
-      goop death 4-Sheet_7: -1215896834
-      goop death 4-Sheet_8: -2007504104
-      goop death 4-Sheet_9: 1010197151
+      goop death 4-Sheet_0: 589864741
+      goop death 4-Sheet_1: 1909095687
+      goop death 4-Sheet_10: 869673273
+      goop death 4-Sheet_11: 1151553596
+      goop death 4-Sheet_12: -1558713987
+      goop death 4-Sheet_2: -853541218
+      goop death 4-Sheet_3: -1536821413
+      goop death 4-Sheet_4: 1907714288
+      goop death 4-Sheet_5: -1217205093
+      goop death 4-Sheet_6: -1720602249
+      goop death 4-Sheet_7: -485738809
+      goop death 4-Sheet_8: -645424612
+      goop death 4-Sheet_9: 919968888
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

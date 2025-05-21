@@ -1,7 +1,8 @@
+// filepath: c:\Users\leowik23\Documents\GitHub\Unityprojekt\Skol-projekt\Anura\Assets\Scripts\Enemy\rattleEnemy.cs
 using UnityEngine;
 using System.Collections;
 
-public class rattleEnemy : MonoBehaviour
+public class rattleEnemy : Enemy // Inherit from Enemy
 {
     [Header("Movement")]
     public float moveSpeed = 2.5f;
@@ -15,13 +16,16 @@ public class rattleEnemy : MonoBehaviour
     private float lastRushTime;
     private bool isRushing = false;
     
-    [Header("Health")]
-    public int health = 3;
-    
     [Header("Damage")]
     public int contactDamage = 1;
     public float damageInterval = 1.0f;
     private float lastDamageTime;
+
+    [Header("Damage Visuals")] // New Header
+    public float flashDuration = 0.1f;
+    public Color damageFlashColor = Color.red;
+    private Color originalColor;
+    private bool isFlashing = false;
     
     [Header("References")]
     public LayerMask wallLayer;
@@ -36,7 +40,7 @@ public class rattleEnemy : MonoBehaviour
     // State tracking
     private bool isDead = false;
     private Vector2 moveDirection;
-    private bool canRush = true;
+    // private bool canRush = true; // canRush was not used, consider removing if still unused
     
     void Start()
     {
@@ -44,10 +48,23 @@ public class rattleEnemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null) // Store original color
+        {
+            originalColor = spriteRenderer.color;
+        }
+        enemyCollider = GetComponent<Collider2D>();
         enemyCollider = GetComponent<Collider2D>();
         
         // Find player
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
+        else
+        {
+            Debug.LogWarning("Player not found in scene for rattleEnemy: " + gameObject.name);
+        }
         
         // Initialize timers
         lastRushTime = -rushCooldown; // Allow immediate rush
@@ -56,6 +73,12 @@ public class rattleEnemy : MonoBehaviour
         // Set default animation
         if (animator != null)
             animator.SetBool("isIdle", true);
+
+        // Ensure GameState is assigned (it's inherited from Enemy, but needs to be linked in Inspector)
+        if (gameState == null)
+        {
+            Debug.LogError("GameState not assigned to rattleEnemy: " + gameObject.name + ". Assign it in the Inspector.");
+        }
     }
 
     void Update()
@@ -84,128 +107,130 @@ public class rattleEnemy : MonoBehaviour
     
     void HandleMovement()
     {
-        if (player == null) return;
+        if (player == null || isRushing) return; // Don't move if no player or currently rushing
         
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         
-        // Only move if player is within detection range
         if (distanceToPlayer <= detectionRange)
         {
             moveDirection = (player.position - transform.position).normalized;
             
-            // Set animation to running
-            animator.SetBool("isIdle", false);
-            animator.SetBool("isRun", true);
-            
-            // Move toward player
-            rb.linearVelocity = moveDirection * moveSpeed;
+            if (animator != null)
+            {
+                animator.SetBool("isIdle", false);
+                animator.SetBool("isRun", true);
+            }
+            if (rb != null) rb.linearVelocity = moveDirection * moveSpeed;
         }
         else
         {
-            // Set to idle if player not detected
-            rb.linearVelocity = Vector2.zero;
-            animator.SetBool("isRun", false);
-            animator.SetBool("isIdle", true);
+            if (rb != null) rb.linearVelocity = Vector2.zero;
+            if (animator != null)
+            {
+                animator.SetBool("isRun", false);
+                animator.SetBool("isIdle", true);
+            }
         }
     }
     
     void UpdateFacingDirection()
     {
-        if (player == null) return;
-        
-        // Flip sprite based on player position
+        if (player == null || spriteRenderer == null) return;
         spriteRenderer.flipX = transform.position.x > player.position.x;
     }
     
     IEnumerator PerformRushAttack()
     {
-        // Start rush sequence
+        if (isDead || player == null) yield break;
+
         isRushing = true;
-        canRush = false;
+        // canRush = false; // Not used elsewhere
         lastRushTime = Time.time;
         
-        // Store original velocity and calculate rush direction
-        Vector2 originalVelocity = rb.linearVelocity;
-        rb.linearVelocity = Vector2.zero;
+        if (rb != null) rb.linearVelocity = Vector2.zero;
         
-        // Pre-rush charge animation
-        animator.SetBool("isIdle", false);
-        animator.SetBool("isRun", true);
+        if (animator != null)
+        {
+            animator.SetBool("isIdle", false);
+            animator.SetBool("isRun", true); // Or a specific charge animation
+        }
         
-        // Wait for charge time
         yield return new WaitForSeconds(rushChargeTime);
         
-        if (player != null && !isDead)
+        if (player != null && !isDead) // Re-check player and isDead status
         {
-            // Calculate rush direction toward player's position
             Vector2 rushDirection = (player.position - transform.position).normalized;
-            
-            // Check for obstacles and adjust distance
             RaycastHit2D hit = Physics2D.Raycast(transform.position, rushDirection, rushDistance, wallLayer);
-            float actualDistance = hit.collider != null ? hit.distance * 0.9f : rushDistance;
+            float actualDistance = hit.collider != null ? hit.distance * 0.9f : rushDistance; // Reduce slightly to avoid getting stuck
             
-            // Perform rush
             Vector2 startPos = transform.position;
             Vector2 targetPos = startPos + (rushDirection * actualDistance);
-            
             float duration = actualDistance / rushSpeed;
+            if (duration <= 0) duration = 0.1f; // Prevent division by zero or instant rush
             float timer = 0;
             
             while (timer < duration && !isDead)
             {
                 timer += Time.deltaTime;
-                
-                rb.MovePosition(Vector2.Lerp(startPos, targetPos, timer / duration));
+                if (rb != null) rb.MovePosition(Vector2.Lerp(startPos, targetPos, timer / duration));
                 yield return null;
             }
         }
         
-        // End rush sequence
-        rb.linearVelocity = Vector2.zero;
+        if (rb != null) rb.linearVelocity = Vector2.zero;
         isRushing = false;
         
-        // Add a small delay before allowing next rush
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.2f); // Small cooldown before resuming normal behavior
         
-        // Return to regular movement
-        animator.SetBool("isRun", false);
-        animator.SetBool("isIdle", true);
-    }
-    
-    public void takeDamage()
-    {
-        if (isDead) return;
-        
-        health--;
-        
-        // Play hit animation
-        animator.SetTrigger("isHit");
-        
-        if (health <= 0)
+        if (animator != null && !isDead)
         {
-            Die();
+            animator.SetBool("isRun", false);
+            animator.SetBool("isIdle", true);
         }
     }
     
-    void Die()
+    // Override takeDamage from Enemy class
+    public override void takeDamage()
     {
-        isDead = true;
-        rb.linearVelocity = Vector2.zero;
+        if (isDead) return;
+
+        if (spriteRenderer != null && !isFlashing) // Add flash effect
+        {
+            StartCoroutine(DamageFlashEffect());
+        }
         
-        // Disable collisions
+        base.takeDamage(); // Calls the Enemy base class logic for health reduction and Die()
+    }
+    
+    private IEnumerator DamageFlashEffect()
+    {
+        isFlashing = true;
+        spriteRenderer.color = damageFlashColor;
+        yield return new WaitForSeconds(flashDuration);
+        spriteRenderer.color = originalColor;
+        isFlashing = false;
+    }
+    // Override Die from Enemy class
+    protected override void Die()
+    {
+        if (isDead) return; // Prevent Die from being called multiple times
+        isDead = true;
+
+        if (rb != null) rb.linearVelocity = Vector2.zero;
+
         if (enemyCollider != null)
         {
             enemyCollider.enabled = false;
         }
-        
-        // Play death animation
-        animator.SetTrigger("isDeath");
-        
-        // Disable all other animation states
-        animator.SetBool("isRun", false);
-        animator.SetBool("isIdle", false);
-        
-        // Destroy after animation plays
+
+        if (animator != null)
+        {
+            animator.SetTrigger("isDeath");
+            animator.SetBool("isRun", false);
+            animator.SetBool("isIdle", false);
+        }
+
+        // Destroy after animation plays (base.Die() would destroy immediately)
         Destroy(gameObject, 1.0f);
     }
     
@@ -215,15 +240,14 @@ public class rattleEnemy : MonoBehaviour
         
         if (other.CompareTag("Player"))
         {
-            // Apply contact damage to player
             if (Time.time - lastDamageTime >= damageInterval)
             {
                 lastDamageTime = Time.time;
                 
-                PlayerController player = other.GetComponent<PlayerController>();
-                if (player != null)
+                PlayerController playerScript = other.GetComponent<PlayerController>();
+                if (playerScript != null)
                 {
-                    player.TakeDamage(contactDamage);
+                    playerScript.TakeDamage(contactDamage);
                 }
             }
         }
@@ -231,15 +255,19 @@ public class rattleEnemy : MonoBehaviour
     
     void OnTriggerStay2D(Collider2D other)
     {
-        // Handle continuous collision damage with interval
-        if (other.CompareTag("Player") && Time.time - lastDamageTime >= damageInterval)
+        if (isDead) return;
+
+        if (other.CompareTag("Player"))
         {
-            lastDamageTime = Time.time;
-            
-            PlayerController player = other.GetComponent<PlayerController>();
-            if (player != null)
+            if (Time.time - lastDamageTime >= damageInterval)
             {
-                player.TakeDamage(contactDamage);
+                lastDamageTime = Time.time;
+                
+                PlayerController playerScript = other.GetComponent<PlayerController>();
+                if (playerScript != null)
+                {
+                    playerScript.TakeDamage(contactDamage);
+                }
             }
         }
     }
