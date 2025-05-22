@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq; // Added for Linq operations
@@ -14,6 +15,7 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private int minRooms = 10;
     [SerializeField] private List<RoomData> specialRooms;
     [SerializeField] private int maxRegenerationAttempts = 5;
+    [SerializeField] private SceneFader sceneFader;
 
     public static event Action OnGenerationComplete;
 
@@ -46,12 +48,26 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
+        if (sceneFader == null)
+        {
+            sceneFader = FindAnyObjectByType<SceneFader>();
+            if (sceneFader == null)
+            {
+                Debug.LogError("RoomManager could not find SceneFader instance!");
+            }
+        }
+
         InitializeSeed();
         regenerationAttempts = 0;
         InitializeGeneration();
     }
 
-    public void GoToNextFloor()
+        public void GoToNextFloorAndRepositionPlayer()
+    {
+        StartCoroutine(GoToNextFloorCoroutine());
+    }
+
+    private IEnumerator GoToNextFloorCoroutine()
     {
         gameState.world.floor++;
         if (gameState.world.floor > userData.stats.furthestLevelReached)
@@ -63,16 +79,54 @@ public class RoomManager : MonoBehaviour
         gameState.world.isGenerated = false;
         regenerationAttempts = 0;
 
-        roomObjects.ForEach(Destroy);
+        // Destroy existing room objects
+        foreach (var room in roomObjects)
+        {
+            if (room != null) Destroy(room);
+        }
         roomObjects.Clear();
         roomQueue.Clear();
         generationComplete = false;
 
-        InitializeSeed();
-        InitializeGeneration();
+        // It's important that the player object persists or is re-spawned correctly.
+        // If the player is part of the roomObjects that get destroyed, you need to handle its re-creation.
+        // Assuming the player is handled separately or re-instantiated by InitializeGeneration/StartRoomGenerationFromRoom.
 
-        Debug.Log($"Moving to floor {gameState.world.floor}");
+        InitializeSeed();
+        InitializeGeneration(); // This should also handle spawning the player if it's not persistent
+
+        // Wait a frame to ensure new rooms and player are instantiated
+        yield return null; 
+
+        // Find the player and reposition
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = Vector3.zero; // Center of the new start room (assuming start room is at 0,0)
+            PlayerController pc = player.GetComponent<PlayerController>();
+            if (pc != null)
+            {
+                pc.isTransitioning = false; // Reset transitioning state after teleport
+            }
+            Debug.Log($"Player repositioned to {player.transform.position} on floor {gameState.world.floor}");
+        }
+        else
+        {
+            Debug.LogError("Player not found after floor generation to reposition.");
+        }
+        
+        // Wait for any camera setup or initial room logic if necessary
+        yield return new WaitForSeconds(0.1f); // Small delay for safety
+
+        // Fade In
+        if (sceneFader != null)
+        {
+            sceneFader.FadeIn(SceneFader.FadeType.Goop); // Or your specific goop fade type
+        }
+
+        Debug.Log($"Transition complete. Now on floor {gameState.world.floor}");
     }
+
     private void InitializeSeed()
     {
         if (gameState.world.seed == 0)  // Using 0 as default/unset value

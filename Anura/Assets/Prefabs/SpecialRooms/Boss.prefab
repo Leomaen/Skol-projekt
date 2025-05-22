@@ -4069,6 +4069,8 @@ MonoBehaviour:
   leftDoor: {fileID: 7378707596273090516}
   roomCamera: {fileID: 1821692051941832781}
   isBossRoom: 1
+  portalPrefab: {fileID: 6689446231585536804, guid: dd232ee50c1c19f418cc1129cfd6bbde, type: 3}
+  portalSpawnPoint: {fileID: 0}
   cameraSwitchCooldown: 0.5
   isRoomCleared: 0
   enemySpawnPoints:

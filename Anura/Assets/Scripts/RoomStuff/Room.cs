@@ -15,6 +15,8 @@ public class Room : MonoBehaviour
     [SerializeField] GameObject leftDoor;
     [SerializeField] GameObject roomCamera;
     [SerializeField] private bool isBossRoom = false;
+    [SerializeField] private GameObject portalPrefab;
+    [SerializeField] private Transform portalSpawnPoint;
 
     [SerializeField] private float cameraSwitchCooldown = 0.2f;
     private float lastCameraSwitch;
@@ -28,6 +30,7 @@ public class Room : MonoBehaviour
     private List<GameObject> enemiesInRoom = new List<GameObject>();
     private bool playerInRoom = false;
     private bool doorsLocked = false;
+    private bool portalHasSpawned = false;
 
     // Add these new variables for enemy spawning
     [SerializeField] private List<EnemySpawnPoint> enemySpawnPoints = new List<EnemySpawnPoint>();
@@ -250,6 +253,14 @@ public class Room : MonoBehaviour
         if (rightDoor && rightDoor.activeSelf) rightDoor.GetComponent<Door>().UnlockDoor();
 
         Debug.Log($"Doors unlocked in room {gameObject.name} - all enemies defeated!");
+
+        if (isBossRoom && portalPrefab != null && !portalHasSpawned)
+        {
+            UnityEngine.Vector3 spawnPosition = portalSpawnPoint != null ? portalSpawnPoint.position : transform.position;
+            Instantiate(portalPrefab, spawnPosition, UnityEngine.Quaternion.identity);
+            portalHasSpawned = true;
+            Debug.Log($"Portal spawned in boss room: {gameObject.name}");
+        }
     }
 
 #if UNITY_EDITOR
