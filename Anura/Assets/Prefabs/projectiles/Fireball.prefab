@@ -191,3 +191,4 @@ MonoBehaviour:
   gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
   rb: {fileID: 5335290516009075124}
   animator: {fileID: 8346880490364527245}
+  explosionPrefab: {fileID: 7285838939752299632, guid: ce3b242357738e84db2e11f71ebc88a0, type: 3}
