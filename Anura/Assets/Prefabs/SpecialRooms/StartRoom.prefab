@@ -6345,6 +6345,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rattles enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 326052732731749330, guid: 286061554d4a32c4085c9a3d2ee284e9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3150679778736846170, guid: 286061554d4a32c4085c9a3d2ee284e9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.9086714
