@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 // This class is deprecated. Camera management is now handled by CameraManager
 public class RoomCollider : MonoBehaviour

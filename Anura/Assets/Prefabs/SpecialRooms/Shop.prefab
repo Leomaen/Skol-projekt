@@ -3443,6 +3443,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &2495988750341794216
 GameObject:
   m_ObjectHideFlags: 0
@@ -3456,7 +3457,7 @@ GameObject:
   - component: {fileID: 2274447573281255732}
   m_Layer: 0
   m_Name: BottomDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3986,7 +3987,7 @@ GameObject:
   - component: {fileID: 6338689166197357652}
   m_Layer: 0
   m_Name: TopDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4259,6 +4260,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &3957522018625419855
 GameObject:
   m_ObjectHideFlags: 0
@@ -4710,7 +4712,7 @@ GameObject:
   - component: {fileID: 23893771723223017}
   m_Layer: 0
   m_Name: LeftDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5070,6 +5072,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &6316489763486883417
 GameObject:
   m_ObjectHideFlags: 0
@@ -5261,6 +5264,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &7351351895775896590
 GameObject:
   m_ObjectHideFlags: 0
@@ -5408,7 +5412,7 @@ GameObject:
   - component: {fileID: 1826882113917898647}
   m_Layer: 0
   m_Name: RightDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

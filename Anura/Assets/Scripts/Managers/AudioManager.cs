@@ -55,7 +55,7 @@ public class AudioManager : MonoBehaviour
     }
 
     // Music Control Methods
-    public void PlayBackgroundMusic(int index = 0)
+    public void PlayBackgroundMusic()
     {
         if (backgroundMusic == null || backgroundMusic.Count == 0) return;
 
@@ -64,8 +64,8 @@ public class AudioManager : MonoBehaviour
             currentBackgroundMusic.Stop();
         }
 
-        index = Mathf.Clamp(index, 0, backgroundMusic.Count - 1);
-        currentBackgroundMusic = backgroundMusic[index];
+        int randomIndex = Random.Range(0, backgroundMusic.Count);
+        currentBackgroundMusic = backgroundMusic[randomIndex];
 
         if (currentBackgroundMusic != null)
         {

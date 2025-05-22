@@ -3338,7 +3338,7 @@ GameObject:
   - component: {fileID: 4662822182477908404}
   m_Layer: 0
   m_Name: BottomDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4197,7 +4197,7 @@ GameObject:
   - component: {fileID: 3745427104327164368}
   m_Layer: 0
   m_Name: TopDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4465,7 +4465,7 @@ GameObject:
   - component: {fileID: 8085973333126242333}
   m_Layer: 0
   m_Name: RightDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5769,7 +5769,7 @@ GameObject:
   - component: {fileID: 5486689687784556990}
   m_Layer: 0
   m_Name: LeftDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

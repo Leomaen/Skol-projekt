@@ -2898,7 +2898,7 @@ GameObject:
   - component: {fileID: 1303603121722652064}
   m_Layer: 0
   m_Name: TopDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4344,7 +4344,7 @@ GameObject:
   - component: {fileID: 8768466060122603616}
   m_Layer: 0
   m_Name: LeftDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4709,6 +4709,7 @@ MonoBehaviour:
   rightDoor: {fileID: 9167913093452831601}
   leftDoor: {fileID: 645415749986193500}
   roomCamera: {fileID: 6143201740622348750}
+  isBossRoom: 0
   cameraSwitchCooldown: 0.5
   isRoomCleared: 0
   enemySpawnPoints: []
@@ -4747,7 +4748,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.022441864, y: -0.12077904}
+  m_Offset: {x: -0.022441864, y: -0.048811436}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -4757,7 +4758,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 14.811729, y: 7.5792713}
+  m_Size: {x: 17.057102, y: 9.104974}
   m_EdgeRadius: 0
 --- !u!114 &6738083111406243324
 MonoBehaviour:
@@ -5383,7 +5384,7 @@ GameObject:
   - component: {fileID: 5067774751859377320}
   m_Layer: 0
   m_Name: RightDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5872,7 +5873,7 @@ GameObject:
   - component: {fileID: 3102582715596409995}
   m_Layer: 0
   m_Name: BottomDoorTree
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

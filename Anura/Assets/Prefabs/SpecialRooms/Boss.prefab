@@ -4068,6 +4068,7 @@ MonoBehaviour:
   rightDoor: {fileID: 7482861783785083210}
   leftDoor: {fileID: 7378707596273090516}
   roomCamera: {fileID: 1821692051941832781}
+  isBossRoom: 1
   cameraSwitchCooldown: 0.5
   isRoomCleared: 0
   enemySpawnPoints:
@@ -4107,7 +4108,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.022441864, y: -0.12077904}
+  m_Offset: {x: -0.0010461807, y: 0.01033783}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -4117,7 +4118,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 14.811729, y: 7.5792713}
+  m_Size: {x: 17.00007, y: 8.985798}
   m_EdgeRadius: 0
 --- !u!114 &6738083111406243324
 MonoBehaviour:

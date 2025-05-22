@@ -117,7 +117,7 @@ public class StatsState
 {
   [Header("Combat Stats")]
   public int damage = 50;
-  public int bulletSpeed = 5;
+  public int bulletSpeed = 10;
   public float atkSpeed = 0.5f;
 
   [Header("Health Stats")]
@@ -125,5 +125,5 @@ public class StatsState
   public int maxHealth = 6;
 
   [Header("Movement Stats")]
-  public float movementSpeed = 10f;
+  public float movementSpeed = 7f;
 }
