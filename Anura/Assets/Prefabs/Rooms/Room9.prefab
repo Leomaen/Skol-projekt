@@ -2739,7 +2739,7 @@ GameObject:
   - component: {fileID: 3573861639662264703}
   - component: {fileID: 5489959148567159158}
   - component: {fileID: 5183535795121808076}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftWall (1)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -2910,7 +2910,7 @@ GameObject:
   - component: {fileID: 5535029416303440405}
   - component: {fileID: 5455291892803789573}
   - component: {fileID: 8557521863360242204}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightWall
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -3325,7 +3325,7 @@ GameObject:
   - component: {fileID: 890286756939907055}
   - component: {fileID: 6682530355784456685}
   - component: {fileID: 2501041016217756787}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TopWall (1)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -3593,7 +3593,7 @@ GameObject:
   - component: {fileID: 3279507764769179868}
   - component: {fileID: 1243554677766720916}
   - component: {fileID: 4579991788786891841}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftWall (2)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4033,7 +4033,7 @@ GameObject:
   - component: {fileID: 5653209045101701684}
   - component: {fileID: 435872684465404692}
   - component: {fileID: 4836263983135756389}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TopWall
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4398,6 +4398,8 @@ MonoBehaviour:
   leftDoor: {fileID: 3095514052339983615}
   roomCamera: {fileID: 1821692051941832781}
   isBossRoom: 0
+  portalPrefab: {fileID: 0}
+  portalSpawnPoint: {fileID: 0}
   cameraSwitchCooldown: 0.5
   isRoomCleared: 0
   enemySpawnPoints: []
@@ -4625,7 +4627,7 @@ GameObject:
   - component: {fileID: 2128767777012508966}
   - component: {fileID: 6492972860212929110}
   - component: {fileID: 1100610096777299482}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BottomWall (1)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4932,7 +4934,7 @@ GameObject:
   - component: {fileID: 4692322736362921840}
   - component: {fileID: 5184947105656816919}
   - component: {fileID: 6459492191470170295}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightWall (1)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -5111,7 +5113,7 @@ GameObject:
   - component: {fileID: 2453912852490040291}
   - component: {fileID: 3865410954643999250}
   - component: {fileID: 6686750937843748061}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightWall (2)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -5245,7 +5247,7 @@ GameObject:
   - component: {fileID: 8253022298769790805}
   - component: {fileID: 2383910812094141141}
   - component: {fileID: 8983216099329596429}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BottomWall (2)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -5513,7 +5515,7 @@ GameObject:
   - component: {fileID: 2929162955007297273}
   - component: {fileID: 5109709693995067291}
   - component: {fileID: 8367327123554873755}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TopWall
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -5734,7 +5736,7 @@ GameObject:
   - component: {fileID: 5300170308232343331}
   - component: {fileID: 7855259016007979945}
   - component: {fileID: 7285166679638793224}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BottomWall
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -5868,7 +5870,7 @@ GameObject:
   - component: {fileID: 182285816407227284}
   - component: {fileID: 2898621262863928163}
   - component: {fileID: 7602104995675802440}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftWall
   m_TagString: Wall
   m_Icon: {fileID: 0}

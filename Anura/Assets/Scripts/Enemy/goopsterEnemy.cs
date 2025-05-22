@@ -112,7 +112,7 @@ public class goopsterEnemy : Enemy // Inherit from Enemy
         {
             float colliderRadius = Mathf.Max(enemyCollider.bounds.extents.x, enemyCollider.bounds.extents.y);
             // Check slightly further than the collider's edge to anticipate collision
-            float checkDistance = colliderRadius + 0.2f; 
+            float checkDistance = colliderRadius + moveSpeed * Time.deltaTime;
             int attempts = 0;
             const int maxAttempts = 8; // Try a few times to find a clear path
 
