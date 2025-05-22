@@ -178,6 +178,7 @@ MonoBehaviour:
     maxPerFloor: 1
     currentCount: 0
   maxRegenerationAttempts: 5
+  sceneFader: {fileID: 0}
   gridSizeX: 15
   gridSizeY: 15
 --- !u!4 &19965530

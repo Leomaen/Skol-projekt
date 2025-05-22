@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6377960112487332280}
   - component: {fileID: -4578933968075244024}
   m_Layer: 0
-  m_Name: Phantom gun 4_0
+  m_Name: Homing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -459227748, guid: 12021c5fc4fe96647b7b4700bd82822f, type: 3}
+  m_Sprite: {fileID: 1555925758, guid: dba16fc38331c3b4e9d4a1ee0b0627bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48c936aeb23ed1a44beb87a8ecf8d83b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 0231cf19c5950b0428509298fb1c79f4, type: 2}
+  item: {fileID: 11400000, guid: 6fa20500e8443204297beccc6990d65d, type: 2}
   spinSpeed: 0
   bobHeight: 0.2
   bobSpeed: 4
@@ -145,7 +145,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.2, y: 1.35}
+    oldSize: {x: 1.6, y: 2.4}
     newSize: {x: 2.2, y: 1.35}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
