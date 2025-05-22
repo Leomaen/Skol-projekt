@@ -2980,7 +2980,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.07124765}
+  m_Offset: {x: 0.1593194, y: -0.08367196}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2990,7 +2990,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.8575047}
+  m_Size: {x: 2.581501, y: 0.8326561}
   m_EdgeRadius: 0
 --- !u!1 &565208836486709281
 GameObject:
@@ -3144,6 +3144,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &698874836900033875
 GameObject:
   m_ObjectHideFlags: 0
@@ -3706,7 +3707,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.09789586, y: 0}
+  m_Offset: {x: -0.24956441, y: -0.094807625}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3716,7 +3717,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8042083, y: 1}
+  m_Size: {x: 0.5008712, y: 2.0607564}
   m_EdgeRadius: 0
 --- !u!1 &1821692051941832781
 GameObject:
@@ -3998,6 +3999,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &2911564364113828885
 GameObject:
   m_ObjectHideFlags: 0
@@ -4418,6 +4420,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &4231298704457489569
 GameObject:
   m_ObjectHideFlags: 0
@@ -4540,7 +4543,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.022992775}
+  m_Offset: {x: -0.20254397, y: 0.16669479}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4550,7 +4553,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.9540144}
+  m_Size: {x: 2.852272, y: 0.6666104}
   m_EdgeRadius: 0
 --- !u!1 &4418795290998341684
 GameObject:
@@ -5185,6 +5188,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &6790650879886606902
 GameObject:
   m_ObjectHideFlags: 0
@@ -5486,7 +5490,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.14684382, y: 0}
+  m_Offset: {x: 0.2501579, y: 0.05037695}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5496,7 +5500,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.70631236, y: 1}
+  m_Size: {x: 0.49968418, y: 1.9867128}
   m_EdgeRadius: 0
 --- !u!1 &7965675198032270075
 GameObject:
@@ -5999,6 +6003,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF Plant - Bush 06 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2055102311959635374, guid: 39562e88b536753438a3153c5fbdf7b8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2055102311959635375, guid: 39562e88b536753438a3153c5fbdf7b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5678399
@@ -6246,6 +6254,10 @@ PrefabInstance:
     - target: {fileID: 2055102311959635369, guid: 39562e88b536753438a3153c5fbdf7b8, type: 3}
       propertyPath: m_Name
       value: PF Plant - Bush 06
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055102311959635374, guid: 39562e88b536753438a3153c5fbdf7b8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2055102311959635375, guid: 39562e88b536753438a3153c5fbdf7b8, type: 3}
       propertyPath: m_LocalPosition.x

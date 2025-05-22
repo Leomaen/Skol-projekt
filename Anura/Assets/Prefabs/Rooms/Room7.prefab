@@ -2981,7 +2981,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.09789586, y: 0}
+  m_Offset: {x: -0.24990708, y: -0.12643236}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2991,7 +2991,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8042083, y: 1}
+  m_Size: {x: 0.50018585, y: 1.8579861}
   m_EdgeRadius: 0
 --- !u!1 &700668709589608578
 GameObject:
@@ -3279,6 +3279,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &1139133530339353859
 GameObject:
   m_ObjectHideFlags: 0
@@ -3858,6 +3859,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &2473486651362222963
 GameObject:
   m_ObjectHideFlags: 0
@@ -4451,6 +4453,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &4515597086526569105
 GameObject:
   m_ObjectHideFlags: 0
@@ -4573,7 +4576,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.14684382, y: 0}
+  m_Offset: {x: 0.25062042, y: 0.119182676}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4583,7 +4586,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.70631236, y: 1}
+  m_Size: {x: 0.49875915, y: 1.8637156}
   m_EdgeRadius: 0
 --- !u!1 &4581945777174687418
 GameObject:
@@ -5550,7 +5553,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.07124765}
+  m_Offset: {x: 0.1483571, y: -0.08294082}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5560,7 +5563,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.8575047}
+  m_Size: {x: 2.723281, y: 0.83411837}
   m_EdgeRadius: 0
 --- !u!1 &7012548188383275655
 GameObject:
@@ -5859,7 +5862,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.022992775}
+  m_Offset: {x: -0.07965958, y: 0.16623402}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5869,7 +5872,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.9540144}
+  m_Size: {x: 2.6268117, y: 0.66753197}
   m_EdgeRadius: 0
 --- !u!1 &8969715531986630801
 GameObject:
@@ -6023,6 +6026,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1001 &6757650527749539903
 PrefabInstance:
   m_ObjectHideFlags: 0

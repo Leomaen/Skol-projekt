@@ -3527,7 +3527,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.14684382, y: 0}
+  m_Offset: {x: 0.25075078, y: 0.00904578}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3537,7 +3537,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.70631236, y: 1}
+  m_Size: {x: 0.49849844, y: 2.1192875}
   m_EdgeRadius: 0
 --- !u!1 &2475378210472894966
 GameObject:
@@ -3661,7 +3661,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.09789586, y: 0}
+  m_Offset: {x: -0.2489245, y: -0.15613532}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3671,7 +3671,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8042083, y: 1}
+  m_Size: {x: 0.502151, y: 2.0591004}
   m_EdgeRadius: 0
 --- !u!1 &3880714942989291531
 GameObject:
@@ -5140,7 +5140,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.07124765}
+  m_Offset: {x: 0.18971854, y: -0.08364129}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5150,7 +5150,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.8575047}
+  m_Size: {x: 2.5463495, y: 0.8327174}
   m_EdgeRadius: 0
 --- !u!1 &7570502996514908847
 GameObject:
@@ -5691,7 +5691,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.022992775}
+  m_Offset: {x: -0.26694834, y: 0.16580087}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5701,7 +5701,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.9540144}
+  m_Size: {x: 2.6987622, y: 0.66839826}
   m_EdgeRadius: 0
 --- !u!1 &8403445406175191057
 GameObject:
@@ -6002,6 +6002,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF Props Road Sign E
       objectReference: {fileID: 0}
+    - target: {fileID: 2055102311959635374, guid: b823debd04fd63f4d8e579210fe0ff20, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2055102311959635375, guid: b823debd04fd63f4d8e579210fe0ff20, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.2504153
@@ -6063,6 +6067,10 @@ PrefabInstance:
     - target: {fileID: 2055102311959635369, guid: 5c635e5bc09c93043a53ee0e17e89d0f, type: 3}
       propertyPath: m_Name
       value: PF Props Road Sign W
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055102311959635374, guid: 5c635e5bc09c93043a53ee0e17e89d0f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2055102311959635375, guid: 5c635e5bc09c93043a53ee0e17e89d0f, type: 3}
       propertyPath: m_LocalPosition.x

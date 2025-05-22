@@ -80,7 +80,11 @@ public class MainMenuManager : MonoBehaviour
         AudioManager.Instance.PlayMenuOpen();
         statisticsPanel.SetActive(true);
 
-        statisticsText.text = JsonUtility.ToJson(userData.stats, true);
+        statisticsText.text = $"Total Playtime: {StringifyTimeDelta(userData.stats.playTime)}\n" +
+            $"Total Deaths: {userData.stats.totalDeaths}\n" +
+            $"Total Kills: {userData.stats.totalKills}\n" +
+            $"Total Items Collected: {userData.stats.totalItemsCollected}\n" +
+            $"Furthest Floor Reached: {userData.stats.furthestLevelReached}\n";
     }
 
     public void CloseStatisticsPanel()
@@ -146,5 +150,77 @@ public class MainMenuManager : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    private readonly struct TimeUnit
+    {
+        public string Label { get; }
+        public long Milliseconds { get; }
+
+        public TimeUnit(string label, long milliseconds)
+        {
+            Label = label;
+            Milliseconds = milliseconds;
+        }
+    }
+
+    private static readonly TimeUnit[] NamedUnits = new TimeUnit[]
+    {
+        new("year", 31536000000L),
+        new("month", 2592000000L),
+        new("day", 86400000L),
+        new("hour", 3600000L),
+        new("minute", 60000L),
+        new("second", 1000L),
+    };
+
+    public static string StringifyTimeDelta(long deltaMilliseconds, int precision = 2, bool useBindingWords = false)
+    {
+        if (deltaMilliseconds < 1000) // Treat less than a second as "less than a second"
+        {
+            // Check if it's effectively zero or negative, adjust if needed or return specific message
+            if (deltaMilliseconds <= 0) return "0 seconds"; // Or "just now", "less than a second ago" depending on context
+            return "less than a second";
+        }
+
+        var parts = new System.Collections.Generic.List<string>();
+        long remainingDelta = deltaMilliseconds;
+
+        foreach (var unit in NamedUnits)
+        {
+            if (parts.Count >= precision) break;
+
+            if (remainingDelta >= unit.Milliseconds)
+            {
+                long count = remainingDelta / unit.Milliseconds;
+                parts.Add($"{count} {unit.Label}{(count != 1 ? "s" : "")}");
+                remainingDelta %= unit.Milliseconds;
+            }
+        }
+
+        if (parts.Count == 0) // Should only happen if precision is 0 or delta was < 1000 and not handled above
+        {
+            // Fallback for very small deltas if the initial check wasn't enough
+            if (deltaMilliseconds > 0) return "less than a second";
+            return "0 seconds"; // Or a more appropriate default
+        }
+
+        if (useBindingWords && parts.Count > 1)
+        {
+            if (parts.Count == 2)
+            {
+                return $"{parts[0]} and {parts[1]}";
+            }
+            else
+            {
+                string lastPart = parts[parts.Count - 1];
+                parts.RemoveAt(parts.Count - 1);
+                return $"{string.Join(", ", parts)}, and {lastPart}";
+            }
+        }
+        else
+        {
+            return string.Join(" ", parts);
+        }
     }
 }
