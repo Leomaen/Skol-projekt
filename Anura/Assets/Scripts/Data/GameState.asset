@@ -20,7 +20,7 @@ MonoBehaviour:
     damage: 50
     bulletSpeed: 5
     atkSpeed: 0.5
-    PlayerHealth: 6
+    PlayerHealth: 3
     maxHealth: 6
     movementSpeed: 10
   activeItems: []

@@ -25,7 +25,6 @@ public class RoomManager : MonoBehaviour
     // Special room requirement tracking
     private bool hasBossRoomSpawned = false;
     private bool hasTreasureRoomSpawned = false;
-    private bool hasShopRoomSpawned = false;
 
     // For tracking branch end rooms (potential boss room locations)
     private List<Vector2Int> branchEndRooms = new List<Vector2Int>();
@@ -98,7 +97,6 @@ public class RoomManager : MonoBehaviour
         }
         hasBossRoomSpawned = false;
         hasTreasureRoomSpawned = false;
-        hasShopRoomSpawned = false;
         branchEndRooms.Clear();
 
         roomGrid = new int[gridSizeX, gridSizeY];
@@ -209,16 +207,12 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        // Then place treasure and shop rooms if needed
+        // Then place treasure rooms if needed
         if (!hasTreasureRoomSpawned)
         {
             SpawnSpecialRoom(RoomType.Treasure);
         }
 
-        if (!hasShopRoomSpawned)
-        {
-            SpawnSpecialRoom(RoomType.Shop);
-        }
     }
 
     private void ForceBossRoomPlacement()
@@ -254,7 +248,7 @@ public class RoomManager : MonoBehaviour
 
     private bool HasAllRequiredRooms()
     {
-        return hasBossRoomSpawned && hasTreasureRoomSpawned && hasShopRoomSpawned;
+        return hasBossRoomSpawned && hasTreasureRoomSpawned;
     }
 
     private void UpdateBranchEndRooms()
@@ -376,10 +370,6 @@ public class RoomManager : MonoBehaviour
 
             if (roomType == RoomType.Treasure)
                 hasTreasureRoomSpawned = true;
-            else if (roomType == RoomType.Shop)
-                hasShopRoomSpawned = true;
-
-            Debug.Log($"{roomType} room placed");
         }
     }
 
@@ -440,10 +430,6 @@ public class RoomManager : MonoBehaviour
                 {
                     hasTreasureRoomSpawned = true;
                 }
-                else if (specialRoom.roomType == RoomType.Shop)
-                {
-                    hasShopRoomSpawned = true;
-                }
             }
         }
 
@@ -503,7 +489,6 @@ public class RoomManager : MonoBehaviour
         // Reset special room tracking
         hasBossRoomSpawned = false;
         hasTreasureRoomSpawned = false;
-        hasShopRoomSpawned = false;
         branchEndRooms.Clear();
 
         roomObjects.ForEach(Destroy);

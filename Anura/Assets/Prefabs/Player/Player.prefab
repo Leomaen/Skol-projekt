@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9063353956533583795}
   - component: {fileID: 8240071401951919598}
   - component: {fileID: 6693216404161151887}
+  - component: {fileID: 4075345426218557884}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -195,9 +196,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
   firePoint: {fileID: 2454055271629105603}
+  footstepDelay: 0.3
   firePointDistance: 0.5
   weapon: {fileID: 9063353956533583795}
   isTransitioning: 0
+  playerHitEffect: {fileID: 4075345426218557884}
 --- !u!95 &6693216404161151887
 Animator:
   serializedVersion: 7
@@ -220,6 +223,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4075345426218557884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3437698153413861460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 154811657640ea845b1e4b57c69a8d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRenderer: {fileID: 8187568688461608311}
+  maxHitEffectAmount: 0.4
+  fadeInDuration: 0.1
+  fadeOutDuration: 0.4
 --- !u!1 &5168137982133634018
 GameObject:
   m_ObjectHideFlags: 0
