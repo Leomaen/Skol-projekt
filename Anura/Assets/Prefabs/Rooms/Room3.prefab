@@ -3466,6 +3466,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &1821692051941832781
 GameObject:
   m_ObjectHideFlags: 0
@@ -3573,7 +3574,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -4942,6 +4943,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &7220725344973311379
 GameObject:
   m_ObjectHideFlags: 0
@@ -5496,6 +5498,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &8190485997606396901
 GameObject:
   m_ObjectHideFlags: 0
@@ -5908,6 +5911,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &9001825052931131701
 GameObject:
   m_ObjectHideFlags: 0

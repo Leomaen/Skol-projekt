@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public static event Action OnPlayerDamaged;
     public bool isTransitioning = false;
 
+    public HitEffect playerHitEffect; 
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -131,5 +133,9 @@ public class PlayerController : MonoBehaviour
     {
         gameState.stats.PlayerHealth -= amount;
         OnPlayerDamaged?.Invoke();
+        if (playerHitEffect != null)
+    {
+        playerHitEffect.Play();
+    }
     }
 }

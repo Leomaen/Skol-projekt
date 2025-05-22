@@ -169,10 +169,6 @@ MonoBehaviour:
     roomType: 1
     maxPerFloor: 1
     currentCount: 0
-  - roomPrefab: {fileID: 4686975345856750221, guid: e0cd082fd49631b42b826f3ff80e2890, type: 3}
-    roomType: 3
-    maxPerFloor: 1
-    currentCount: 0
   - roomPrefab: {fileID: 4686975345856750221, guid: 24d9a38e679b07b4bab21ce6fa72c5e3, type: 3}
     roomType: 2
     maxPerFloor: 1

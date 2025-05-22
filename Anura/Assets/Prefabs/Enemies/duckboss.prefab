@@ -230,12 +230,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75306cb8f24a14d4392d882e2ce0c580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
   moveSpeed: 3
-  waypointReachedDistance: 0.1
-  idleTimeAtWaypoint: 1.5
+  randomMoveMinDuration: 1.5
+  randomMoveMaxDuration: 3.5
+  randomIdleMinDuration: 0.5
+  randomIdleMaxDuration: 1
   attackCooldown: 5
   attackChance: 0.5
   rushSpeed: 8
@@ -252,5 +251,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   animator: {fileID: 3216561202667429515}
+  contactDamage: 1
+  contactDamageCooldown: 1
   flashDuration: 0.15
   damageFlashColor: {r: 1, g: 0.3, b: 0.3, a: 1}
