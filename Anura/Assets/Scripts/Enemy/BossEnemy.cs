@@ -24,13 +24,16 @@ public class BossEnemy : MonoBehaviour
     public Transform firePoint;
 
     [Header("Health")]
-    public int maxHealth = 100;
+    public int baseMaxHealth = 100;
+    public float healthPerFloor = 25f;
+    private int maxHealth;
     private int currentHealth;
 
     [Header("References")]
     public Transform player;
     public LayerMask wallLayer;
     public Animator animator;
+    public GameState gameState;
 
     [Header("Contact Damage")]
     public int contactDamage = 1;
@@ -41,6 +44,13 @@ public class BossEnemy : MonoBehaviour
     [Header("Damage Visual")]
     public float flashDuration = 0.15f;
     public Color damageFlashColor = new Color(1f, 0.3f, 0.3f, 1f); // Red tint
+
+    [Header("Goopster Spawning")]
+    public GameObject goopsterPrefab;
+    public float goopsterSpawnInterval = 8f;
+    public float goopsterSpawnRadius = 5f;
+    private float lastGoopsterSpawnTime;
+    private List<GameObject> spawnedGoopsters = new List<GameObject>();
 
     // Components
     private SpriteRenderer spriteRenderer;
@@ -67,6 +77,21 @@ public class BossEnemy : MonoBehaviour
     {
         InitializeComponents();
         InitializeTimers();
+
+        // Scale health based on floor
+        if (gameState != null)
+        {
+            maxHealth = baseMaxHealth + Mathf.RoundToInt(healthPerFloor * (gameState.world.floor - 1));
+        }
+        else
+        {
+            maxHealth = baseMaxHealth;
+        }
+
+        currentHealth = maxHealth;
+
+        // Initialize goopster spawning
+        lastGoopsterSpawnTime = Time.time;
     }
 
     void InitializeComponents()
@@ -74,7 +99,6 @@ public class BossEnemy : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         bossCollider = GetComponent<BoxCollider2D>();
-        currentHealth = maxHealth;
         originalColor = spriteRenderer.color; // Store original color
 
         if (player == null)
@@ -110,6 +134,7 @@ public class BossEnemy : MonoBehaviour
         {
             TryAttack();
             HandleMovement();
+            TrySpawnGoopster();
         }
     }
 
@@ -456,6 +481,10 @@ public class BossEnemy : MonoBehaviour
     {
         isAttacking = true;
         rb.linearVelocity = Vector2.zero;
+
+        // Destroy all spawned goopsters when boss dies
+        DestroyAllGoopsters();
+
         Destroy(gameObject);
     }
 
@@ -475,5 +504,85 @@ public class BossEnemy : MonoBehaviour
                 Debug.Log("Boss contact hit player for " + contactDamage + " damage");
             }
         }
+    }
+
+    void TrySpawnGoopster()
+    {
+        if (gameState == null || goopsterPrefab == null) return;
+        if (gameState.world.floor <= 1) return;
+
+
+        if (Time.time - lastGoopsterSpawnTime < goopsterSpawnInterval) return;
+
+        spawnedGoopsters.RemoveAll(g => g == null);
+
+        int maxSpawn = Mathf.Max(2, (int)(gameState.world.floor / 2f));
+        int spawnAmount = Random.Range(1, maxSpawn);
+
+        for (int i = 0; i < spawnAmount; i++)
+        {
+            SpawnGoopster();
+        }
+
+    }
+
+    void SpawnGoopster()
+    {
+        Vector2 spawnPosition = GetValidGoopsterSpawnPosition();
+        if (spawnPosition != Vector2.zero)
+        {
+            GameObject newGoopster = Instantiate(goopsterPrefab, spawnPosition, Quaternion.identity);
+
+            // Set up the goopster's GameState reference
+            goopsterEnemy goopsterScript = newGoopster.GetComponent<goopsterEnemy>();
+            if (goopsterScript != null && gameState != null)
+            {
+                goopsterScript.gameState = gameState;
+            }
+
+            spawnedGoopsters.Add(newGoopster);
+            lastGoopsterSpawnTime = Time.time;
+
+            Debug.Log($"Boss spawned goopster {spawnedGoopsters.Count} on floor {gameState.world.floor}");
+        }
+    }
+
+    Vector2 GetValidGoopsterSpawnPosition()
+    {
+        int attempts = 0;
+        int maxAttempts = 10;
+
+        while (attempts < maxAttempts)
+        {
+            Vector2 randomDirection = Random.insideUnitCircle.normalized;
+            Vector2 spawnPos = (Vector2)transform.position + randomDirection * goopsterSpawnRadius;
+
+            Vector2 direction = (spawnPos - (Vector2)transform.position).normalized;
+            float distance = Vector2.Distance(transform.position, spawnPos);
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, wallLayer);
+            if (hit.collider == null)
+            {
+                return spawnPos;
+            }
+
+            attempts++;
+        }
+
+        Debug.LogWarning("Could not find valid spawn position for goopster");
+        return Vector2.zero;
+    }
+
+    void DestroyAllGoopsters()
+    {
+        foreach (GameObject goopster in spawnedGoopsters)
+        {
+            if (goopster != null)
+            {
+                Destroy(goopster);
+            }
+        }
+        spawnedGoopsters.Clear();
+        Debug.Log("Boss destroyed all spawned goopsters");
     }
 }

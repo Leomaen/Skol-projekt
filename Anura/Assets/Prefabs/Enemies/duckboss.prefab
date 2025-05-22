@@ -240,8 +240,8 @@ MonoBehaviour:
   rushSpeed: 8
   rushCooldown: 5
   rushDistance: 10
-  laserChargeDuration: 2
-  laserActiveDuration: 1
+  laserChargeDuration: 1
+  laserActiveDuration: 2
   laserCooldown: 4
   laserPrefab: {fileID: 5327458198074571745, guid: f41f39f4c3a9901428a0c5c3934b6c37, type: 3}
   firePoint: {fileID: 3187488507116021733}
@@ -251,7 +251,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   animator: {fileID: 3216561202667429515}
+  gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
   contactDamage: 1
   contactDamageCooldown: 1
   flashDuration: 0.15
   damageFlashColor: {r: 1, g: 0.3, b: 0.3, a: 1}
+  goopsterPrefab: {fileID: 8913293225307664216, guid: ae213bb72d3f03542b94077c9c2ded60, type: 3}
+  goopsterSpawnInterval: 8
+  goopsterSpawnRadius: 5

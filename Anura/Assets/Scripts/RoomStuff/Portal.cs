@@ -29,7 +29,7 @@ public class Portal : MonoBehaviour
             if (roomManager != null && sceneFader != null)
             {
                 // Prevent further interaction with the portal
-                GetComponent<Collider2D>().enabled = false; 
+                GetComponent<Collider2D>().enabled = false;
                 StartCoroutine(TransitionToNextFloor());
             }
             else

@@ -62,7 +62,7 @@ public class RoomManager : MonoBehaviour
         InitializeGeneration();
     }
 
-        public void GoToNextFloorAndRepositionPlayer()
+    public void GoToNextFloorAndRepositionPlayer()
     {
         StartCoroutine(GoToNextFloorCoroutine());
     }
@@ -70,6 +70,7 @@ public class RoomManager : MonoBehaviour
     private IEnumerator GoToNextFloorCoroutine()
     {
         gameState.world.floor++;
+        gameState.stats.PlayerHealth = gameState.stats.maxHealth;
         if (gameState.world.floor > userData.stats.furthestLevelReached)
         {
             userData.stats.furthestLevelReached = gameState.world.floor;
@@ -96,7 +97,7 @@ public class RoomManager : MonoBehaviour
         InitializeGeneration(); // This should also handle spawning the player if it's not persistent
 
         // Wait a frame to ensure new rooms and player are instantiated
-        yield return null; 
+        yield return null;
 
         // Find the player and reposition
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -114,7 +115,7 @@ public class RoomManager : MonoBehaviour
         {
             Debug.LogError("Player not found after floor generation to reposition.");
         }
-        
+
         // Wait for any camera setup or initial room logic if necessary
         yield return new WaitForSeconds(0.1f); // Small delay for safety
 

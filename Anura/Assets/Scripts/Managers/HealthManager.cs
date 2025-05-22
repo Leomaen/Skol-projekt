@@ -11,11 +11,13 @@ public class HealthManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerController.OnPlayerDamaged += DrawHearts;
+        RoomManager.OnGenerationComplete += DrawHearts;
     }
 
     private void OnDisable()
     {
         PlayerController.OnPlayerDamaged -= DrawHearts;
+        RoomManager.OnGenerationComplete -= DrawHearts;
     }
 
     public void Start()
