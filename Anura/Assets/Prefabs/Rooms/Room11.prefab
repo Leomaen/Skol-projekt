@@ -3398,6 +3398,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &1919285296814277197
 GameObject:
   m_ObjectHideFlags: 0
@@ -3520,7 +3521,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.09789586, y: 0}
+  m_Offset: {x: -0.24979869, y: -0.10213733}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3530,7 +3531,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8042083, y: 1}
+  m_Size: {x: 0.5004026, y: 1.8853228}
   m_EdgeRadius: 0
 --- !u!1 &2210656438128033504
 GameObject:
@@ -3654,7 +3655,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.022992775}
+  m_Offset: {x: -0.21800518, y: 0.16696483}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3664,7 +3665,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.9540144}
+  m_Size: {x: 2.728581, y: 0.66607034}
   m_EdgeRadius: 0
 --- !u!1 &3749775155358835242
 GameObject:
@@ -4056,7 +4057,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.07124765}
+  m_Offset: {x: 0.15048409, y: -0.08363016}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4066,7 +4067,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.8575047}
+  m_Size: {x: 2.6369123, y: 0.8327397}
   m_EdgeRadius: 0
 --- !u!1 &4490950194567048538
 GameObject:
@@ -4711,7 +4712,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.14684382, y: 0}
+  m_Offset: {x: 0.24993856, y: 0.10887694}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4721,7 +4722,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.70631236, y: 1}
+  m_Size: {x: 0.5001229, y: 2.1530232}
   m_EdgeRadius: 0
 --- !u!1 &5872990243915266417
 GameObject:
@@ -5009,6 +5010,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &7012548188383275655
 GameObject:
   m_ObjectHideFlags: 0
@@ -5340,6 +5342,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &8010016362814745012
 GameObject:
   m_ObjectHideFlags: 0
@@ -5847,6 +5850,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 0}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &9203105203571059355
 GameObject:
   m_ObjectHideFlags: 0
@@ -6044,6 +6048,22 @@ PrefabInstance:
     - target: {fileID: 7947911505737750448, guid: 8728cc48d2747494893fd60426c06f6e, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947911505737750449, guid: 8728cc48d2747494893fd60426c06f6e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.7246904
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947911505737750449, guid: 8728cc48d2747494893fd60426c06f6e, type: 3}
+      propertyPath: m_Size.y
+      value: 0.42426005
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947911505737750449, guid: 8728cc48d2747494893fd60426c06f6e, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.011679441
+      objectReference: {fileID: 0}
+    - target: {fileID: 7947911505737750449, guid: 8728cc48d2747494893fd60426c06f6e, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.2929483
       objectReference: {fileID: 0}
     - target: {fileID: 7947911505737750455, guid: 8728cc48d2747494893fd60426c06f6e, type: 3}
       propertyPath: m_Name

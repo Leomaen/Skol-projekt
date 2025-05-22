@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameState
   m_EditorClassIdentifier: 
   world:
-    seed: 1342633805
+    seed: 1723113332
     floor: 1
     isGenerated: 1
   stats:
@@ -22,10 +22,6 @@ MonoBehaviour:
     atkSpeed: 0.5
     PlayerHealth: 6
     maxHealth: 6
-    movementSpeed: 15
-    movementSpeed: 15
-  activeItems:
-  - {fileID: 0}
-  collectedItemIds:
-  - SampleScene_4,4_-2,4_0_Speed up!
-  - SampleScene_4,4_-2,4_0_Speed up!
+    movementSpeed: 10
+  activeItems: []
+  collectedItemIds: []
