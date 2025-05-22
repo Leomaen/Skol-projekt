@@ -950,6 +950,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 2861909099007774508}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &3837087542597666602
 GameObject:
   m_ObjectHideFlags: 0
@@ -3999,8 +4000,6 @@ Transform:
   - {fileID: 8910088514845414184}
   - {fileID: 7278403764654842408}
   - {fileID: 5562637846487792870}
-  - {fileID: 2364950704500725998}
-  - {fileID: 5599748815224642269}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &3780268101767928032
@@ -4310,37 +4309,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &6011391502153383316
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2364950704500725998}
-  m_Layer: 0
-  m_Name: Waypoint1
-  m_TagString: BossWaypoint
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2364950704500725998
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6011391502153383316}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.57, y: 2.04, z: 0.04515239}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5494343383703275326}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6370803209689127869
 GameObject:
   m_ObjectHideFlags: 0
@@ -4743,37 +4711,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &6996374663624285912
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5599748815224642269}
-  m_Layer: 0
-  m_Name: Waypoint2
-  m_TagString: BossWaypoint
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5599748815224642269
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6996374663624285912}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.13, y: -3.23, z: 0.04515239}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5494343383703275326}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7124783376397325168
 GameObject:
   m_ObjectHideFlags: 0
@@ -4926,6 +4863,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 1051215198882351259}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &7248300598692224080
 GameObject:
   m_ObjectHideFlags: 0
@@ -5251,6 +5189,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 7313185040367959753}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &7482861783785083210
 GameObject:
   m_ObjectHideFlags: 0
@@ -5403,6 +5342,7 @@ MonoBehaviour:
   isLocked: 0
   lockedVisual: {fileID: 3270529502594306479}
   sceneFader: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &7548461032265260190
 GameObject:
   m_ObjectHideFlags: 0
