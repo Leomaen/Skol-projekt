@@ -5,10 +5,11 @@ using UnityEngine;
 public class BossEnemy : MonoBehaviour
 {
     [Header("Movement")]
-    public Transform[] waypoints;
     public float moveSpeed = 3f;
-    public float waypointReachedDistance = 0.1f;
-    public float idleTimeAtWaypoint = 1.5f;
+    public float randomMoveMinDuration = 1.5f;
+    public float randomMoveMaxDuration = 3.5f;
+    public float randomIdleMinDuration = 1.0f;
+    public float randomIdleMaxDuration = 2.5f;
 
     [Header("Attack Properties")]
     public float attackCooldown = 3f;
@@ -47,13 +48,13 @@ public class BossEnemy : MonoBehaviour
     private BoxCollider2D bossCollider;
     
     // State variables
-    private int currentWaypointIndex = 0;
     private float lastAttackTime;
     private float lastRushTime;
     private float lastLaserTime;
     private bool isAttacking = false;
-    private bool isMovingToWaypoint = true;
-    private float idleTimer = 0f;
+    private float movementStateTimer; 
+    private Vector2 currentMoveDirection;
+    private bool isCurrentlyMoving; // True if in moving state,
 
     // Add a field for damage flash effect
     private Color originalColor;
@@ -85,6 +86,18 @@ public class BossEnemy : MonoBehaviour
         lastAttackTime = -attackCooldown;
         lastRushTime = -rushCooldown;
         lastLaserTime = -laserCooldown;
+
+        // Initialize random movement state
+        movementStateTimer = Random.Range(randomIdleMinDuration, randomIdleMaxDuration);
+        isCurrentlyMoving = false; // Start with idling
+        if (animator != null)
+        {
+            animator.SetBool("isWalking", false);
+        }
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
     }
 
     void Update()
@@ -132,72 +145,91 @@ public class BossEnemy : MonoBehaviour
             // Favor the attack we haven't used recently
             float rushWeight = lastRushTime < lastLaserTime ? 0.7f : 0.3f;
             
-            if (Random.value < rushWeight)
-                StartCoroutine(RushAttack());
-            else
-                StartCoroutine(LaserAttack());
+        if (Random.value < rushWeight)
+           {StartCoroutine(RushAttack());}
+        else
+            {StartCoroutine(LaserAttack());}
         }
         else if (rushAvailable)
-            StartCoroutine(RushAttack());
+            {StartCoroutine(RushAttack());}
         else if (laserAvailable)
-            StartCoroutine(LaserAttack());
+            {StartCoroutine(LaserAttack());}
     }
     
     void FixedUpdate()
     {
-        if (isMovingToWaypoint && !isAttacking && waypoints.Length > 0)
-            MoveTowardWaypoint();
+        // if (isMovingToWaypoint && !isAttacking && waypoints.Length > 0) // Removed
+        //     MoveTowardWaypoint(); // Removed
+
+        if (isCurrentlyMoving && !isAttacking)
+        {
+            // Check for walls in path
+            // Use bossCollider.size.x * 0.5f (or an average of x and y if not square) as a base for raycast distance to avoid getting stuck
+            float raycastDistance = moveSpeed * Time.fixedDeltaTime + (bossCollider != null ? bossCollider.size.x * 0.5f : 0.1f);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, currentMoveDirection, raycastDistance, wallLayer);
+
+            if (hit.collider == null)
+            {
+                if (rb != null)
+                    rb.MovePosition(rb.position + currentMoveDirection * moveSpeed * Time.fixedDeltaTime);
+            }
+            else
+            {
+                // Hit a wall, transition to idling immediately
+                isCurrentlyMoving = false;
+                movementStateTimer = Random.Range(randomIdleMinDuration, randomIdleMaxDuration);
+                if (animator != null)
+                    animator.SetBool("isWalking", false);
+                if (rb != null)
+                    rb.linearVelocity = Vector2.zero;
+            }
+        }
+        else if (!isAttacking && rb != null) // Ensure stopped if not attacking and not in moving state
+        {
+             rb.linearVelocity = Vector2.zero;
+        }
     }
     
     void HandleMovement()
     {
-        if (waypoints.Length == 0) return;
+        // if (waypoints.Length == 0) return; // Removed
         
-        if (isMovingToWaypoint)
+        if (isAttacking)
         {
-            if (Vector2.Distance(transform.position, waypoints[currentWaypointIndex].position) < waypointReachedDistance)
-            {
-                // Reached waypoint - idle for a moment
+            if (rb != null) 
                 rb.linearVelocity = Vector2.zero;
-                isMovingToWaypoint = false;
-                idleTimer = idleTimeAtWaypoint;
-            }
-            
-            animator.SetBool("isWalking", true);
+            if (animator != null)
+                animator.SetBool("isWalking", false);
+            isCurrentlyMoving = false; // Stop random movement logic if an attack starts
+            return;
         }
-        else
+
+        movementStateTimer -= Time.deltaTime;
+
+        if (movementStateTimer <= 0)
         {
-            // Waiting at waypoint
-            idleTimer -= Time.deltaTime;
-            
-            if (idleTimer <= 0)
+            // Switch state
+            isCurrentlyMoving = !isCurrentlyMoving;
+
+            if (isCurrentlyMoving)
             {
-                // Move to next waypoint
-                currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
-                isMovingToWaypoint = true;
+                // Switched to Moving state
+                float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
+                currentMoveDirection = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)).normalized;
+                movementStateTimer = Random.Range(randomMoveMinDuration, randomMoveMaxDuration);
+                if (animator != null)
+                    animator.SetBool("isWalking", true);
             }
-            
-            animator.SetBool("isWalking", true);
+            else
+            {
+                // Switched to Idling state
+                movementStateTimer = Random.Range(randomIdleMinDuration, randomIdleMaxDuration);
+                if (animator != null)
+                    animator.SetBool("isWalking", false);
+                if (rb != null)
+                    rb.linearVelocity = Vector2.zero; // Stop movement when starting to idle
+            }
         }
-    }
-    
-    void MoveTowardWaypoint()
-    {
-        Vector2 direction = ((Vector2)waypoints[currentWaypointIndex].position - (Vector2)transform.position).normalized;
-        
-        // Check for walls in path
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, moveSpeed * Time.fixedDeltaTime + 0.1f, wallLayer);
-        
-        if (hit.collider == null)
-            rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
-        else
-            StartCoroutine(FindAlternatePath());
-    }
-    
-    IEnumerator FindAlternatePath()
-    {
-        yield return new WaitForSeconds(1.0f);
-        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
     }
     
     IEnumerator RushAttack()
@@ -387,7 +419,6 @@ public class BossEnemy : MonoBehaviour
     void FinishAttack()
     {
         isAttacking = false;
-        animator.SetBool("isWalking", true);
     }
     
     public void TakeDamage(int damage)
