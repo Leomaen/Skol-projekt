@@ -9,8 +9,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 movementDirection;
     public Transform firePoint;
     private float lastShotTime = 0f;
-    private bool isWalking = false;
-        private float lastFootstepTime = 0f;
+    private float lastFootstepTime = 0f;
     [SerializeField] private float footstepDelay = 0.3f;
 
     [SerializeField] private float firePointDistance = 0.5f;
@@ -21,10 +20,12 @@ public class PlayerController : MonoBehaviour
 
     public HitEffect playerHitEffect; 
 
+    private Animator animator; // Add this line
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
+        animator = GetComponent<Animator>(); // Add this line
     }
 
     void Update()
@@ -59,16 +60,40 @@ public class PlayerController : MonoBehaviour
             lastFootstepTime = Time.time;
         }
 
-        // Update walking state
-        isWalking = isMovingNow;
+        if (animator != null)
+        {
+            animator.SetBool("isWalking", isMovingNow);
+
+            if (isMovingNow)
+            {
+                if (verticalInput > 0f) // Moving predominantly upwards
+                {
+                    animator.SetBool("isWalkingUp", true);
+                    animator.SetBool("isFacingUp", true); // Set facing direction for future idle/horizontal walk
+                }
+                else if (verticalInput < 0f) // Moving predominantly downwards
+                {
+                    animator.SetBool("isWalkingUp", false);
+                    animator.SetBool("isFacingUp", false); // Set facing direction
+                }
+                else // Purely horizontal movement (verticalInput == 0f && horizontalInput != 0f)
+                {
+                    // Continue using the walk animation (WalkUp or Walk) based on the last facing direction
+                    animator.SetBool("isWalkingUp", animator.GetBool("isFacingUp"));
+                }
+            }
+            // When isMovingNow is false, isWalking is set to false.
+            // isWalkingUp will retain its last state from movement.
+            // isFacingUp also retains its last state, which will be used by the Animator
+            // to transition to the correct idle state (isLookUp or isLookDown).
+        }
         
         movementDirection = new Vector2(horizontalInput, verticalInput).normalized;
     }
 
     private void PlayFootstepSound()
     {
-            int randomSound = UnityEngine.Random.Range(0, 4);
-        
+        int randomSound = UnityEngine.Random.Range(0, 4);
         AudioManager.Instance.PlaySound($"PlayerWalk{randomSound}");
     }
 

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8240071401951919598}
   - component: {fileID: 6693216404161151887}
   - component: {fileID: 4075345426218557884}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.0040831566}
+  m_Offset: {x: 0, y: -0.17855762}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -166,7 +166,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.68967724, y: 1.5671816}
+  m_Size: {x: 0.68967724, y: 1.2182326}
   m_EdgeRadius: 0
 --- !u!114 &9063353956533583795
 MonoBehaviour:
@@ -211,7 +211,7 @@ Animator:
   m_GameObject: {fileID: 3437698153413861460}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 25ad655b61be31b498e99aa610b81649, type: 2}
+  m_Controller: {fileID: 9100000, guid: d0802ad14d78a1e42bb185193f970435, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -248,7 +248,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2454055271629105603}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7711705492701905411}
   - component: {fileID: 4179938975155154315}
-  m_Layer: 0
+  - component: {fileID: 142461979639893849}
+  m_Layer: 7
   m_Name: SHADOW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,3 +358,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &142461979639893849
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6029262353606267017}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 026537a99b30a0e4db17334723f2375b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
