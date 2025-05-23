@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e725bb120ecfbe7468e5791a134a99af, type: 3}
+  m_Name: HealthUp
+  m_EditorClassIdentifier: 
+  itemName: Yummy Tummy
+  description: 
+  icon: {fileID: 230833544, guid: 05b01459b0ed3c14a8ddd11d33481541, type: 3}
+  itemType: 0
+  gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
+  statType: 2
+  modifierValue: 2

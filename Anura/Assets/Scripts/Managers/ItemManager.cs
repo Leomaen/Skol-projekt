@@ -3,6 +3,20 @@ using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 
+[Serializable]
+public class ItemPool
+{
+    public string poolName;
+    public List<ItemWeight> items = new List<ItemWeight>();
+}
+
+[Serializable]
+public class ItemWeight
+{
+    public Item item;
+    public float weight = 1f;
+}
+
 public class WeaponModifier
 {
     public WeaponModifierType modifierType;
@@ -13,6 +27,13 @@ public class ItemManager : MonoBehaviour
     public GameState gameState;
     public UserData userData;
     public static ItemManager Instance { get; private set; }
+
+    // Item pools with weights
+    [SerializeField] private List<ItemPool> itemPools = new List<ItemPool>();
+    [SerializeField] private ItemPool defaultPool;
+    
+    // For deterministic item generation
+    private System.Random seedRandom;
 
     // Event that fires when items change
     public event Action OnItemsChanged;
@@ -35,6 +56,85 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        InitializeSeedRandom();
+    }
+
+    private void InitializeSeedRandom()
+    {
+        if (gameState == null || gameState.world == null)
+        {
+            Debug.LogError("GameState or GameState.world is null, cannot initialize seed!");
+            seedRandom = new System.Random(UnityEngine.Random.Range(1, 1000000));
+            return;
+        }
+
+        // Use the same seed as the room generation but with a different offset
+        // This ensures different but deterministic sequences
+        int itemSeed = gameState.world.seed + ((gameState.world.floor - 1) * 7919) + 1337;
+        seedRandom = new System.Random(itemSeed);
+        Debug.Log($"Initialized item seed: {itemSeed}");
+    }
+
+    // Get random item from a specific pool
+    public Item GetRandomItem(string poolName = "")
+    {
+        // Re-initialize the random generator if needed
+        if (seedRandom == null)
+        {
+            InitializeSeedRandom();
+        }
+
+        ItemPool pool = string.IsNullOrEmpty(poolName) ? 
+            defaultPool : 
+            itemPools.Find(p => p.poolName == poolName);
+
+        if (pool == null || pool.items.Count == 0)
+        {
+            Debug.LogWarning($"Item pool '{poolName}' not found or empty, using default pool");
+            pool = defaultPool;
+        }
+
+        if (pool == null || pool.items.Count == 0)
+        {
+            Debug.LogError("No valid item pool available!");
+            return null;
+        }
+
+        // Calculate total weight
+        float totalWeight = 0;
+        foreach (var itemWeight in pool.items)
+        {
+            totalWeight += itemWeight.weight;
+        }
+
+        // Get a random value between 0 and the total weight
+        float randomValue = (float)(seedRandom.NextDouble() * totalWeight);
+        
+        // Find the item that corresponds to the random value
+        float currentWeight = 0;
+        foreach (var itemWeight in pool.items)
+        {
+            currentWeight += itemWeight.weight;
+            if (randomValue <= currentWeight)
+            {
+                // Create a new instance of the item to avoid shared references
+                return Instantiate(itemWeight.item);
+            }
+        }
+
+        // Fallback in case of rounding errors
+        return Instantiate(pool.items[pool.items.Count - 1].item);
+    }
+
+    // Helper method to instantiate an item while keeping its scriptable object type
+    private Item Instantiate(Item original)
+    {
+        if (original == null) return null;
+        return UnityEngine.Object.Instantiate(original);
+    }
+
     private void OnDestroy()
     {
         // Unsubscribe from scene events when destroyed
@@ -44,6 +144,9 @@ public class ItemManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log($"Scene loaded: {scene.name}, checking for previously collected items");
+
+        // Reinitialize seed random when loading a new scene
+        InitializeSeedRandom();
 
         // Allow item pickups to check if they should appear
         if (OnCheckItemsInScene != null)
@@ -73,6 +176,9 @@ public class ItemManager : MonoBehaviour
             }
         }
     }
+
+    // Existing methods remain unchanged below...
+    
 
     public void AddItem(Item item)
     {

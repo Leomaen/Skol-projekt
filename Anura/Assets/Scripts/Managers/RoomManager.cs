@@ -89,6 +89,10 @@ public class RoomManager : MonoBehaviour
         roomQueue.Clear();
         generationComplete = false;
 
+        // Clean up any item pickups that might have persisted from the previous floor.
+        // This is called after destroying old rooms and before generating new items for the new floor.
+        ItemPickup.CleanupAllPickups();
+
         // It's important that the player object persists or is re-spawned correctly.
         // If the player is part of the roomObjects that get destroyed, you need to handle its re-creation.
         // Assuming the player is handled separately or re-instantiated by InitializeGeneration/StartRoomGenerationFromRoom.
