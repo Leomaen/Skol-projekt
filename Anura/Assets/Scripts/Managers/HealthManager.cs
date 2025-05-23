@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class HealthManager : MonoBehaviour
@@ -12,12 +13,31 @@ public class HealthManager : MonoBehaviour
     {
         PlayerController.OnPlayerDamaged += DrawHearts;
         RoomManager.OnGenerationComplete += DrawHearts;
+        StartCoroutine(SubscribeToItemEvents());
     }
 
     private void OnDisable()
     {
         PlayerController.OnPlayerDamaged -= DrawHearts;
         RoomManager.OnGenerationComplete -= DrawHearts;
+
+        if (ItemManager.Instance != null)
+        {
+            ItemManager.Instance.OnItemsChanged -= DrawHearts;
+        }
+    }
+
+    private IEnumerator SubscribeToItemEvents()
+    {
+        // Wait until ItemManager is available
+        while (ItemManager.Instance == null)
+        {
+            yield return null;
+        }
+
+        // Subscribe to the item changed event
+        ItemManager.Instance.OnItemsChanged += DrawHearts;
+        Debug.Log("HealthManager: Subscribed to ItemManager events");
     }
 
     public void Start()
