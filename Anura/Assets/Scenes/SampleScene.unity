@@ -2073,6 +2073,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
   userData: {fileID: 11400000, guid: c6b0a55f2b19f1447a9e81949f6e282d, type: 2}
+  itemPools: []
+  defaultPool:
+    poolName: 
+    items: []
 --- !u!4 &859916703
 Transform:
   m_ObjectHideFlags: 0

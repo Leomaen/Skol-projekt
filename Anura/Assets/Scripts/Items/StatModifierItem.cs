@@ -3,7 +3,7 @@ using UnityEngine;
 public enum StatType
 {
     MovementSpeed,
-    atksPeed,
+    atkSpeed,
     Health,
     Damage
 }
@@ -11,62 +11,103 @@ public enum StatType
 [CreateAssetMenu(fileName = "New Stat Item", menuName = "Inventory/Stat Modifier Item")]
 public class StatModifierItem : Item
 {
-    public GameState gameState;
+    public GameState gameState; // Ensure this is assigned in the Inspector for each StatModifierItem asset
     public StatType statType;
-    public int modifierValue;
+    public float modifierValue; // Changed from int to float
+
+    private const float MIN_ATTACK_SPEED = 0.05f; // Define a minimum attack speed
 
     public StatModifierItem()
     {
         itemType = ItemType.StatModifier;
     }
 
-    public void OnEnable()
-    {
-        Debug.Log($"GameState found: {gameState}");
-    }
+    // OnEnable for ScriptableObjects is called when the asset is loaded.
+    // The gameState field needs to be assigned via the Inspector.
+    // public void OnEnable()
+    // {
+    //     // This log might be misleading as gameState is assigned, not "found" here.
+    //     // Debug.Log($"StatModifierItem {this.name}: GameState assigned in Inspector: {gameState != null}");
+    // }
 
     public override void ApplyEffect()
     {
+        if (gameState == null || gameState.stats == null)
+        {
+            Debug.LogError($"StatModifierItem ({name}): GameState or GameState.stats is not assigned. Cannot apply effect.");
+            return;
+        }
+
         switch (statType)
         {
             case StatType.MovementSpeed:
                 gameState.stats.movementSpeed += modifierValue;
-                Debug.Log($"Movement speed increased by {modifierValue}. New speed: {gameState.stats.movementSpeed}");
+                Debug.Log($"Movement speed modified by {modifierValue}. New speed: {gameState.stats.movementSpeed}");
                 break;
-            case StatType.atksPeed:
+            case StatType.atkSpeed:
                 gameState.stats.atkSpeed += modifierValue;
-                Debug.Log($"Attack speed modified by {modifierValue}");
+                // Ensure attack speed doesn't go below a minimum threshold
+                if (gameState.stats.atkSpeed < MIN_ATTACK_SPEED)
+                {
+                    gameState.stats.atkSpeed = MIN_ATTACK_SPEED;
+                }
+                Debug.Log($"Attack speed modified by {modifierValue}. New attack speed: {gameState.stats.atkSpeed}");
                 break;
             case StatType.Health:
-                gameState.stats.maxHealth += Mathf.RoundToInt(modifierValue);
-                gameState.stats.PlayerHealth += Mathf.RoundToInt(modifierValue);
-                Debug.Log($"Max health increased by {modifierValue}");
+                int healthChange = Mathf.RoundToInt(modifierValue);
+                gameState.stats.maxHealth += healthChange;
+                gameState.stats.PlayerHealth += healthChange; // Also increase current health
+                if (gameState.stats.PlayerHealth > gameState.stats.maxHealth) // Cap current health at max health
+                {
+                    gameState.stats.PlayerHealth = gameState.stats.maxHealth;
+                }
+                if (gameState.stats.maxHealth < 1) gameState.stats.maxHealth = 1; // Ensure max health is at least 1
+                if (gameState.stats.PlayerHealth < 1 && gameState.stats.maxHealth >=1) gameState.stats.PlayerHealth = 1; // Ensure current health is at least 1 if max health allows
+
+                Debug.Log($"Max health modified by {healthChange}. New max health: {gameState.stats.maxHealth}");
                 break;
             case StatType.Damage:
-                gameState.stats.damage += modifierValue;
-                Debug.Log($"Damage increased by {modifierValue}");
+                int damageChange = Mathf.RoundToInt(modifierValue);
+                gameState.stats.damage += damageChange;
+                if (gameState.stats.damage < 0) gameState.stats.damage = 0; // Prevent negative damage
+                Debug.Log($"Damage modified by {damageChange}. New damage: {gameState.stats.damage}");
                 break;
         }
     }
 
     public override void RemoveEffect()
     {
+        if (gameState == null || gameState.stats == null)
+        {
+            Debug.LogError($"StatModifierItem ({name}): GameState or GameState.stats is not assigned. Cannot remove effect.");
+            return;
+        }
+
         // Reverse the stat changes if the item is removed
         switch (statType)
         {
             case StatType.MovementSpeed:
                 gameState.stats.movementSpeed -= modifierValue;
                 break;
-            case StatType.atksPeed:
+            case StatType.atkSpeed:
                 gameState.stats.atkSpeed -= modifierValue;
+                // Ensure attack speed doesn't go below a minimum threshold even when removing
+                if (gameState.stats.atkSpeed < MIN_ATTACK_SPEED)
+                {
+                    gameState.stats.atkSpeed = MIN_ATTACK_SPEED;
+                }
                 break;
             case StatType.Health:
-                gameState.stats.maxHealth -= Mathf.RoundToInt(modifierValue);
-                // Don't reduce current health below 1
-                gameState.stats.PlayerHealth = Mathf.Max(1, gameState.stats.PlayerHealth - Mathf.RoundToInt(modifierValue));
+                int healthChange = Mathf.RoundToInt(modifierValue);
+                gameState.stats.maxHealth -= healthChange;
+                if (gameState.stats.maxHealth < 1) gameState.stats.maxHealth = 1; // Ensure max health is at least 1
+                                                                                // Adjust current health, ensuring it doesn't exceed new maxHealth or go below 1
+                gameState.stats.PlayerHealth = Mathf.Clamp(gameState.stats.PlayerHealth - healthChange, 1, gameState.stats.maxHealth);
                 break;
             case StatType.Damage:
-                gameState.stats.damage -= modifierValue;
+                int damageChange = Mathf.RoundToInt(modifierValue);
+                gameState.stats.damage -= damageChange;
+                if (gameState.stats.damage < 0) gameState.stats.damage = 0; // Prevent negative damage
                 break;
         }
     }

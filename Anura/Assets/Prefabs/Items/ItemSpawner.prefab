@@ -46,19 +46,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPool:
   - itemPrefab: {fileID: 8365761756271148555, guid: ee2e184835bb928468361e7c5f2f5f4b, type: 3}
-    spawnWeight: 5
+    spawnWeight: 4
     spawnOffset: {x: 0, y: 0, z: 0}
   - itemPrefab: {fileID: 8006515231721827096, guid: 50e5bd938f94e204ebeec311333489c3, type: 3}
-    spawnWeight: 10
+    spawnWeight: 8
     spawnOffset: {x: 0, y: 0, z: 0}
   - itemPrefab: {fileID: 8365761756271148555, guid: d8ad809a7ebcfeb49bdef94ce0c7f41c, type: 3}
-    spawnWeight: 1
+    spawnWeight: 2
     spawnOffset: {x: 0, y: 0, z: 0}
   - itemPrefab: {fileID: 1271038485554663620, guid: 4f4e779af9270ac4fb3086fb3089c18c, type: 3}
     spawnWeight: 8
     spawnOffset: {x: 0, y: 0, z: 0}
   - itemPrefab: {fileID: 8365761756271148555, guid: da7eb5ab586c53347a242e6eb69358b3, type: 3}
     spawnWeight: 8
+    spawnOffset: {x: 0, y: 0, z: 0}
+  - itemPrefab: {fileID: 1271038485554663620, guid: a604930f0e97ba941af0671df6180191, type: 3}
+    spawnWeight: 6
     spawnOffset: {x: 0, y: 0, z: 0}
   spawnOnStart: 1
   spawnOnlyOnce: 1
