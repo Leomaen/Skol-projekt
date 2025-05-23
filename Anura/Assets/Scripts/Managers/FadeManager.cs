@@ -1,4 +1,3 @@
-using UnityEditor.SearchService;
 using UnityEngine;
 
 public class FadeManager : MonoBehaviour
@@ -13,6 +12,6 @@ public class FadeManager : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 }

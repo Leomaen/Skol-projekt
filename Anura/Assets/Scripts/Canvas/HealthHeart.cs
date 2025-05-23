@@ -1,5 +1,3 @@
-using Microsoft.Unity.VisualStudio.Editor;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class HealthHeart : MonoBehaviour
@@ -14,7 +12,7 @@ public class HealthHeart : MonoBehaviour
 
     public void SetHeartImage(HeartStatus status)
     {
-        switch(status)
+        switch (status)
         {
             case HeartStatus.Empty:
                 heartImage.sprite = emptyHeart;

@@ -1,10 +1,7 @@
 using DG.Tweening;
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System;
-using UnityEngine.SceneManagement;
 
 public class SceneFader : MonoBehaviour
 {
@@ -12,7 +9,7 @@ public class SceneFader : MonoBehaviour
     public FadeType CurrentFadeType;
 
     private int _fadeAmount = Shader.PropertyToID("_FadeAmount");
-    
+
     private int _usePlainBlack = Shader.PropertyToID("_UsePlainBlack");
 
     private int _useGoop = Shader.PropertyToID("_UseGoop");
@@ -23,7 +20,7 @@ public class SceneFader : MonoBehaviour
     private Material _material;
 
     private GameObject _persistentRootObject;
-    
+
     public enum FadeType
     {
         PlainBlack,
@@ -34,12 +31,14 @@ public class SceneFader : MonoBehaviour
     {
 
         _image = GetComponent<UnityEngine.UI.Image>();
-        if (_image == null) {
+        if (_image == null)
+        {
             Debug.LogError("SceneFader: Image component not found on GameObject.", this.gameObject);
-            this.enabled = false; 
+            this.enabled = false;
             return;
         }
-        if (_image.material == null) {
+        if (_image.material == null)
+        {
             Debug.LogError("SceneFader: The Image component has no material assigned.", this.gameObject);
             this.enabled = false;
             return;
