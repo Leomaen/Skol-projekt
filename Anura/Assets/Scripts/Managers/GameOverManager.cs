@@ -22,7 +22,7 @@ public class GameOverManager : MonoBehaviour
         }
     }
 
-    public async void GameOver()
+    public void GameOver()
     {
         if (gameOverTriggered) return;
         gameOverTriggered = true;
@@ -35,7 +35,6 @@ public class GameOverManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         userData.stats.totalDeaths++;
         userData.Save();
-        await userData.PushStats();
 
         Debug.Log("Game over :(");
     }
