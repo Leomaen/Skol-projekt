@@ -52,6 +52,9 @@ public class BossEnemy : MonoBehaviour
     private float lastGoopsterSpawnTime;
     private List<GameObject> spawnedGoopsters = new List<GameObject>();
 
+    [Header("Boss Info")] // You can add a new header for this
+    public string bossDisplayName = "THE ANCIENT ONE"; // Example name, assignable in Inspector
+
     // Components
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
@@ -92,6 +95,19 @@ public class BossEnemy : MonoBehaviour
 
         // Initialize goopster spawning
         lastGoopsterSpawnTime = Time.time;
+
+        if (NotificationTitles.Instance != null && !string.IsNullOrEmpty(bossDisplayName))
+        {
+            NotificationTitles.Instance.ShowNotification(bossDisplayName);
+        }
+        else if (string.IsNullOrEmpty(bossDisplayName))
+        {
+            Debug.LogWarning("BossEnemy: bossDisplayName is not set.");
+        }
+        else
+        {
+            Debug.LogWarning("BossEnemy: NotificationTitles.Instance is not found. Cannot display boss name.");
+        }
     }
 
     void InitializeComponents()
