@@ -15,6 +15,9 @@ public class GameState : ScriptableObject
   public List<WeaponModifier> activeWeaponModifiers = new();
   public List<string> collectedItemIds = new();
 
+  // Add room state persistence
+  public Dictionary<string, RoomStateData> roomStates = new();
+
 
   public void OnEnable()
   {
@@ -44,6 +47,7 @@ public class GameState : ScriptableObject
     activeItems = new();
     activeWeaponModifiers = new();
     collectedItemIds = new();
+    roomStates = new();
   }
 
   public bool HasSave()
@@ -102,6 +106,28 @@ public class GameState : ScriptableObject
       Debug.LogWarning("No save file found to delete.");
     }
   }
+
+  // Methods for room state management
+  public void SetRoomCleared(int floor, Vector2Int roomIndex, bool isCleared)
+  {
+    string key = GetRoomKey(floor, roomIndex);
+    if (!roomStates.ContainsKey(key))
+    {
+      roomStates[key] = new RoomStateData();
+    }
+    roomStates[key].isCleared = isCleared;
+  }
+
+  public bool IsRoomCleared(int floor, Vector2Int roomIndex)
+  {
+    string key = GetRoomKey(floor, roomIndex);
+    return roomStates.ContainsKey(key) && roomStates[key].isCleared;
+  }
+
+  private string GetRoomKey(int floor, Vector2Int roomIndex)
+  {
+    return $"F{floor}_R{roomIndex.x}_{roomIndex.y}";
+  }
 }
 
 [Serializable]
@@ -118,7 +144,7 @@ public class StatsState
   [Header("Combat Stats")]
   public int damage = 5;
   public int bulletSpeed = 10;
-  public float atkSpeed = 0.5f;
+  public float atkSpeed = 1f;
 
   [Header("Health Stats")]
   public int PlayerHealth = 6;
@@ -126,4 +152,11 @@ public class StatsState
 
   [Header("Movement Stats")]
   public float movementSpeed = 7f;
+}
+
+[Serializable]
+public class RoomStateData
+{
+  public bool isCleared = false;
+  // Add more room-specific data here if needed in the future
 }
