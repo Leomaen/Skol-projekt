@@ -80,6 +80,9 @@ public class RoomManager : MonoBehaviour
         gameState.world.isGenerated = false;
         regenerationAttempts = 0;
 
+        // Save game state before transitioning to new floor
+        gameState.Save();
+
         // Destroy existing room objects
         foreach (var room in roomObjects)
         {

@@ -27,6 +27,10 @@ public class Room : MonoBehaviour
     public Vector2Int RoomIndex { get; set; }
 
     [SerializeField] private bool isRoomCleared = false;
+
+    // Add reference to GameState
+    private GameState gameState;
+
     private List<GameObject> enemiesInRoom = new List<GameObject>();
     private bool playerInRoom = false;
     private bool doorsLocked = false;
@@ -60,6 +64,9 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
+        // Find GameState reference
+        gameState = FindAnyObjectByType<RoomManager>()?.gameState;
+
         if (roomCamera != null && CameraManager.Instance != null)
         {
             CameraManager.Instance.RegisterCamera(RoomIndex, roomCamera);
@@ -77,8 +84,22 @@ public class Room : MonoBehaviour
 
         lastCameraSwitch = -cameraSwitchCooldown;
 
-        // Room is initially considered cleared if no spawn points
-        isRoomCleared = enemySpawnPoints.Count == 0;
+        // Load room cleared state from GameState
+        if (gameState != null)
+        {
+            isRoomCleared = gameState.IsRoomCleared(gameState.world.floor, RoomIndex);
+        }
+        else
+        {
+            // Fallback: Room is initially considered cleared if no spawn points
+            isRoomCleared = enemySpawnPoints.Count == 0;
+        }
+
+        // If room was previously cleared, don't spawn enemies
+        if (isRoomCleared)
+        {
+            enemiesSpawned = true; // Mark as spawned to prevent spawning
+        }
     }
 
     private void Update()
@@ -253,6 +274,12 @@ public class Room : MonoBehaviour
         if (rightDoor && rightDoor.activeSelf) rightDoor.GetComponent<Door>().UnlockDoor();
 
         Debug.Log($"Doors unlocked in room {gameObject.name} - all enemies defeated!");
+
+        // Save room cleared state to GameState
+        if (gameState != null)
+        {
+            gameState.SetRoomCleared(gameState.world.floor, RoomIndex, true);
+        }
 
         if (isBossRoom && portalPrefab != null && !portalHasSpawned)
         {
