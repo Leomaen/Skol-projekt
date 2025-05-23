@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e725bb120ecfbe7468e5791a134a99af, type: 3}
   m_Name: Speed up!
   m_EditorClassIdentifier: 
-  itemName: Speed up!
+  itemName: Party Confetti
   description: 
   icon: {fileID: -8305358921124636501, guid: b52f5cc325fd1244584b81ad2f8e3640, type: 3}
   itemType: 0

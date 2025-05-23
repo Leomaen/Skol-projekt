@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: GameState
   m_EditorClassIdentifier: 
   world:
-    seed: -712573027
+    seed: -404303723
     floor: 1
     isGenerated: 1
   stats:
     damage: 5
     bulletSpeed: 10
-    atkSpeed: 1
-    PlayerHealth: 6
+    atkSpeed: 0.5
+    PlayerHealth: 0
     maxHealth: 6
     movementSpeed: 7
   activeItems: []

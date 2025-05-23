@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59556b298081a824eaf8ddfc9545df69, type: 3}
   m_Name: Homing
   m_EditorClassIdentifier: 
-  itemName: Homing
+  itemName: Targeting System
   description: 
   icon: {fileID: 1555925758, guid: dba16fc38331c3b4e9d4a1ee0b0627bd, type: 3}
   itemType: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e725bb120ecfbe7468e5791a134a99af, type: 3}
   m_Name: HealthUp
   m_EditorClassIdentifier: 
-  itemName: Yummy Tummy
+  itemName: Placebo Effect
   description: 
   icon: {fileID: 230833544, guid: 05b01459b0ed3c14a8ddd11d33481541, type: 3}
   itemType: 0
