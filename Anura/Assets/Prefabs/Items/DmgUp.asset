@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e725bb120ecfbe7468e5791a134a99af, type: 3}
   m_Name: DmgUp
   m_EditorClassIdentifier: 
-  itemName: RAAAAHHHHHH
+  itemName: Cut Above
   description: More Damage
   icon: {fileID: -239601807, guid: b1ab57032853a90488f4bc2e99553b8f, type: 3}
   itemType: 0
