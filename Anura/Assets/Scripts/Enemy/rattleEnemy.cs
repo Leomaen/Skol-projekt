@@ -70,10 +70,6 @@ public class rattleEnemy : Enemy // Inherit from Enemy
         lastRushTime = -rushCooldown; // Allow immediate rush
         lastDamageTime = -damageInterval;
 
-        // Set default animation
-        if (animator != null)
-            animator.SetBool("isIdle", true);
-
         // Ensure GameState is assigned (it's inherited from Enemy, but needs to be linked in Inspector)
         if (gameState == null)
         {
