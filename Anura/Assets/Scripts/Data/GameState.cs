@@ -116,9 +116,9 @@ public class WorldState
 public class StatsState
 {
   [Header("Combat Stats")]
-  public int damage = 50;
+  public int damage = 5;
   public int bulletSpeed = 10;
-  public float atkSpeed = 0.5f;
+  public float atkSpeed = 1f;
 
   [Header("Health Stats")]
   public int PlayerHealth = 6;

@@ -75,7 +75,7 @@ public class goopsterEnemy : Enemy // Inherit from Enemy
         {
             Debug.LogError("GameState not assigned to goopsterEnemy: " + gameObject.name + ". Assign it in the Inspector.");
         }
-        
+
         // Ensure initial direction is set up for the first HandleMovement call
         lastDirectionChangeTime = -directionChangeInterval - 1f; // Force direction change on first update
         isMoving = false; // Start idle
@@ -152,7 +152,7 @@ public class goopsterEnemy : Enemy // Inherit from Enemy
             animator.SetBool("isIdle", !isMoving);
         }
     }
-    
+
     void UpdateFacingDirection()
     {
         if (spriteRenderer == null) return;
@@ -225,6 +225,7 @@ public class goopsterEnemy : Enemy // Inherit from Enemy
     void Shoot()
     {
         if (player == null || firePoint == null || projectilePrefab == null) return;
+        AudioManager.Instance.PlaySound("GoopsterShoot");
 
         Vector2 directionToPlayer = (player.position - firePoint.position).normalized;
         float angle = Mathf.Atan2(directionToPlayer.y, directionToPlayer.x) * Mathf.Rad2Deg;
@@ -232,17 +233,17 @@ public class goopsterEnemy : Enemy // Inherit from Enemy
 
         Instantiate(projectilePrefab, firePoint.position, projectileRotation);
     }
-    
+
     public override void takeDamage()
     {
         if (isDead) return;
-
+        AudioManager.Instance.PlaySound("GoopsterHurt");
         if (spriteRenderer != null && !isFlashing)
         {
             StartCoroutine(DamageFlashEffect());
         }
 
-        base.takeDamage(); 
+        base.takeDamage();
     }
 
     private IEnumerator DamageFlashEffect()
@@ -250,7 +251,7 @@ public class goopsterEnemy : Enemy // Inherit from Enemy
         isFlashing = true;
         spriteRenderer.color = damageFlashColor;
         yield return new WaitForSeconds(flashDuration);
-        if (spriteRenderer != null) 
+        if (spriteRenderer != null)
         {
             spriteRenderer.color = originalColor;
         }
@@ -260,12 +261,13 @@ public class goopsterEnemy : Enemy // Inherit from Enemy
     protected override void Die()
     {
         if (isDead) return;
+        AudioManager.Instance.PlaySound("GoopsterDeath");
         isDead = true;
 
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
-            rb.bodyType = RigidbodyType2D.Kinematic; 
+            rb.bodyType = RigidbodyType2D.Kinematic;
         }
 
         if (enemyCollider != null)
@@ -280,13 +282,13 @@ public class goopsterEnemy : Enemy // Inherit from Enemy
             animator.SetTrigger("isDeath");
         }
 
-        float deathAnimationLength = 1f; 
+        float deathAnimationLength = 1f;
         if (animator != null)
         {
             RuntimeAnimatorController ac = animator.runtimeAnimatorController;
             foreach (AnimationClip clip in ac.animationClips)
             {
-                if (clip.name.ToLower().Contains("death")) 
+                if (clip.name.ToLower().Contains("death"))
                 {
                     deathAnimationLength = clip.length;
                     break;

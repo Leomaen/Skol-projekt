@@ -449,6 +449,7 @@ public class BossEnemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        AudioManager.Instance.PlaySound("DuckHurt");
 
         // Add visual feedback - red flash when taking damage
         if (!isFlashing)
@@ -481,6 +482,7 @@ public class BossEnemy : MonoBehaviour
     {
         isAttacking = true;
         rb.linearVelocity = Vector2.zero;
+        AudioManager.Instance.PlaySound("DuckDeath");
 
         // Destroy all spawned goopsters when boss dies
         DestroyAllGoopsters();
