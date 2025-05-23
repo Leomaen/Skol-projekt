@@ -3183,7 +3183,7 @@ MonoBehaviour:
   teleportDistance: 3.5
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
-  lockedVisual: {fileID: 0}
+  lockedVisual: {fileID: 7400581057135378354}
   sceneFader: {fileID: 0}
   playerController: {fileID: 0}
 --- !u!1 &1821692051941832781
@@ -3459,7 +3459,7 @@ GameObject:
   - component: {fileID: 4389807600163326633}
   - component: {fileID: 2834229258601435424}
   - component: {fileID: 7757889121933790739}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftDoorTree
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -3582,6 +3582,53 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.50058067, y: 1.9347904}
   m_EdgeRadius: 0
+--- !u!1 &2543714096976095133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 261182129032744299}
+  - component: {fileID: 9050074877280261639}
+  m_Layer: 0
+  m_Name: EnemySpawnPointRattle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &261182129032744299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2543714096976095133}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.86, y: -0.26, z: 0.040316336}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5494343383703275326}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9050074877280261639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2543714096976095133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf4f899a8360f4144b52df94933e56fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 326052732731749330, guid: 286061554d4a32c4085c9a3d2ee284e9, type: 3}
+  randomizePosition: 0
+  randomRadius: 1
 --- !u!1 &2549591413100367357
 GameObject:
   m_ObjectHideFlags: 0
@@ -3866,7 +3913,7 @@ MonoBehaviour:
   teleportDistance: 3.5
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
-  lockedVisual: {fileID: 0}
+  lockedVisual: {fileID: 6788013192315833183}
   sceneFader: {fileID: 0}
   playerController: {fileID: 0}
 --- !u!1 &3095514052339983615
@@ -4019,7 +4066,7 @@ MonoBehaviour:
   teleportDistance: 3.5
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
-  lockedVisual: {fileID: 0}
+  lockedVisual: {fileID: 2127191625152986120}
   sceneFader: {fileID: 0}
   playerController: {fileID: 0}
 --- !u!1 &3617317438879062369
@@ -4167,7 +4214,7 @@ GameObject:
   - component: {fileID: 8275829072876939660}
   - component: {fileID: 6962199213096232366}
   - component: {fileID: 4019786140886534926}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightDoorTree
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4323,6 +4370,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 261182129032744299}
+  - {fileID: 7380773482105415035}
   - {fileID: 2213824530198412229}
   - {fileID: 6009685706843815533}
   - {fileID: 8910088514845414184}
@@ -4402,8 +4451,10 @@ MonoBehaviour:
   portalSpawnPoint: {fileID: 0}
   cameraSwitchCooldown: 0.5
   isRoomCleared: 0
-  enemySpawnPoints: []
-  enemySpawnDelay: 0
+  enemySpawnPoints:
+  - {fileID: 9050074877280261639}
+  - {fileID: 2485542374476667850}
+  enemySpawnDelay: 1
 --- !u!61 &2335933791386256584
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4613,7 +4664,7 @@ MonoBehaviour:
   teleportDistance: 3.5
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
-  lockedVisual: {fileID: 0}
+  lockedVisual: {fileID: 4103585787690000087}
   sceneFader: {fileID: 0}
   playerController: {fileID: 0}
 --- !u!1 &6050555365270421376
@@ -4800,7 +4851,7 @@ GameObject:
   - component: {fileID: 6101454512175381987}
   - component: {fileID: 858403126910330697}
   - component: {fileID: 4380470433876801849}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TopDoorTree
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4923,6 +4974,53 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.6589684, y: 0.66753197}
   m_EdgeRadius: 0
+--- !u!1 &6822846731148242127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7380773482105415035}
+  - component: {fileID: 2485542374476667850}
+  m_Layer: 0
+  m_Name: EnemySpawnPointRattle (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7380773482105415035
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6822846731148242127}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.86, y: -0.26, z: 0.040316336}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5494343383703275326}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2485542374476667850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6822846731148242127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf4f899a8360f4144b52df94933e56fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 326052732731749330, guid: 286061554d4a32c4085c9a3d2ee284e9, type: 3}
+  randomizePosition: 0
+  randomRadius: 1
 --- !u!1 &6849153777451803131
 GameObject:
   m_ObjectHideFlags: 0
@@ -5381,7 +5479,7 @@ GameObject:
   - component: {fileID: 1900203393356089512}
   - component: {fileID: 7071468768176337145}
   - component: {fileID: 3665800662699883196}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BottomDoorTree
   m_TagString: Wall
   m_Icon: {fileID: 0}

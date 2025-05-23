@@ -3402,9 +3402,56 @@ MonoBehaviour:
   teleportDistance: 3.5
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
-  lockedVisual: {fileID: 0}
+  lockedVisual: {fileID: 1909700135555282827}
   sceneFader: {fileID: 0}
   playerController: {fileID: 0}
+--- !u!1 &1711685814626355887
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7239748390467798124}
+  - component: {fileID: 4277453904353120287}
+  m_Layer: 0
+  m_Name: EnemySpawnPointRattle (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7239748390467798124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711685814626355887}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.88, y: 1.02, z: 0.040316336}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5494343383703275326}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4277453904353120287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711685814626355887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf4f899a8360f4144b52df94933e56fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 326052732731749330, guid: 286061554d4a32c4085c9a3d2ee284e9, type: 3}
+  randomizePosition: 0
+  randomRadius: 1
 --- !u!1 &1821692051941832781
 GameObject:
   m_ObjectHideFlags: 0
@@ -3544,7 +3591,7 @@ GameObject:
   - component: {fileID: 7595354500447072020}
   - component: {fileID: 45101264520294700}
   - component: {fileID: 6598851678706186122}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightDoorTree
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -3678,7 +3725,7 @@ GameObject:
   - component: {fileID: 8062002382437113718}
   - component: {fileID: 9108251605150303786}
   - component: {fileID: 3008396881818909864}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BottomDoorTree
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -3951,7 +3998,7 @@ MonoBehaviour:
   teleportDistance: 3.5
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
-  lockedVisual: {fileID: 0}
+  lockedVisual: {fileID: 1992365203743706723}
   sceneFader: {fileID: 0}
   playerController: {fileID: 0}
 --- !u!1 &2017519385059195340
@@ -4490,6 +4537,53 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &3089860150701216554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6114481009593869886}
+  - component: {fileID: 3741652485137803080}
+  m_Layer: 0
+  m_Name: EnemySpawnPointRattle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &6114481009593869886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089860150701216554}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.56, y: 0.33, z: 0.040316336}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5494343383703275326}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3741652485137803080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089860150701216554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf4f899a8360f4144b52df94933e56fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 326052732731749330, guid: 286061554d4a32c4085c9a3d2ee284e9, type: 3}
+  randomizePosition: 0
+  randomRadius: 1
 --- !u!1 &4268850963262699855
 GameObject:
   m_ObjectHideFlags: 0
@@ -4501,7 +4595,7 @@ GameObject:
   - component: {fileID: 3830466701632607715}
   - component: {fileID: 7582263279666528558}
   - component: {fileID: 3689448169928195864}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftDoorTree
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4791,6 +4885,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6114481009593869886}
+  - {fileID: 7239748390467798124}
   - {fileID: 6936798867493081854}
   - {fileID: 557681266383871657}
   - {fileID: 8910088514845414184}
@@ -4870,8 +4966,10 @@ MonoBehaviour:
   portalSpawnPoint: {fileID: 0}
   cameraSwitchCooldown: 0.5
   isRoomCleared: 0
-  enemySpawnPoints: []
-  enemySpawnDelay: 0
+  enemySpawnPoints:
+  - {fileID: 3741652485137803080}
+  - {fileID: 4277453904353120287}
+  enemySpawnDelay: 1
 --- !u!61 &2335933791386256584
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5215,7 +5313,7 @@ MonoBehaviour:
   teleportDistance: 3.5
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
-  lockedVisual: {fileID: 0}
+  lockedVisual: {fileID: 4268850963262699855}
   sceneFader: {fileID: 0}
   playerController: {fileID: 0}
 --- !u!1 &5203375375031994160
@@ -5541,7 +5639,7 @@ MonoBehaviour:
   teleportDistance: 3.5
   roomCamera: {fileID: 5358439316818079357}
   isLocked: 0
-  lockedVisual: {fileID: 0}
+  lockedVisual: {fileID: 9077219580708592266}
   sceneFader: {fileID: 0}
   playerController: {fileID: 0}
 --- !u!1 &7012548188383275655
@@ -5864,7 +5962,7 @@ GameObject:
   - component: {fileID: 7052353974291826134}
   - component: {fileID: 2351245829658287179}
   - component: {fileID: 9140844561071940490}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TopDoorTree
   m_TagString: Wall
   m_Icon: {fileID: 0}
