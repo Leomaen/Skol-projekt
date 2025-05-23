@@ -292,11 +292,11 @@ public class UserData : ScriptableObject
 
   private void MergeStats(StatisticsData serverStats)
   {
-    stats.playTime = Math.Max(stats.playTime, serverStats.playTime);
-    stats.totalDeaths = Math.Max(stats.totalDeaths, serverStats.totalDeaths);
-    stats.totalKills = Math.Max(stats.totalKills, serverStats.totalKills);
-    stats.totalItemsCollected = Math.Max(stats.totalItemsCollected, serverStats.totalItemsCollected);
-    stats.furthestLevelReached = Math.Max(stats.furthestLevelReached, serverStats.furthestLevelReached);
+    stats.playTime = serverStats.playTime;
+    stats.totalDeaths = serverStats.totalDeaths;
+    stats.totalKills = serverStats.totalKills;
+    stats.totalItemsCollected = serverStats.totalItemsCollected;
+    stats.furthestLevelReached = serverStats.furthestLevelReached;
   }
 }
 
