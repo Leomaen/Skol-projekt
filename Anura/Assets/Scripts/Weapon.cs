@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Linq; // Required for Count() if you prefer LINQ, otherwise manual loop is fine.
 
 public class Weapon : MonoBehaviour
 {
