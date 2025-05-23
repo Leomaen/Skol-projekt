@@ -28,6 +28,7 @@ public class goopsterEnemy : Enemy // Inherit from Enemy
 
     [Header("References")]
     public LayerMask wallLayer;
+    public UserData userData;
 
     // Components
     private Transform player;
@@ -261,8 +262,10 @@ public class goopsterEnemy : Enemy // Inherit from Enemy
     protected override void Die()
     {
         if (isDead) return;
-        AudioManager.Instance.PlaySound("GoopsterDeath");
         isDead = true;
+        AudioManager.Instance.PlaySound("GoopsterDeath");
+        userData.stats.totalKills++;
+        userData.Save();
 
         if (rb != null)
         {

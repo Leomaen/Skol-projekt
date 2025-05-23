@@ -34,6 +34,7 @@ public class BossEnemy : MonoBehaviour
     public LayerMask wallLayer;
     public Animator animator;
     public GameState gameState;
+    public UserData userData;
 
     [Header("Contact Damage")]
     public int contactDamage = 1;
@@ -499,7 +500,8 @@ public class BossEnemy : MonoBehaviour
         isAttacking = true;
         rb.linearVelocity = Vector2.zero;
         AudioManager.Instance.PlaySound("DuckDeath");
-
+        userData.stats.totalKills++;
+        userData.Save();
         // Destroy all spawned goopsters when boss dies
         DestroyAllGoopsters();
 

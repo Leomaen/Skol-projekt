@@ -29,6 +29,7 @@ public class rattleEnemy : Enemy // Inherit from Enemy
 
     [Header("References")]
     public LayerMask wallLayer;
+    public UserData userData;
 
     // Components
     private Transform player;
@@ -213,6 +214,8 @@ public class rattleEnemy : Enemy // Inherit from Enemy
         if (isDead) return; // Prevent Die from being called multiple times
         isDead = true;
         AudioManager.Instance.PlaySound("RattleDeath");
+        userData.stats.totalKills++;
+        userData.Save();
 
         if (rb != null) rb.linearVelocity = Vector2.zero;
 

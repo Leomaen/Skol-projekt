@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
         }
         if (gameState.stats == null)
         {
-             Debug.LogError("GameState.stats not initialized for Enemy: " + gameObject.name);
+            Debug.LogError("GameState.stats not initialized for Enemy: " + gameObject.name);
             return;
         }
 
