@@ -51,6 +51,7 @@ public class MainMenuManager : MonoBehaviour
                 Debug.Log("User verification failed.");
                 signInButton.SetActive(true);
                 signOutButton.SetActive(false);
+                userData.SignOut();
             }
         });
     }
