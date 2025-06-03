@@ -2356,6 +2356,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8933700365871750168, guid: f2797ce86c9d6a548be0c507608548ae, type: 3}
+      propertyPath: gameOverManager
+      value: 
+      objectReference: {fileID: 7106479011549917551}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2527,6 +2531,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 991539a12f63fd444874991594254c81, type: 3}
+--- !u!114 &7106479011549917551 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6649621174951822274, guid: 991539a12f63fd444874991594254c81, type: 3}
+  m_PrefabInstance: {fileID: 7106479011549917550}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06b8bcdf8e6b0444faf7d319d5395834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -176,6 +176,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50e5bd938f94e204ebeec311333489c3, type: 3}
+--- !u!1 &51036769 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8855998323781752680, guid: 991539a12f63fd444874991594254c81, type: 3}
+  m_PrefabInstance: {fileID: 549730975}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &107951251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -642,6 +647,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a604930f0e97ba941af0671df6180191, type: 3}
+--- !u!114 &324709914 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6649621174951822274, guid: 991539a12f63fd444874991594254c81, type: 3}
+  m_PrefabInstance: {fileID: 549730975}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06b8bcdf8e6b0444faf7d319d5395834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &380006361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,6 +1207,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6649621174951822274, guid: 991539a12f63fd444874991594254c81, type: 3}
+      propertyPath: gameOverPanel
+      value: 
+      objectReference: {fileID: 51036769}
+    - target: {fileID: 6649621174951822274, guid: 991539a12f63fd444874991594254c81, type: 3}
+      propertyPath: pauseMenuPanel
+      value: 
+      objectReference: {fileID: 786869163}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1429,6 +1453,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a604930f0e97ba941af0671df6180191, type: 3}
+--- !u!1 &657703532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 657703533}
+  m_Layer: 0
+  m_Name: dingdong
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &657703533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657703532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.27, y: -0.24, z: 0.016987264}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &757795199 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4620235578660603113, guid: a604930f0e97ba941af0671df6180191, type: 3}
@@ -1553,6 +1608,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13b41a6c171bf2345b3fc79efa5fff5d, type: 3}
+--- !u!1 &786869163 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 828222544352576226, guid: f2797ce86c9d6a548be0c507608548ae, type: 3}
+  m_PrefabInstance: {fileID: 1898063162}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &798470148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,7 +1916,7 @@ MonoBehaviour:
   goopsterPrefab: {fileID: 8913293225307664216, guid: ae213bb72d3f03542b94077c9c2ded60, type: 3}
   rattleEnemyPrefab: {fileID: 326052732731749330, guid: 286061554d4a32c4085c9a3d2ee284e9, type: 3}
   duckBossPrefab: {fileID: 5887116297022971363, guid: 1a55bb918774b104181ec096dede5d58, type: 3}
-  spawnPointOverride: {fileID: 0}
+  spawnPointOverride: {fileID: 657703533}
   gameState: {fileID: 11400000, guid: d411b62f9ec12f34daadea4e2981027f, type: 2}
 --- !u!4 &1032007072
 Transform:
@@ -3019,6 +3079,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8933700365871750168, guid: f2797ce86c9d6a548be0c507608548ae, type: 3}
+      propertyPath: gameOverManager
+      value: 
+      objectReference: {fileID: 324709914}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3249,8 +3313,8 @@ Transform:
   m_GameObject: {fileID: 1956452155}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.0798, y: 0.3822, z: 0}
-  m_LocalScale: {x: 75.68161, y: 31.519413, z: 20}
+  m_LocalPosition: {x: 0.2083, y: 0.3822, z: 0}
+  m_LocalScale: {x: 45.938736, y: 31.519413, z: 20}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -3595,3 +3659,4 @@ SceneRoots:
   - {fileID: 1032007072}
   - {fileID: 549730975}
   - {fileID: 1898063162}
+  - {fileID: 657703533}
