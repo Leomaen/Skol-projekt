@@ -35,7 +35,7 @@ public class TestSceneEnemySpawner : MonoBehaviour
         }
 
         // Check for Numpad 1 to spawn Goopster
-        if (Input.GetKeyDown(KeyCode.Keypad1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (goopsterPrefab != null)
             {
@@ -49,7 +49,7 @@ public class TestSceneEnemySpawner : MonoBehaviour
         }
 
         // Check for Numpad 2 to spawn Rattle Enemy
-        if (Input.GetKeyDown(KeyCode.Keypad2))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (rattleEnemyPrefab != null)
             {
@@ -63,7 +63,7 @@ public class TestSceneEnemySpawner : MonoBehaviour
         }
 
         // Check for Numpad 3 to spawn Duck Boss
-        if (Input.GetKeyDown(KeyCode.Keypad3))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (duckBossPrefab != null)
             {
@@ -80,7 +80,7 @@ public class TestSceneEnemySpawner : MonoBehaviour
     void SpawnEnemy(GameObject enemyPrefab, Vector3 position)
     {
         if (enemyPrefab == null) return;
-
+    
         GameObject spawnedEnemy = Instantiate(enemyPrefab, position, Quaternion.identity);
 
         // Attempt to assign GameState to the spawned enemy
