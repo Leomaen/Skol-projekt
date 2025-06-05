@@ -128,7 +128,16 @@ public class Room : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerInRoom = true;
-            if (isBossRoom) AudioManager.Instance.PlayBossMusic();
+            if (isBossRoom) {
+                AudioManager.Instance.PlayBossMusic();
+                if (isRoomCleared && portalPrefab != null && !portalHasSpawned)
+                {
+                    UnityEngine.Vector3 spawnPosition = portalSpawnPoint != null ? portalSpawnPoint.position : transform.position;
+                    Instantiate(portalPrefab, spawnPosition, UnityEngine.Quaternion.identity);
+                    portalHasSpawned = true;
+                    Debug.Log($"Portal spawned in boss room: {gameObject.name}");
+                }
+            }
 
             // Only switch if we're not in a cooldown period
             if (Time.time - lastCameraSwitch >= cameraSwitchCooldown)
