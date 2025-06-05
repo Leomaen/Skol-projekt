@@ -17,6 +17,7 @@ public class ItemWeight
     public float weight = 1f;
 }
 
+[Serializable]
 public class WeaponModifier
 {
     public WeaponModifierType modifierType;
